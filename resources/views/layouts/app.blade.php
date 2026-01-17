@@ -57,18 +57,18 @@
                 </button>
             </div>
             <!-- Menu Mobile -->
-            <div id="mobile-menu" class="hidden md:hidden border-t border-blue-600">
-                <a href="{{ route('beranda') }}" class="block px-4 py-2 hover:bg-[#1e3a8a] transition-colors {{ request()->routeIs('beranda') ? 'bg-[#1e3a8a]' : '' }}">Beranda</a>
-                <a href="{{ route('profil') }}" class="block px-4 py-2 hover:bg-[#1e3a8a] transition-colors {{ request()->routeIs('profil') ? 'bg-[#1e3a8a]' : '' }}">Profil Desa</a>
-                <a href="{{ route('pemerintahan') }}" class="block px-4 py-2 hover:bg-[#1e3a8a] transition-colors {{ request()->routeIs('pemerintahan') ? 'bg-[#1e3a8a]' : '' }}">Pemerintahan Desa</a>
-                <a href="{{ route('berita') }}" class="block px-4 py-2 hover:bg-[#1e3a8a] transition-colors {{ request()->routeIs('berita') ? 'bg-[#1e3a8a]' : '' }}">Berita & Pengumuman</a>
-                <a href="{{ route('layanan') }}" class="block px-4 py-2 hover:bg-[#1e3a8a] transition-colors {{ request()->routeIs('layanan') ? 'bg-[#1e3a8a]' : '' }}">Layanan Desa</a>
-                <a href="{{ route('data') }}" class="block px-4 py-2 hover:bg-[#1e3a8a] transition-colors {{ request()->routeIs('data') ? 'bg-[#1e3a8a]' : '' }}">Data Desa</a>
-                <a href="{{ route('darurat') }}" class="block px-4 py-2 hover:bg-[#1e3a8a] transition-colors {{ request()->routeIs('darurat') ? 'bg-[#1e3a8a]' : '' }}">Darurat & Keamanan</a>
-                <a href="{{ route('kesehatan') }}" class="block px-4 py-2 hover:bg-[#1e3a8a] transition-colors {{ request()->routeIs('kesehatan') ? 'bg-[#1e3a8a]' : '' }}">Kesehatan & Sosial</a>
-                <a href="{{ route('galeri') }}" class="block px-4 py-2 hover:bg-[#1e3a8a] transition-colors {{ request()->routeIs('galeri') ? 'bg-[#1e3a8a]' : '' }}">Galeri</a>
-                <a href="{{ route('umkm') }}" class="block px-4 py-2 hover:bg-[#1e3a8a] transition-colors {{ request()->routeIs('umkm') ? 'bg-[#1e3a8a]' : '' }}">Ekonomi & UMKM</a>
-                <a href="{{ route('kontak') }}" class="block px-4 py-2 hover:bg-[#1e3a8a] transition-colors {{ request()->routeIs('kontak') ? 'bg-[#1e3a8a]' : '' }}">Kontak & Aspirasi</a>
+            <div id="mobile-menu" class="hidden md:hidden border-t border-blue-600 mobile-menu-container">
+                <a href="{{ route('beranda') }}" class="mobile-menu-item block px-4 py-2 hover:bg-[#1e3a8a] transition-colors {{ request()->routeIs('beranda') ? 'bg-[#1e3a8a]' : '' }}">Beranda</a>
+                <a href="{{ route('profil') }}" class="mobile-menu-item block px-4 py-2 hover:bg-[#1e3a8a] transition-colors {{ request()->routeIs('profil') ? 'bg-[#1e3a8a]' : '' }}">Profil Desa</a>
+                <a href="{{ route('pemerintahan') }}" class="mobile-menu-item block px-4 py-2 hover:bg-[#1e3a8a] transition-colors {{ request()->routeIs('pemerintahan') ? 'bg-[#1e3a8a]' : '' }}">Pemerintahan Desa</a>
+                <a href="{{ route('berita') }}" class="mobile-menu-item block px-4 py-2 hover:bg-[#1e3a8a] transition-colors {{ request()->routeIs('berita') ? 'bg-[#1e3a8a]' : '' }}">Berita & Pengumuman</a>
+                <a href="{{ route('layanan') }}" class="mobile-menu-item block px-4 py-2 hover:bg-[#1e3a8a] transition-colors {{ request()->routeIs('layanan') ? 'bg-[#1e3a8a]' : '' }}">Layanan Desa</a>
+                <a href="{{ route('data') }}" class="mobile-menu-item block px-4 py-2 hover:bg-[#1e3a8a] transition-colors {{ request()->routeIs('data') ? 'bg-[#1e3a8a]' : '' }}">Data Desa</a>
+                <a href="{{ route('darurat') }}" class="mobile-menu-item block px-4 py-2 hover:bg-[#1e3a8a] transition-colors {{ request()->routeIs('darurat') ? 'bg-[#1e3a8a]' : '' }}">Darurat & Keamanan</a>
+                <a href="{{ route('kesehatan') }}" class="mobile-menu-item block px-4 py-2 hover:bg-[#1e3a8a] transition-colors {{ request()->routeIs('kesehatan') ? 'bg-[#1e3a8a]' : '' }}">Kesehatan & Sosial</a>
+                <a href="{{ route('galeri') }}" class="mobile-menu-item block px-4 py-2 hover:bg-[#1e3a8a] transition-colors {{ request()->routeIs('galeri') ? 'bg-[#1e3a8a]' : '' }}">Galeri</a>
+                <a href="{{ route('umkm') }}" class="mobile-menu-item block px-4 py-2 hover:bg-[#1e3a8a] transition-colors {{ request()->routeIs('umkm') ? 'bg-[#1e3a8a]' : '' }}">Ekonomi & UMKM</a>
+                <a href="{{ route('kontak') }}" class="mobile-menu-item block px-4 py-2 hover:bg-[#1e3a8a] transition-colors {{ request()->routeIs('kontak') ? 'bg-[#1e3a8a]' : '' }}">Kontak & Aspirasi</a>
             </div>
         </div>
     </nav>
@@ -318,22 +318,69 @@
             display: none;
         }
 
+        /* Mobile Menu Animation */
+        .mobile-menu-container {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            -webkit-transition: max-height 0.3s ease-out;
+        }
+
+        .mobile-menu-container.show {
+            max-height: 1000px;
+        }
+
+        .mobile-menu-item {
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+            -webkit-transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+        }
+
+        .mobile-menu-container.show .mobile-menu-item {
+            opacity: 1;
+            transform: translateX(0);
+            -webkit-transform: translateX(0);
+        }
+
+        .mobile-menu-container.show .mobile-menu-item:nth-child(1) { transition-delay: 0.05s; -webkit-transition-delay: 0.05s; }
+        .mobile-menu-container.show .mobile-menu-item:nth-child(2) { transition-delay: 0.1s; -webkit-transition-delay: 0.1s; }
+        .mobile-menu-container.show .mobile-menu-item:nth-child(3) { transition-delay: 0.15s; -webkit-transition-delay: 0.15s; }
+        .mobile-menu-container.show .mobile-menu-item:nth-child(4) { transition-delay: 0.2s; -webkit-transition-delay: 0.2s; }
+        .mobile-menu-container.show .mobile-menu-item:nth-child(5) { transition-delay: 0.25s; -webkit-transition-delay: 0.25s; }
+        .mobile-menu-container.show .mobile-menu-item:nth-child(6) { transition-delay: 0.3s; -webkit-transition-delay: 0.3s; }
+        .mobile-menu-container.show .mobile-menu-item:nth-child(7) { transition-delay: 0.35s; -webkit-transition-delay: 0.35s; }
+        .mobile-menu-container.show .mobile-menu-item:nth-child(8) { transition-delay: 0.4s; -webkit-transition-delay: 0.4s; }
+        .mobile-menu-container.show .mobile-menu-item:nth-child(9) { transition-delay: 0.45s; -webkit-transition-delay: 0.45s; }
+        .mobile-menu-container.show .mobile-menu-item:nth-child(10) { transition-delay: 0.5s; -webkit-transition-delay: 0.5s; }
+        .mobile-menu-container.show .mobile-menu-item:nth-child(11) { transition-delay: 0.55s; -webkit-transition-delay: 0.55s; }
+
     </style>
     <script>
-        // Toggle Mobile Menu
+        // Toggle Mobile Menu dengan Animasi
         document.getElementById('mobile-menu-btn').addEventListener('click', function() {
             const menu = document.getElementById('mobile-menu');
             const menuIcon = document.getElementById('menu-icon');
             const closeIcon = document.getElementById('close-icon');
             
-            menu.classList.toggle('hidden');
-            
             if (menu.classList.contains('hidden')) {
-                menuIcon.classList.remove('hidden');
-                closeIcon.classList.add('hidden');
-            } else {
+                // Open menu
+                menu.classList.remove('hidden');
+                // Force reflow untuk memastikan animasi berjalan
+                void menu.offsetHeight;
+                setTimeout(function() {
+                    menu.classList.add('show');
+                }, 10);
                 menuIcon.classList.add('hidden');
                 closeIcon.classList.remove('hidden');
+            } else {
+                // Close menu
+                menu.classList.remove('show');
+                setTimeout(function() {
+                    menu.classList.add('hidden');
+                }, 300);
+                menuIcon.classList.remove('hidden');
+                closeIcon.classList.add('hidden');
             }
         });
 
