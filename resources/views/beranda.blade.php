@@ -11,43 +11,39 @@
             <div class="absolute bottom-20 right-10 w-96 h-96 bg-blue-300/10 rounded-full blur-3xl animate-float-delayed"></div>
             <div class="absolute top-1/2 left-1/4 w-64 h-64 bg-white/5 rounded-full blur-2xl animate-float-slow"></div>
         </div>
-        <div id="hero-slider" class="flex transition-transform duration-700 ease-in-out h-full min-h-[500px] md:min-h-[600px]">
+        <div id="hero-slider" class="flex transition-transform duration-700 ease-in-out h-full min-h-[350px] md:min-h-[600px]">
             <!-- Slide 1 -->
-            <div class="min-w-full relative px-4 py-16 md:py-24 flex items-center">
+            <div class="min-w-full relative px-4 py-8 md:py-24 flex items-center">
                 <!-- Background Image -->
                 <div class="absolute inset-0 hero-bg-1"></div>
-                <!-- Gradient Overlay -->
-                <div class="absolute inset-0 bg-gradient-to-br from-[#1e3a8a]/60 via-[#1e3a8a]/50 to-[#1e3a8a]/60"></div>
-                <!-- Animated Gradient Overlay -->
-                <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent animate-shimmer"></div>
-                <!-- Pattern Overlay -->
-                <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23ffffff" fill-opacity="0.05"%3E%3Cpath d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-20"></div>
+                <!-- Text Shadow Overlay untuk readability -->
+                <div class="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/40"></div>
                 <div class="container mx-auto text-center relative z-10 max-w-5xl">
-                    <div class="inline-block mb-6 px-5 py-2.5 bg-gradient-to-r from-white/20 to-white/10 backdrop-blur-md rounded-full border border-white/30 shadow-lg animate-fade-in-up">
-                        <span class="text-sm font-semibold flex items-center gap-2">
+                    <div class="inline-block mb-4 md:mb-6 px-4 md:px-5 py-2 md:py-2.5 bg-gradient-to-r from-white/20 to-white/10 backdrop-blur-md rounded-full border border-white/30 shadow-lg animate-fade-in-up">
+                        <span class="text-xs md:text-sm font-semibold flex items-center gap-2">
                             <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
                             Selamat Datang
                         </span>
                     </div>
-                    <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold mb-6 leading-tight hero-title-animate">
+                    <h1 class="text-3xl md:text-6xl lg:text-7xl font-extrabold mb-4 md:mb-6 leading-tight hero-title-animate drop-shadow-lg">
                         Website Resmi<br>
-                        <span class="bg-gradient-to-r from-blue-200 via-white to-blue-200 bg-clip-text text-transparent animate-gradient">Pemerintah Desa</span>
+                        <span class="bg-gradient-to-r from-blue-200 via-white to-blue-200 bg-clip-text text-transparent animate-gradient drop-shadow-lg">Pemerintah Desa</span>
                     </h1>
-                    <p class="text-lg md:text-xl text-blue-100 max-w-3xl mx-auto mb-10 hero-text-animate leading-relaxed font-medium">
+                    <p class="text-base md:text-xl text-white max-w-3xl mx-auto mb-6 md:mb-10 hero-text-animate leading-relaxed font-medium drop-shadow-md">
                         Media resmi untuk menyampaikan informasi, kebijakan, dan layanan publik yang transparan dan akuntabel
                     </p>
-                    <div class="flex flex-wrap justify-center gap-4 hero-buttons-animate">
-                        <a href="{{ route('layanan') }}" class="group px-8 py-4 bg-white text-[#1e3a8a] font-bold rounded-xl hover:bg-blue-50 transition-all shadow-2xl hover:shadow-blue-500/50 transform hover:-translate-y-1 hover:scale-105 relative overflow-hidden">
+                    <div class="flex flex-wrap justify-center gap-3 md:gap-4 hero-buttons-animate">
+                        <a href="{{ route('layanan') }}" class="group px-6 md:px-8 py-3 md:py-4 bg-white text-[#1e3a8a] font-bold rounded-xl hover:bg-blue-50 transition-all shadow-2xl hover:shadow-blue-500/50 transform hover:-translate-y-1 hover:scale-105 relative overflow-hidden text-sm md:text-base">
                             <span class="relative z-10 flex items-center gap-2">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <svg class="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                 </svg>
                                 Layanan Desa
                             </span>
                             <div class="absolute inset-0 bg-gradient-to-r from-blue-50 to-white opacity-0 group-hover:opacity-100 transition-opacity"></div>
                         </a>
-                        <a href="{{ route('berita') }}" class="px-8 py-4 bg-white/10 backdrop-blur-md text-white font-bold rounded-xl border-2 border-white/40 hover:bg-white/20 hover:border-white/60 transition-all shadow-xl hover:shadow-white/20 transform hover:-translate-y-1 hover:scale-105 flex items-center gap-2">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <a href="{{ route('berita') }}" class="px-6 md:px-8 py-3 md:py-4 bg-white/10 backdrop-blur-md text-white font-bold rounded-xl border-2 border-white/40 hover:bg-white/20 hover:border-white/60 transition-all shadow-xl hover:shadow-white/20 transform hover:-translate-y-1 hover:scale-105 flex items-center gap-2 text-sm md:text-base">
+                            <svg class="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path>
                             </svg>
                             Berita Terbaru
@@ -56,41 +52,37 @@
                 </div>
             </div>
             <!-- Slide 2 -->
-            <div class="min-w-full relative px-4 py-16 md:py-24 flex items-center">
+            <div class="min-w-full relative px-4 py-8 md:py-24 flex items-center">
                 <!-- Background Image -->
                 <div class="absolute inset-0 hero-bg-2"></div>
-                <!-- Gradient Overlay -->
-                <div class="absolute inset-0 bg-gradient-to-br from-[#1e3a8a]/60 via-[#1e3a8a]/50 to-[#1e3a8a]/60"></div>
-                <!-- Animated Gradient Overlay -->
-                <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent animate-shimmer"></div>
-                <!-- Pattern Overlay -->
-                <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23ffffff" fill-opacity="0.05"%3E%3Cpath d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-20"></div>
+                <!-- Text Shadow Overlay untuk readability -->
+                <div class="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/40"></div>
                 <div class="container mx-auto text-center relative z-10 max-w-5xl">
-                    <div class="inline-block mb-6 px-5 py-2.5 bg-gradient-to-r from-white/20 to-white/10 backdrop-blur-md rounded-full border border-white/30 shadow-lg animate-fade-in-up">
-                        <span class="text-sm font-semibold flex items-center gap-2">
+                    <div class="inline-block mb-4 md:mb-6 px-4 md:px-5 py-2 md:py-2.5 bg-gradient-to-r from-white/20 to-white/10 backdrop-blur-md rounded-full border border-white/30 shadow-lg animate-fade-in-up">
+                        <span class="text-xs md:text-sm font-semibold flex items-center gap-2">
                             <span class="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></span>
                             Pelayanan Publik
                         </span>
                     </div>
-                    <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold mb-6 leading-tight hero-title-animate">
+                    <h1 class="text-3xl md:text-6xl lg:text-7xl font-extrabold mb-4 md:mb-6 leading-tight hero-title-animate drop-shadow-lg">
                         Transparansi &<br>
-                        <span class="bg-gradient-to-r from-blue-200 via-white to-blue-200 bg-clip-text text-transparent animate-gradient">Akuntabilitas</span>
+                        <span class="bg-gradient-to-r from-blue-200 via-white to-blue-200 bg-clip-text text-transparent animate-gradient drop-shadow-lg">Akuntabilitas</span>
                     </h1>
-                    <p class="text-lg md:text-xl text-blue-100 max-w-3xl mx-auto mb-10 hero-text-animate leading-relaxed font-medium">
+                    <p class="text-base md:text-xl text-white max-w-3xl mx-auto mb-6 md:mb-10 hero-text-animate leading-relaxed font-medium drop-shadow-md">
                         Informasi layanan administrasi dan program desa tersedia untuk seluruh masyarakat dengan mudah dan cepat
                     </p>
-                    <div class="flex flex-wrap justify-center gap-4 hero-buttons-animate">
-                        <a href="{{ route('data') }}" class="group px-8 py-4 bg-white text-[#1e3a8a] font-bold rounded-xl hover:bg-blue-50 transition-all shadow-2xl hover:shadow-blue-500/50 transform hover:-translate-y-1 hover:scale-105 relative overflow-hidden">
+                    <div class="flex flex-wrap justify-center gap-3 md:gap-4 hero-buttons-animate">
+                        <a href="{{ route('data') }}" class="group px-6 md:px-8 py-3 md:py-4 bg-white text-[#1e3a8a] font-bold rounded-xl hover:bg-blue-50 transition-all shadow-2xl hover:shadow-blue-500/50 transform hover:-translate-y-1 hover:scale-105 relative overflow-hidden text-sm md:text-base">
                             <span class="relative z-10 flex items-center gap-2">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <svg class="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
                                 </svg>
                                 Data Desa
                             </span>
                             <div class="absolute inset-0 bg-gradient-to-r from-blue-50 to-white opacity-0 group-hover:opacity-100 transition-opacity"></div>
                         </a>
-                        <a href="{{ route('kontak') }}" class="px-8 py-4 bg-white/10 backdrop-blur-md text-white font-bold rounded-xl border-2 border-white/40 hover:bg-white/20 hover:border-white/60 transition-all shadow-xl hover:shadow-white/20 transform hover:-translate-y-1 hover:scale-105 flex items-center gap-2">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <a href="{{ route('kontak') }}" class="px-6 md:px-8 py-3 md:py-4 bg-white/10 backdrop-blur-md text-white font-bold rounded-xl border-2 border-white/40 hover:bg-white/20 hover:border-white/60 transition-all shadow-xl hover:shadow-white/20 transform hover:-translate-y-1 hover:scale-105 flex items-center gap-2 text-sm md:text-base">
+                            <svg class="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
                             </svg>
                             Hubungi Kami
@@ -99,41 +91,37 @@
                 </div>
             </div>
             <!-- Slide 3 -->
-            <div class="min-w-full relative px-4 py-16 md:py-24 flex items-center">
+            <div class="min-w-full relative px-4 py-8 md:py-24 flex items-center">
                 <!-- Background Image -->
                 <div class="absolute inset-0 hero-bg-3"></div>
-                <!-- Gradient Overlay -->
-                <div class="absolute inset-0 bg-gradient-to-br from-[#1e3a8a]/60 via-[#1e3a8a]/50 to-[#1e3a8a]/60"></div>
-                <!-- Animated Gradient Overlay -->
-                <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent animate-shimmer"></div>
-                <!-- Pattern Overlay -->
-                <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23ffffff" fill-opacity="0.05"%3E%3Cpath d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-20"></div>
+                <!-- Text Shadow Overlay untuk readability -->
+                <div class="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/40"></div>
                 <div class="container mx-auto text-center relative z-10 max-w-5xl">
-                    <div class="inline-block mb-6 px-5 py-2.5 bg-gradient-to-r from-white/20 to-white/10 backdrop-blur-md rounded-full border border-white/30 shadow-lg animate-fade-in-up">
-                        <span class="text-sm font-semibold flex items-center gap-2">
+                    <div class="inline-block mb-4 md:mb-6 px-4 md:px-5 py-2 md:py-2.5 bg-gradient-to-r from-white/20 to-white/10 backdrop-blur-md rounded-full border border-white/30 shadow-lg animate-fade-in-up">
+                        <span class="text-xs md:text-sm font-semibold flex items-center gap-2">
                             <span class="w-2 h-2 bg-yellow-400 rounded-full animate-pulse"></span>
                             Pembangunan Desa
                         </span>
                     </div>
-                    <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold mb-6 leading-tight hero-title-animate">
+                    <h1 class="text-3xl md:text-6xl lg:text-7xl font-extrabold mb-4 md:mb-6 leading-tight hero-title-animate drop-shadow-lg">
                         Partisipasi<br>
-                        <span class="bg-gradient-to-r from-blue-200 via-white to-blue-200 bg-clip-text text-transparent animate-gradient">Masyarakat</span>
+                        <span class="bg-gradient-to-r from-blue-200 via-white to-blue-200 bg-clip-text text-transparent animate-gradient drop-shadow-lg">Masyarakat</span>
                     </h1>
-                    <p class="text-lg md:text-xl text-blue-100 max-w-3xl mx-auto mb-10 hero-text-animate leading-relaxed font-medium">
+                    <p class="text-base md:text-xl text-white max-w-3xl mx-auto mb-6 md:mb-10 hero-text-animate leading-relaxed font-medium drop-shadow-md">
                         Bersama membangun desa yang mandiri, sejahtera, dan berbudaya melalui partisipasi aktif seluruh warga
                     </p>
-                    <div class="flex flex-wrap justify-center gap-4 hero-buttons-animate">
-                        <a href="{{ route('umkm') }}" class="group px-8 py-4 bg-white text-[#1e3a8a] font-bold rounded-xl hover:bg-blue-50 transition-all shadow-2xl hover:shadow-blue-500/50 transform hover:-translate-y-1 hover:scale-105 relative overflow-hidden">
+                    <div class="flex flex-wrap justify-center gap-3 md:gap-4 hero-buttons-animate">
+                        <a href="{{ route('umkm') }}" class="group px-6 md:px-8 py-3 md:py-4 bg-white text-[#1e3a8a] font-bold rounded-xl hover:bg-blue-50 transition-all shadow-2xl hover:shadow-blue-500/50 transform hover:-translate-y-1 hover:scale-105 relative overflow-hidden text-sm md:text-base">
                             <span class="relative z-10 flex items-center gap-2">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <svg class="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
                                 </svg>
                                 Ekonomi & UMKM
                             </span>
                             <div class="absolute inset-0 bg-gradient-to-r from-blue-50 to-white opacity-0 group-hover:opacity-100 transition-opacity"></div>
                         </a>
-                        <a href="{{ route('galeri') }}" class="px-8 py-4 bg-white/10 backdrop-blur-md text-white font-bold rounded-xl border-2 border-white/40 hover:bg-white/20 hover:border-white/60 transition-all shadow-xl hover:shadow-white/20 transform hover:-translate-y-1 hover:scale-105 flex items-center gap-2">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <a href="{{ route('galeri') }}" class="px-6 md:px-8 py-3 md:py-4 bg-white/10 backdrop-blur-md text-white font-bold rounded-xl border-2 border-white/40 hover:bg-white/20 hover:border-white/60 transition-all shadow-xl hover:shadow-white/20 transform hover:-translate-y-1 hover:scale-105 flex items-center gap-2 text-sm md:text-base">
+                            <svg class="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                             </svg>
                             Galeri Kegiatan
@@ -143,7 +131,7 @@
             </div>
         </div>
         <!-- Navigation Dots -->
-        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex gap-3 z-10 hero-dots-animate">
+        <div class="absolute bottom-4 md:bottom-8 left-1/2 transform -translate-x-1/2 flex gap-3 z-10 hero-dots-animate">
             <button class="hero-dot w-3 h-3 bg-white rounded-full opacity-50 hover:opacity-100 hover:scale-125 transition-all duration-300 shadow-lg" data-slide="0"></button>
             <button class="hero-dot w-3 h-3 bg-white rounded-full opacity-50 hover:opacity-100 hover:scale-125 transition-all duration-300 shadow-lg" data-slide="1"></button>
             <button class="hero-dot w-3 h-3 bg-white rounded-full opacity-50 hover:opacity-100 hover:scale-125 transition-all duration-300 shadow-lg" data-slide="2"></button>
