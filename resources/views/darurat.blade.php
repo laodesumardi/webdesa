@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="mb-8 scroll-animate" data-animation="fade-up">
-        <h1 class="text-2xl md:text-3xl font-bold text-green-800 mb-2">Darurat & Keamanan</h1>
+        <h1 class="text-2xl md:text-3xl font-bold text-[#1e3a8a] mb-2">Darurat & Keamanan</h1>
         <p class="text-gray-600 text-base md:text-lg">Informasi darurat, keamanan, dan penanggulangan bencana</p>
     </div>
 
@@ -19,7 +19,7 @@
                     <a href="tel:110" class="hover:underline">110</a>
                 </p>
                 <p class="text-sm text-gray-600">
-                    Atau <a href="tel:02112345678" class="text-green-800 font-medium hover:underline">(021) 1234-5678</a>
+                    Atau <a href="tel:02112345678" class="text-[#1e3a8a] font-medium hover:underline">(021) 1234-5678</a>
                 </p>
             </div>
 
@@ -30,7 +30,7 @@
                     <a href="tel:113" class="hover:underline">113</a>
                 </p>
                 <p class="text-sm text-gray-600">
-                    Atau <a href="tel:02112345679" class="text-green-800 font-medium hover:underline">(021) 1234-5679</a>
+                    Atau <a href="tel:02112345679" class="text-[#1e3a8a] font-medium hover:underline">(021) 1234-5679</a>
                 </p>
             </div>
 
@@ -41,7 +41,7 @@
                     <a href="tel:119" class="hover:underline">119</a>
                 </p>
                 <p class="text-sm text-gray-600">
-                    Atau <a href="tel:02112345680" class="text-green-800 font-medium hover:underline">(021) 1234-5680</a>
+                    Atau <a href="tel:02112345680" class="text-[#1e3a8a] font-medium hover:underline">(021) 1234-5680</a>
                 </p>
             </div>
 
@@ -76,7 +76,7 @@
 
     <!-- Informasi Potensi Bencana -->
     <div class="scroll-animate bg-white border border-gray-200 p-6 md:p-8 mb-8" data-animation="fade-up">
-        <h2 class="text-xl md:text-2xl font-bold text-green-800 mb-6 pb-3 border-b-2 border-green-800">Informasi Potensi Bencana</h2>
+        <h2 class="text-xl md:text-2xl font-bold text-[#1e3a8a] mb-6 pb-3 border-b-2 border-[#1e3a8a]">Informasi Potensi Bencana</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
             <div class="border-l-4 border-yellow-500 bg-yellow-50 p-5">
                 <h3 class="font-bold text-gray-900 mb-2">Banjir</h3>
@@ -119,7 +119,7 @@
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mb-8">
         <!-- Jalur Evakuasi -->
         <div class="scroll-animate bg-white border border-gray-200 p-6 md:p-8" data-animation="slide-left">
-            <h2 class="text-xl md:text-2xl font-bold text-green-800 mb-6 pb-3 border-b-2 border-green-800">Jalur Evakuasi</h2>
+            <h2 class="text-xl md:text-2xl font-bold text-[#1e3a8a] mb-6 pb-3 border-b-2 border-[#1e3a8a]">Jalur Evakuasi</h2>
             <div class="space-y-4">
                 <div class="bg-gray-50 border border-gray-200 p-4">
                     <h3 class="font-semibold text-gray-900 mb-2">Banjir</h3>
@@ -153,7 +153,7 @@
 
         <!-- Titik Kumpul -->
         <div class="scroll-animate bg-white border border-gray-200 p-6 md:p-8" data-animation="slide-right">
-            <h2 class="text-xl md:text-2xl font-bold text-green-800 mb-6 pb-3 border-b-2 border-green-800">Titik Kumpul Evakuasi</h2>
+            <h2 class="text-xl md:text-2xl font-bold text-[#1e3a8a] mb-6 pb-3 border-b-2 border-[#1e3a8a]">Titik Kumpul Evakuasi</h2>
             <div class="space-y-4">
                 <div class="bg-gray-50 border border-gray-200 p-4">
                     <h3 class="font-semibold text-gray-900 mb-2">Balai Desa</h3>
@@ -181,7 +181,7 @@
 
     <!-- Prosedur Darurat -->
     <div class="scroll-animate bg-white border border-gray-200 p-6 md:p-8 mb-8" data-animation="fade-up">
-        <h2 class="text-xl md:text-2xl font-bold text-green-800 mb-6 pb-3 border-b-2 border-green-800">Prosedur Darurat</h2>
+        <h2 class="text-xl md:text-2xl font-bold text-[#1e3a8a] mb-6 pb-3 border-b-2 border-[#1e3a8a]">Prosedur Darurat</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
                 <h3 class="font-semibold text-gray-900 mb-3">Langkah Saat Terjadi Bencana</h3>
@@ -209,7 +209,7 @@
 
     <!-- Informasi Keamanan -->
     <div class="scroll-animate bg-white border border-gray-200 p-6 md:p-8" data-animation="fade-up" data-delay="100">
-        <h2 class="text-xl md:text-2xl font-bold text-green-800 mb-4 pb-3 border-b-2 border-green-800">Informasi Keamanan</h2>
+        <h2 class="text-xl md:text-2xl font-bold text-[#1e3a8a] mb-4 pb-3 border-b-2 border-[#1e3a8a]">Informasi Keamanan</h2>
         <div class="text-gray-700 text-base leading-relaxed space-y-3">
             <p>
                 Untuk menjaga keamanan dan ketertiban di lingkungan desa, Pemerintah Desa bekerja sama dengan 

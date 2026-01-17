@@ -10,11 +10,11 @@
 </head>
 <body class="bg-gray-50 text-gray-900">
     <!-- Header -->
-    <header class="bg-green-800 text-white header-animate">
+    <header class="bg-[#1e3a8a] text-white header-animate">
         <div class="container mx-auto px-4 py-4">
             <div class="flex items-center gap-4">
                 <!-- Logo -->
-                <div class="logo-animate bg-white text-green-800 px-3 py-2 rounded flex items-center justify-center">
+                <div class="logo-animate bg-white text-[#1e3a8a] px-3 py-2 rounded flex items-center justify-center">
                     <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
                     </svg>
@@ -22,50 +22,50 @@
                 <!-- Nama Desa -->
                 <div class="header-text-animate">
                     <h1 class="text-xl md:text-2xl font-bold">Pemerintah Desa</h1>
-                    <p class="text-sm text-green-100">Website Resmi Informasi Desa</p>
+                    <p class="text-sm text-blue-100">Website Resmi Informasi Desa</p>
                 </div>
             </div>
         </div>
     </header>
 
     <!-- Navigasi Sticky -->
-    <nav id="sticky-nav" class="sticky top-0 z-50 bg-green-700 text-white transition-all duration-300 nav-animate">
+    <nav id="sticky-nav" class="sticky top-0 z-50 bg-blue-800 text-white transition-all duration-300 nav-animate">
         <div class="container mx-auto px-4">
             <div class="flex items-center justify-between">
                 <!-- Menu Desktop -->
                 <div class="hidden md:flex flex-wrap">
-                    <a href="{{ route('beranda') }}" class="menu-item-animate px-4 py-3 text-sm font-medium hover:bg-green-800 transition-colors {{ request()->routeIs('beranda') ? 'bg-green-900 border-b-2 border-white' : '' }}">Beranda</a>
-                    <a href="{{ route('profil') }}" class="menu-item-animate px-4 py-3 text-sm font-medium hover:bg-green-800 transition-colors {{ request()->routeIs('profil') ? 'bg-green-900 border-b-2 border-white' : '' }}">Profil Desa</a>
-                    <a href="{{ route('pemerintahan') }}" class="menu-item-animate px-4 py-3 text-sm font-medium hover:bg-green-800 transition-colors {{ request()->routeIs('pemerintahan') ? 'bg-green-900 border-b-2 border-white' : '' }}">Pemerintahan</a>
-                    <a href="{{ route('berita') }}" class="menu-item-animate px-4 py-3 text-sm font-medium hover:bg-green-800 transition-colors {{ request()->routeIs('berita') ? 'bg-green-900 border-b-2 border-white' : '' }}">Berita</a>
-                    <a href="{{ route('layanan') }}" class="menu-item-animate px-4 py-3 text-sm font-medium hover:bg-green-800 transition-colors {{ request()->routeIs('layanan') ? 'bg-green-900 border-b-2 border-white' : '' }}">Layanan</a>
-                    <a href="{{ route('data') }}" class="menu-item-animate px-4 py-3 text-sm font-medium hover:bg-green-800 transition-colors {{ request()->routeIs('data') ? 'bg-green-900 border-b-2 border-white' : '' }}">Data Desa</a>
-                    <a href="{{ route('darurat') }}" class="menu-item-animate px-4 py-3 text-sm font-medium hover:bg-green-800 transition-colors {{ request()->routeIs('darurat') ? 'bg-green-900 border-b-2 border-white' : '' }}">Darurat</a>
-                    <a href="{{ route('kesehatan') }}" class="menu-item-animate px-4 py-3 text-sm font-medium hover:bg-green-800 transition-colors {{ request()->routeIs('kesehatan') ? 'bg-green-900 border-b-2 border-white' : '' }}">Kesehatan</a>
-                    <a href="{{ route('galeri') }}" class="menu-item-animate px-4 py-3 text-sm font-medium hover:bg-green-800 transition-colors {{ request()->routeIs('galeri') ? 'bg-green-900 border-b-2 border-white' : '' }}">Galeri</a>
-                    <a href="{{ route('umkm') }}" class="menu-item-animate px-4 py-3 text-sm font-medium hover:bg-green-800 transition-colors {{ request()->routeIs('umkm') ? 'bg-green-900 border-b-2 border-white' : '' }}">Ekonomi & UMKM</a>
-                    <a href="{{ route('kontak') }}" class="menu-item-animate px-4 py-3 text-sm font-medium hover:bg-green-800 transition-colors {{ request()->routeIs('kontak') ? 'bg-green-900 border-b-2 border-white' : '' }}">Kontak</a>
+                    <a href="{{ route('beranda') }}" class="menu-item-animate px-4 py-3 text-sm font-medium hover:bg-[#1e3a8a] transition-colors {{ request()->routeIs('beranda') ? 'bg-[#1e3a8a] border-b-2 border-white' : '' }}">Beranda</a>
+                    <a href="{{ route('profil') }}" class="menu-item-animate px-4 py-3 text-sm font-medium hover:bg-[#1e3a8a] transition-colors {{ request()->routeIs('profil') ? 'bg-[#1e3a8a] border-b-2 border-white' : '' }}">Profil Desa</a>
+                    <a href="{{ route('pemerintahan') }}" class="menu-item-animate px-4 py-3 text-sm font-medium hover:bg-[#1e3a8a] transition-colors {{ request()->routeIs('pemerintahan') ? 'bg-[#1e3a8a] border-b-2 border-white' : '' }}">Pemerintahan</a>
+                    <a href="{{ route('berita') }}" class="menu-item-animate px-4 py-3 text-sm font-medium hover:bg-[#1e3a8a] transition-colors {{ request()->routeIs('berita') ? 'bg-[#1e3a8a] border-b-2 border-white' : '' }}">Berita</a>
+                    <a href="{{ route('layanan') }}" class="menu-item-animate px-4 py-3 text-sm font-medium hover:bg-[#1e3a8a] transition-colors {{ request()->routeIs('layanan') ? 'bg-[#1e3a8a] border-b-2 border-white' : '' }}">Layanan</a>
+                    <a href="{{ route('data') }}" class="menu-item-animate px-4 py-3 text-sm font-medium hover:bg-[#1e3a8a] transition-colors {{ request()->routeIs('data') ? 'bg-[#1e3a8a] border-b-2 border-white' : '' }}">Data Desa</a>
+                    <a href="{{ route('darurat') }}" class="menu-item-animate px-4 py-3 text-sm font-medium hover:bg-[#1e3a8a] transition-colors {{ request()->routeIs('darurat') ? 'bg-[#1e3a8a] border-b-2 border-white' : '' }}">Darurat</a>
+                    <a href="{{ route('kesehatan') }}" class="menu-item-animate px-4 py-3 text-sm font-medium hover:bg-[#1e3a8a] transition-colors {{ request()->routeIs('kesehatan') ? 'bg-[#1e3a8a] border-b-2 border-white' : '' }}">Kesehatan</a>
+                    <a href="{{ route('galeri') }}" class="menu-item-animate px-4 py-3 text-sm font-medium hover:bg-[#1e3a8a] transition-colors {{ request()->routeIs('galeri') ? 'bg-[#1e3a8a] border-b-2 border-white' : '' }}">Galeri</a>
+                    <a href="{{ route('umkm') }}" class="menu-item-animate px-4 py-3 text-sm font-medium hover:bg-[#1e3a8a] transition-colors {{ request()->routeIs('umkm') ? 'bg-[#1e3a8a] border-b-2 border-white' : '' }}">Ekonomi & UMKM</a>
+                    <a href="{{ route('kontak') }}" class="menu-item-animate px-4 py-3 text-sm font-medium hover:bg-[#1e3a8a] transition-colors {{ request()->routeIs('kontak') ? 'bg-[#1e3a8a] border-b-2 border-white' : '' }}">Kontak</a>
                 </div>
                 <!-- Tombol Mobile Menu -->
-                <button id="mobile-menu-btn" class="md:hidden p-2 hover:bg-green-800 transition-colors">
+                <button id="mobile-menu-btn" class="md:hidden p-2 hover:bg-[#1e3a8a] transition-colors">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                     </svg>
                 </button>
             </div>
             <!-- Menu Mobile -->
-            <div id="mobile-menu" class="hidden md:hidden border-t border-green-600">
-                <a href="{{ route('beranda') }}" class="block px-4 py-2 hover:bg-green-800 transition-colors {{ request()->routeIs('beranda') ? 'bg-green-900' : '' }}">Beranda</a>
-                <a href="{{ route('profil') }}" class="block px-4 py-2 hover:bg-green-800 transition-colors {{ request()->routeIs('profil') ? 'bg-green-900' : '' }}">Profil Desa</a>
-                <a href="{{ route('pemerintahan') }}" class="block px-4 py-2 hover:bg-green-800 transition-colors {{ request()->routeIs('pemerintahan') ? 'bg-green-900' : '' }}">Pemerintahan Desa</a>
-                <a href="{{ route('berita') }}" class="block px-4 py-2 hover:bg-green-800 transition-colors {{ request()->routeIs('berita') ? 'bg-green-900' : '' }}">Berita & Pengumuman</a>
-                <a href="{{ route('layanan') }}" class="block px-4 py-2 hover:bg-green-800 transition-colors {{ request()->routeIs('layanan') ? 'bg-green-900' : '' }}">Layanan Desa</a>
-                <a href="{{ route('data') }}" class="block px-4 py-2 hover:bg-green-800 transition-colors {{ request()->routeIs('data') ? 'bg-green-900' : '' }}">Data Desa</a>
-                <a href="{{ route('darurat') }}" class="block px-4 py-2 hover:bg-green-800 transition-colors {{ request()->routeIs('darurat') ? 'bg-green-900' : '' }}">Darurat & Keamanan</a>
-                <a href="{{ route('kesehatan') }}" class="block px-4 py-2 hover:bg-green-800 transition-colors {{ request()->routeIs('kesehatan') ? 'bg-green-900' : '' }}">Kesehatan & Sosial</a>
-                <a href="{{ route('galeri') }}" class="block px-4 py-2 hover:bg-green-800 transition-colors {{ request()->routeIs('galeri') ? 'bg-green-900' : '' }}">Galeri</a>
-                <a href="{{ route('umkm') }}" class="block px-4 py-2 hover:bg-green-800 transition-colors {{ request()->routeIs('umkm') ? 'bg-green-900' : '' }}">Ekonomi & UMKM</a>
-                <a href="{{ route('kontak') }}" class="block px-4 py-2 hover:bg-green-800 transition-colors {{ request()->routeIs('kontak') ? 'bg-green-900' : '' }}">Kontak & Aspirasi</a>
+            <div id="mobile-menu" class="hidden md:hidden border-t border-blue-600">
+                <a href="{{ route('beranda') }}" class="block px-4 py-2 hover:bg-[#1e3a8a] transition-colors {{ request()->routeIs('beranda') ? 'bg-[#1e3a8a]' : '' }}">Beranda</a>
+                <a href="{{ route('profil') }}" class="block px-4 py-2 hover:bg-[#1e3a8a] transition-colors {{ request()->routeIs('profil') ? 'bg-[#1e3a8a]' : '' }}">Profil Desa</a>
+                <a href="{{ route('pemerintahan') }}" class="block px-4 py-2 hover:bg-[#1e3a8a] transition-colors {{ request()->routeIs('pemerintahan') ? 'bg-[#1e3a8a]' : '' }}">Pemerintahan Desa</a>
+                <a href="{{ route('berita') }}" class="block px-4 py-2 hover:bg-[#1e3a8a] transition-colors {{ request()->routeIs('berita') ? 'bg-[#1e3a8a]' : '' }}">Berita & Pengumuman</a>
+                <a href="{{ route('layanan') }}" class="block px-4 py-2 hover:bg-[#1e3a8a] transition-colors {{ request()->routeIs('layanan') ? 'bg-[#1e3a8a]' : '' }}">Layanan Desa</a>
+                <a href="{{ route('data') }}" class="block px-4 py-2 hover:bg-[#1e3a8a] transition-colors {{ request()->routeIs('data') ? 'bg-[#1e3a8a]' : '' }}">Data Desa</a>
+                <a href="{{ route('darurat') }}" class="block px-4 py-2 hover:bg-[#1e3a8a] transition-colors {{ request()->routeIs('darurat') ? 'bg-[#1e3a8a]' : '' }}">Darurat & Keamanan</a>
+                <a href="{{ route('kesehatan') }}" class="block px-4 py-2 hover:bg-[#1e3a8a] transition-colors {{ request()->routeIs('kesehatan') ? 'bg-[#1e3a8a]' : '' }}">Kesehatan & Sosial</a>
+                <a href="{{ route('galeri') }}" class="block px-4 py-2 hover:bg-[#1e3a8a] transition-colors {{ request()->routeIs('galeri') ? 'bg-[#1e3a8a]' : '' }}">Galeri</a>
+                <a href="{{ route('umkm') }}" class="block px-4 py-2 hover:bg-[#1e3a8a] transition-colors {{ request()->routeIs('umkm') ? 'bg-[#1e3a8a]' : '' }}">Ekonomi & UMKM</a>
+                <a href="{{ route('kontak') }}" class="block px-4 py-2 hover:bg-[#1e3a8a] transition-colors {{ request()->routeIs('kontak') ? 'bg-[#1e3a8a]' : '' }}">Kontak & Aspirasi</a>
             </div>
         </div>
     </nav>

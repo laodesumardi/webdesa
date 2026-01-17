@@ -4,13 +4,13 @@
 
 @section('content')
     <div class="mb-8 scroll-animate" data-animation="fade-up">
-        <h1 class="text-2xl md:text-3xl font-bold text-green-800 mb-2">Galeri Desa</h1>
+        <h1 class="text-2xl md:text-3xl font-bold text-[#1e3a8a] mb-2">Galeri Desa</h1>
         <p class="text-gray-600 text-base md:text-lg">Dokumentasi kegiatan desa</p>
     </div>
 
     <!-- Kategori -->
     <div class="mb-6 flex flex-wrap gap-2 scroll-animate" data-animation="fade-up" data-delay="100">
-        <button class="px-4 py-2 bg-green-800 text-white text-sm font-medium hover:bg-green-900 transition-colors">Semua</button>
+        <button class="px-4 py-2 bg-[#1e3a8a] text-white text-sm font-medium hover:bg-blue-900 transition-colors">Semua</button>
         <button class="px-4 py-2 bg-gray-200 text-gray-700 text-sm font-medium hover:bg-gray-300 transition-colors">Kegiatan</button>
         <button class="px-4 py-2 bg-gray-200 text-gray-700 text-sm font-medium hover:bg-gray-300 transition-colors">Infrastruktur</button>
         <button class="px-4 py-2 bg-gray-200 text-gray-700 text-sm font-medium hover:bg-gray-300 transition-colors">Acara</button>
@@ -19,7 +19,7 @@
     <!-- Grid Galeri -->
     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
         <!-- Foto 1 -->
-        <div class="scroll-animate group relative bg-white border border-gray-200 overflow-hidden hover:border-green-600 transition-all" data-animation="scale-fade" data-delay="200">
+        <div class="scroll-animate group relative bg-white border border-gray-200 overflow-hidden hover:border-[#1e3a8a] transition-all" data-animation="scale-fade" data-delay="200">
             <div class="aspect-square bg-gray-100 overflow-hidden">
                 @if (file_exists(public_path('images/galeri/gotong-royong-1.jpg')))
                     <img src="{{ asset('images/galeri/gotong-royong-1.jpg') }}" alt="Gotong Royong" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
@@ -39,7 +39,7 @@
         </div>
 
         <!-- Foto 2 -->
-        <div class="scroll-animate group relative bg-white border border-gray-200 overflow-hidden hover:border-green-600 transition-all" data-animation="scale-fade" data-delay="250">
+        <div class="scroll-animate group relative bg-white border border-gray-200 overflow-hidden hover:border-[#1e3a8a] transition-all" data-animation="scale-fade" data-delay="250">
             <div class="aspect-square bg-gray-100 overflow-hidden">
                 @if (file_exists(public_path('images/galeri/posyandu-1.jpg')))
                     <img src="{{ asset('images/galeri/posyandu-1.jpg') }}" alt="Posyandu" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
@@ -59,7 +59,7 @@
         </div>
 
         <!-- Foto 3 -->
-        <div class="scroll-animate group relative bg-white border border-gray-200 overflow-hidden hover:border-green-600 transition-all" data-animation="scale-fade" data-delay="300">
+        <div class="scroll-animate group relative bg-white border border-gray-200 overflow-hidden hover:border-[#1e3a8a] transition-all" data-animation="scale-fade" data-delay="300">
             <div class="aspect-square bg-gray-100 overflow-hidden">
                 @if (file_exists(public_path('images/galeri/musyawarah-1.jpg')))
                     <img src="{{ asset('images/galeri/musyawarah-1.jpg') }}" alt="Musyawarah Desa" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
@@ -79,7 +79,7 @@
         </div>
 
         <!-- Foto 4 -->
-        <div class="scroll-animate group relative bg-white border border-gray-200 overflow-hidden hover:border-green-600 transition-all" data-animation="scale-fade" data-delay="350">
+        <div class="scroll-animate group relative bg-white border border-gray-200 overflow-hidden hover:border-[#1e3a8a] transition-all" data-animation="scale-fade" data-delay="350">
             <div class="aspect-square bg-gray-100 overflow-hidden">
                 @if (file_exists(public_path('images/galeri/pembangunan-jalan-1.jpg')))
                     <img src="{{ asset('images/galeri/pembangunan-jalan-1.jpg') }}" alt="Pembangunan Jalan" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
@@ -99,7 +99,7 @@
         </div>
 
         <!-- Foto 5 -->
-        <div class="scroll-animate group relative bg-white border border-gray-200 overflow-hidden hover:border-green-600 transition-all" data-animation="scale-fade" data-delay="400">
+        <div class="scroll-animate group relative bg-white border border-gray-200 overflow-hidden hover:border-[#1e3a8a] transition-all" data-animation="scale-fade" data-delay="400">
             <div class="aspect-square bg-gray-100 overflow-hidden">
                 @if (file_exists(public_path('images/galeri/pembagian-sembako-1.jpg')))
                     <img src="{{ asset('images/galeri/pembagian-sembako-1.jpg') }}" alt="Pembagian Sembako" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
@@ -119,7 +119,7 @@
         </div>
 
         <!-- Foto 6 -->
-        <div class="scroll-animate group relative bg-white border border-gray-200 overflow-hidden hover:border-green-600 transition-all" data-animation="scale-fade" data-delay="450">
+        <div class="scroll-animate group relative bg-white border border-gray-200 overflow-hidden hover:border-[#1e3a8a] transition-all" data-animation="scale-fade" data-delay="450">
             <div class="aspect-square bg-gray-100 overflow-hidden">
                 @if (file_exists(public_path('images/galeri/karang-taruna-1.jpg')))
                     <img src="{{ asset('images/galeri/karang-taruna-1.jpg') }}" alt="Karang Taruna" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
@@ -139,7 +139,7 @@
         </div>
 
         <!-- Foto 7 -->
-        <div class="scroll-animate group relative bg-white border border-gray-200 overflow-hidden hover:border-green-600 transition-all" data-animation="scale-fade" data-delay="500">
+        <div class="scroll-animate group relative bg-white border border-gray-200 overflow-hidden hover:border-[#1e3a8a] transition-all" data-animation="scale-fade" data-delay="500">
             <div class="aspect-square bg-gray-100 overflow-hidden">
                 @if (file_exists(public_path('images/galeri/peresmian-1.jpg')))
                     <img src="{{ asset('images/galeri/peresmian-1.jpg') }}" alt="Peresmian" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
@@ -159,7 +159,7 @@
         </div>
 
         <!-- Foto 8 -->
-        <div class="scroll-animate group relative bg-white border border-gray-200 overflow-hidden hover:border-green-600 transition-all" data-animation="scale-fade" data-delay="550">
+        <div class="scroll-animate group relative bg-white border border-gray-200 overflow-hidden hover:border-[#1e3a8a] transition-all" data-animation="scale-fade" data-delay="550">
             <div class="aspect-square bg-gray-100 overflow-hidden">
                 @if (file_exists(public_path('images/galeri/pkk-1.jpg')))
                     <img src="{{ asset('images/galeri/pkk-1.jpg') }}" alt="PKK" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
@@ -179,7 +179,7 @@
         </div>
 
         <!-- Foto 9 -->
-        <div class="scroll-animate group relative bg-white border border-gray-200 overflow-hidden hover:border-green-600 transition-all" data-animation="scale-fade" data-delay="600">
+        <div class="scroll-animate group relative bg-white border border-gray-200 overflow-hidden hover:border-[#1e3a8a] transition-all" data-animation="scale-fade" data-delay="600">
             <div class="aspect-square bg-gray-100 overflow-hidden">
                 @if (file_exists(public_path('images/galeri/lpm-1.jpg')))
                     <img src="{{ asset('images/galeri/lpm-1.jpg') }}" alt="LPM" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
@@ -199,7 +199,7 @@
         </div>
 
         <!-- Foto 10 -->
-        <div class="scroll-animate group relative bg-white border border-gray-200 overflow-hidden hover:border-green-600 transition-all" data-animation="scale-fade" data-delay="650">
+        <div class="scroll-animate group relative bg-white border border-gray-200 overflow-hidden hover:border-[#1e3a8a] transition-all" data-animation="scale-fade" data-delay="650">
             <div class="aspect-square bg-gray-100 overflow-hidden">
                 @if (file_exists(public_path('images/galeri/kelompok-tani-1.jpg')))
                     <img src="{{ asset('images/galeri/kelompok-tani-1.jpg') }}" alt="Kelompok Tani" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
@@ -219,7 +219,7 @@
         </div>
 
         <!-- Foto 11 -->
-        <div class="scroll-animate group relative bg-white border border-gray-200 overflow-hidden hover:border-green-600 transition-all" data-animation="scale-fade" data-delay="700">
+        <div class="scroll-animate group relative bg-white border border-gray-200 overflow-hidden hover:border-[#1e3a8a] transition-all" data-animation="scale-fade" data-delay="700">
             <div class="aspect-square bg-gray-100 overflow-hidden">
                 @if (file_exists(public_path('images/galeri/bpd-1.jpg')))
                     <img src="{{ asset('images/galeri/bpd-1.jpg') }}" alt="BPD" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
@@ -239,7 +239,7 @@
         </div>
 
         <!-- Foto 12 -->
-        <div class="scroll-animate group relative bg-white border border-gray-200 overflow-hidden hover:border-green-600 transition-all" data-animation="scale-fade" data-delay="750">
+        <div class="scroll-animate group relative bg-white border border-gray-200 overflow-hidden hover:border-[#1e3a8a] transition-all" data-animation="scale-fade" data-delay="750">
             <div class="aspect-square bg-gray-100 overflow-hidden">
                 @if (file_exists(public_path('images/galeri/sosial-1.jpg')))
                     <img src="{{ asset('images/galeri/sosial-1.jpg') }}" alt="Kegiatan Sosial" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">

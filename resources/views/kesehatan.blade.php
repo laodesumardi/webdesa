@@ -4,13 +4,13 @@
 
 @section('content')
     <div class="mb-6 scroll-animate" data-animation="fade-up">
-        <h1 class="text-xl md:text-2xl font-bold text-green-800 mb-2">Kesehatan & Sosial</h1>
+        <h1 class="text-xl md:text-2xl font-bold text-[#1e3a8a] mb-2">Kesehatan & Sosial</h1>
         <p class="text-gray-600 text-sm md:text-base">Program kesehatan dan bantuan sosial untuk masyarakat</p>
     </div>
 
     <!-- Jadwal Posyandu -->
     <div class="scroll-animate bg-white border border-gray-300 p-4 md:p-6 mb-6" data-animation="fade-up" data-delay="100">
-        <h2 class="text-lg md:text-xl font-bold text-green-800 mb-4 pb-2 border-b-2 border-green-800">Jadwal Posyandu</h2>
+        <h2 class="text-lg md:text-xl font-bold text-[#1e3a8a] mb-4 pb-2 border-b-2 border-[#1e3a8a]">Jadwal Posyandu</h2>
         <p class="text-gray-700 text-sm md:text-base mb-4">
             Pelayanan kesehatan ibu dan anak dilaksanakan setiap bulan di setiap Rukun Warga (RW). 
             Berikut adalah jadwal pelaksanaan Posyandu:
@@ -72,7 +72,7 @@
 
     <!-- Informasi Puskesmas -->
     <div class="scroll-animate bg-white border border-gray-300 p-4 md:p-6 mb-6" data-animation="fade-up">
-        <h2 class="text-lg md:text-xl font-bold text-green-800 mb-4 pb-2 border-b-2 border-green-800">Informasi Puskesmas</h2>
+        <h2 class="text-lg md:text-xl font-bold text-[#1e3a8a] mb-4 pb-2 border-b-2 border-[#1e3a8a]">Informasi Puskesmas</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
             <div>
                 <h3 class="font-semibold text-gray-900 mb-2 text-sm md:text-base">Alamat Puskesmas</h3>
@@ -86,7 +86,7 @@
             <div>
                 <h3 class="font-semibold text-gray-900 mb-2 text-sm md:text-base">Kontak dan Jam Pelayanan</h3>
                 <p class="text-gray-700 text-sm md:text-base space-y-1">
-                    <strong>Telepon:</strong> <a href="tel:02112345690" class="text-green-800 hover:underline">(021) 1234-5690</a><br>
+                    <strong>Telepon:</strong> <a href="tel:02112345690" class="text-[#1e3a8a] hover:underline">(021) 1234-5690</a><br>
                     <strong>Hari Pelayanan:</strong> Senin - Jumat<br>
                     <strong>Waktu:</strong> 08:00 - 15:00 WIB<br>
                     <strong>Istirahat:</strong> 12:00 - 13:00 WIB
@@ -114,7 +114,7 @@
 
     <!-- Bantuan Sosial -->
     <div class="scroll-animate bg-white border border-gray-300 p-4 md:p-6 mb-6" data-animation="fade-up" data-delay="100">
-        <h2 class="text-lg md:text-xl font-bold text-green-800 mb-4 pb-2 border-b-2 border-green-800">Program Bantuan Sosial</h2>
+        <h2 class="text-lg md:text-xl font-bold text-[#1e3a8a] mb-4 pb-2 border-b-2 border-[#1e3a8a]">Program Bantuan Sosial</h2>
         <div class="space-y-4">
             <div class="border border-gray-200 p-4">
                 <h3 class="font-semibold text-gray-900 mb-2 text-sm md:text-base">Bantuan Langsung Tunai (BLT)</h3>
@@ -164,7 +164,7 @@
 
     <!-- Form Pengaduan Sosial -->
     <div class="scroll-animate bg-white border border-gray-300 p-4 md:p-6 mb-6" data-animation="fade-up">
-        <h2 class="text-lg md:text-xl font-bold text-green-800 mb-4 pb-2 border-b-2 border-green-800">Formulir Pengaduan Sosial</h2>
+        <h2 class="text-lg md:text-xl font-bold text-[#1e3a8a] mb-4 pb-2 border-b-2 border-[#1e3a8a]">Formulir Pengaduan Sosial</h2>
         <p class="text-gray-700 text-sm md:text-base mb-4">
             Formulir ini digunakan untuk melaporkan masalah sosial yang terjadi di lingkungan desa. 
             Pengaduan akan ditindaklanjuti oleh pihak yang berwenang dengan menjaga kerahasiaan identitas pelapor.
@@ -176,7 +176,7 @@
                     Nama Lengkap Pelapor <span class="text-red-600">*</span>
                 </label>
                 <input type="text" id="nama_pelapor" name="nama_pelapor" required 
-                    class="w-full px-3 py-2 border border-gray-300 text-sm focus:outline-none focus:border-green-600"
+                    class="w-full px-3 py-2 border border-gray-300 text-sm focus:outline-none focus:border-[#1e3a8a]"
                     placeholder="Masukkan nama lengkap">
             </div>
 
@@ -185,7 +185,7 @@
                     Nomor Induk Kependudukan (NIK) <span class="text-red-600">*</span>
                 </label>
                 <input type="text" id="nik_pelapor" name="nik_pelapor" required 
-                    class="w-full px-3 py-2 border border-gray-300 text-sm focus:outline-none focus:border-green-600"
+                    class="w-full px-3 py-2 border border-gray-300 text-sm focus:outline-none focus:border-[#1e3a8a]"
                     placeholder="Masukkan NIK (16 digit)"
                     maxlength="16" pattern="[0-9]{16}">
             </div>
@@ -195,7 +195,7 @@
                     Alamat Lengkap <span class="text-red-600">*</span>
                 </label>
                 <textarea id="alamat_pelapor" name="alamat_pelapor" rows="2" required 
-                    class="w-full px-3 py-2 border border-gray-300 text-sm focus:outline-none focus:border-green-600"
+                    class="w-full px-3 py-2 border border-gray-300 text-sm focus:outline-none focus:border-[#1e3a8a]"
                     placeholder="Masukkan alamat lengkap"></textarea>
             </div>
 
@@ -204,7 +204,7 @@
                     Nomor Telepon <span class="text-red-600">*</span>
                 </label>
                 <input type="tel" id="telepon_pelapor" name="telepon_pelapor" required 
-                    class="w-full px-3 py-2 border border-gray-300 text-sm focus:outline-none focus:border-green-600"
+                    class="w-full px-3 py-2 border border-gray-300 text-sm focus:outline-none focus:border-[#1e3a8a]"
                     placeholder="Masukkan nomor telepon yang dapat dihubungi">
             </div>
 
@@ -213,7 +213,7 @@
                     Jenis Pengaduan <span class="text-red-600">*</span>
                 </label>
                 <select id="jenis_pengaduan" name="jenis_pengaduan" required 
-                    class="w-full px-3 py-2 border border-gray-300 text-sm focus:outline-none focus:border-green-600">
+                    class="w-full px-3 py-2 border border-gray-300 text-sm focus:outline-none focus:border-[#1e3a8a]">
                     <option value="">Pilih jenis pengaduan</option>
                     <option value="kekerasan">Kekerasan dalam rumah tangga</option>
                     <option value="anak">Perlindungan anak</option>
@@ -229,7 +229,7 @@
                     Lokasi Kejadian <span class="text-red-600">*</span>
                 </label>
                 <input type="text" id="lokasi_kejadian" name="lokasi_kejadian" required 
-                    class="w-full px-3 py-2 border border-gray-300 text-sm focus:outline-none focus:border-green-600"
+                    class="w-full px-3 py-2 border border-gray-300 text-sm focus:outline-none focus:border-[#1e3a8a]"
                     placeholder="Masukkan alamat atau lokasi kejadian">
             </div>
 
@@ -238,7 +238,7 @@
                     Uraian Pengaduan <span class="text-red-600">*</span>
                 </label>
                 <textarea id="uraian_pengaduan" name="uraian_pengaduan" rows="5" required 
-                    class="w-full px-3 py-2 border border-gray-300 text-sm focus:outline-none focus:border-green-600"
+                    class="w-full px-3 py-2 border border-gray-300 text-sm focus:outline-none focus:border-[#1e3a8a]"
                     placeholder="Jelaskan secara detail kejadian yang dilaporkan"></textarea>
             </div>
 
@@ -247,7 +247,7 @@
                     Dokumen Pendukung (Opsional)
                 </label>
                 <input type="file" id="dokumen_pendukung" name="dokumen_pendukung" 
-                    class="w-full px-3 py-2 border border-gray-300 text-sm focus:outline-none focus:border-green-600"
+                    class="w-full px-3 py-2 border border-gray-300 text-sm focus:outline-none focus:border-[#1e3a8a]"
                     accept=".pdf,.jpg,.jpeg,.png">
                 <p class="text-xs text-gray-500 mt-1">
                     Format file: PDF, JPG, atau PNG. Maksimal ukuran file: 5 MB.
@@ -265,7 +265,7 @@
             </div>
 
             <div class="flex gap-3">
-                <button type="submit" class="bg-green-800 text-white px-6 py-2 text-sm md:text-base hover:bg-green-900">
+                <button type="submit" class="bg-[#1e3a8a] text-white px-6 py-2 text-sm md:text-base hover:bg-blue-900">
                     Kirim Pengaduan
                 </button>
                 <button type="reset" class="bg-gray-200 text-gray-700 px-6 py-2 text-sm md:text-base hover:bg-gray-300">
@@ -277,19 +277,19 @@
 
     <!-- Informasi Kontak -->
     <div class="scroll-animate bg-white border border-gray-300 p-4 md:p-6" data-animation="fade-up" data-delay="100">
-        <h2 class="text-lg md:text-xl font-bold text-green-800 mb-4 pb-2 border-b-2 border-green-800">Informasi Kontak</h2>
+        <h2 class="text-lg md:text-xl font-bold text-[#1e3a8a] mb-4 pb-2 border-b-2 border-[#1e3a8a]">Informasi Kontak</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
                 <h3 class="font-semibold text-gray-900 mb-2 text-sm md:text-base">Kantor Desa</h3>
                 <p class="text-gray-700 text-sm md:text-base">
-                    <strong>Telepon:</strong> <a href="tel:02112345678" class="text-green-800 hover:underline">(021) 1234-5678</a><br>
+                    <strong>Telepon:</strong> <a href="tel:02112345678" class="text-[#1e3a8a] hover:underline">(021) 1234-5678</a><br>
                     <strong>Email:</strong> info@desa.go.id
                 </p>
             </div>
             <div>
                 <h3 class="font-semibold text-gray-900 mb-2 text-sm md:text-base">Kepala Urusan Kesejahteraan Rakyat</h3>
                 <p class="text-gray-700 text-sm md:text-base">
-                    <strong>Telepon:</strong> <a href="tel:02112345679" class="text-green-800 hover:underline">(021) 1234-5679</a><br>
+                    <strong>Telepon:</strong> <a href="tel:02112345679" class="text-[#1e3a8a] hover:underline">(021) 1234-5679</a><br>
                     <strong>Jam Pelayanan:</strong> Senin - Jumat, 08:00 - 15:00 WIB
                 </p>
             </div>

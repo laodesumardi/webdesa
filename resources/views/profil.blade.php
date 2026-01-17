@@ -4,29 +4,29 @@
 
 @section('content')
     <div class="mb-8 scroll-animate" data-animation="fade-up">
-        <h1 class="text-2xl md:text-3xl font-bold text-green-800 mb-2">Profil Desa</h1>
+        <h1 class="text-2xl md:text-3xl font-bold text-[#1e3a8a] mb-2">Profil Desa</h1>
         <p class="text-gray-600 text-base md:text-lg">Informasi lengkap tentang desa kami</p>
     </div>
 
     <!-- Informasi Umum -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mb-8">
-        <div class="scroll-animate bg-white border border-gray-200 p-6 text-center hover:border-green-600 transition-colors" data-animation="fade-up" data-delay="100">
-            <div class="text-3xl md:text-4xl font-bold text-green-800 mb-2">250</div>
+        <div class="scroll-animate bg-white border border-gray-200 p-6 text-center hover:border-[#1e3a8a] transition-colors" data-animation="fade-up" data-delay="100">
+            <div class="text-3xl md:text-4xl font-bold text-[#1e3a8a] mb-2">250</div>
             <div class="text-sm md:text-base text-gray-600">Hektar Luas Wilayah</div>
         </div>
-        <div class="scroll-animate bg-white border border-gray-200 p-6 text-center hover:border-green-600 transition-colors" data-animation="fade-up" data-delay="200">
-            <div class="text-3xl md:text-4xl font-bold text-green-800 mb-2">150</div>
+        <div class="scroll-animate bg-white border border-gray-200 p-6 text-center hover:border-[#1e3a8a] transition-colors" data-animation="fade-up" data-delay="200">
+            <div class="text-3xl md:text-4xl font-bold text-[#1e3a8a] mb-2">150</div>
             <div class="text-sm md:text-base text-gray-600">Meter DPL</div>
         </div>
-        <div class="scroll-animate bg-white border border-gray-200 p-6 text-center hover:border-green-600 transition-colors" data-animation="fade-up" data-delay="300">
-            <div class="text-3xl md:text-4xl font-bold text-green-800 mb-2">2.500-3.000</div>
+        <div class="scroll-animate bg-white border border-gray-200 p-6 text-center hover:border-[#1e3a8a] transition-colors" data-animation="fade-up" data-delay="300">
+            <div class="text-3xl md:text-4xl font-bold text-[#1e3a8a] mb-2">2.500-3.000</div>
             <div class="text-sm md:text-base text-gray-600">mm Curah Hujan/Tahun</div>
         </div>
     </div>
 
     <!-- Sejarah Desa -->
     <div class="scroll-animate bg-white border border-gray-200 p-6 md:p-8 mb-8" data-animation="fade-up">
-        <h2 class="text-xl md:text-2xl font-bold text-green-800 mb-6 pb-3 border-b-2 border-green-800">Sejarah Desa</h2>
+        <h2 class="text-xl md:text-2xl font-bold text-[#1e3a8a] mb-6 pb-3 border-b-2 border-[#1e3a8a]">Sejarah Desa</h2>
         <div class="text-gray-700 text-base md:text-lg leading-relaxed space-y-4">
             <p>
                 Desa ini didirikan pada tahun 1920 dan memiliki sejarah panjang dalam pembangunan masyarakat. 
@@ -54,7 +54,7 @@
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mb-8">
         <!-- Visi -->
         <div class="scroll-animate bg-white border border-gray-200 p-6 md:p-8" data-animation="slide-left">
-            <h2 class="text-xl md:text-2xl font-bold text-green-800 mb-4 pb-2 border-b-2 border-green-800">Visi</h2>
+            <h2 class="text-xl md:text-2xl font-bold text-[#1e3a8a] mb-4 pb-2 border-b-2 border-[#1e3a8a]">Visi</h2>
             <p class="text-gray-700 text-base md:text-lg leading-relaxed italic mb-4">
                 "Terwujudnya desa yang mandiri, sejahtera, dan berbudaya melalui peningkatan kualitas 
                 sumber daya manusia dan pengelolaan sumber daya alam yang berkelanjutan."
@@ -67,26 +67,26 @@
 
         <!-- Misi -->
         <div class="scroll-animate bg-white border border-gray-200 p-6 md:p-8" data-animation="slide-right">
-            <h2 class="text-xl md:text-2xl font-bold text-green-800 mb-4 pb-2 border-b-2 border-green-800">Misi</h2>
+            <h2 class="text-xl md:text-2xl font-bold text-[#1e3a8a] mb-4 pb-2 border-b-2 border-[#1e3a8a]">Misi</h2>
             <ul class="space-y-3 text-gray-700 text-sm md:text-base leading-relaxed">
                 <li class="flex items-start gap-2">
-                    <span class="text-green-800 font-bold mt-1">1.</span>
+                    <span class="text-[#1e3a8a] font-bold mt-1">1.</span>
                     <span>Meningkatkan kualitas pelayanan publik melalui modernisasi sistem administrasi dan peningkatan aksesibilitas layanan.</span>
                 </li>
                 <li class="flex items-start gap-2">
-                    <span class="text-green-800 font-bold mt-1">2.</span>
+                    <span class="text-[#1e3a8a] font-bold mt-1">2.</span>
                     <span>Mengembangkan ekonomi masyarakat desa melalui pemberdayaan ekonomi lokal dan pengembangan usaha kecil menengah.</span>
                 </li>
                 <li class="flex items-start gap-2">
-                    <span class="text-green-800 font-bold mt-1">3.</span>
+                    <span class="text-[#1e3a8a] font-bold mt-1">3.</span>
                     <span>Memperkuat infrastruktur desa melalui pembangunan dan pemeliharaan jalan, jembatan, dan sarana publik lainnya.</span>
                 </li>
                 <li class="flex items-start gap-2">
-                    <span class="text-green-800 font-bold mt-1">4.</span>
+                    <span class="text-[#1e3a8a] font-bold mt-1">4.</span>
                     <span>Meningkatkan partisipasi masyarakat dalam pembangunan melalui penguatan lembaga kemasyarakatan.</span>
                 </li>
                 <li class="flex items-start gap-2">
-                    <span class="text-green-800 font-bold mt-1">5.</span>
+                    <span class="text-[#1e3a8a] font-bold mt-1">5.</span>
                     <span>Melestarikan nilai-nilai budaya lokal melalui dokumentasi dan pengembangan seni budaya tradisional.</span>
                 </li>
             </ul>
@@ -95,7 +95,7 @@
 
     <!-- Kondisi Geografis -->
     <div class="scroll-animate bg-white border border-gray-200 p-6 md:p-8 mb-8" data-animation="fade-up">
-        <h2 class="text-xl md:text-2xl font-bold text-green-800 mb-6 pb-3 border-b-2 border-green-800">Kondisi Geografis</h2>
+        <h2 class="text-xl md:text-2xl font-bold text-[#1e3a8a] mb-6 pb-3 border-b-2 border-[#1e3a8a]">Kondisi Geografis</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
             <!-- Letak Geografis -->
             <div class="scroll-animate" data-animation="fade-up" data-delay="100">
@@ -141,15 +141,15 @@
         <div class="scroll-animate mt-6 pt-6 border-t border-gray-200" data-animation="fade-up" data-delay="300">
             <h3 class="font-semibold text-gray-900 mb-3 text-lg">Sumber Daya Alam</h3>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div class="scroll-animate bg-gray-50 border border-gray-200 p-4 hover:border-green-600 transition-colors" data-animation="scale-fade" data-delay="400">
+                <div class="scroll-animate bg-gray-50 border border-gray-200 p-4 hover:border-[#1e3a8a] transition-colors" data-animation="scale-fade" data-delay="400">
                     <p class="font-semibold text-gray-900 mb-2">Jenis Tanah</p>
                     <p class="text-gray-700 text-sm">Latosol dan Alluvial yang subur untuk pertanian</p>
                 </div>
-                <div class="scroll-animate bg-gray-50 border border-gray-200 p-4 hover:border-green-600 transition-colors" data-animation="scale-fade" data-delay="500">
+                <div class="scroll-animate bg-gray-50 border border-gray-200 p-4 hover:border-[#1e3a8a] transition-colors" data-animation="scale-fade" data-delay="500">
                     <p class="font-semibold text-gray-900 mb-2">Sumber Air</p>
                     <p class="text-gray-700 text-sm">Beberapa aliran sungai untuk irigasi dan kebutuhan air bersih</p>
                 </div>
-                <div class="scroll-animate bg-gray-50 border border-gray-200 p-4 hover:border-green-600 transition-colors" data-animation="scale-fade" data-delay="600">
+                <div class="scroll-animate bg-gray-50 border border-gray-200 p-4 hover:border-[#1e3a8a] transition-colors" data-animation="scale-fade" data-delay="600">
                     <p class="font-semibold text-gray-900 mb-2">Potensi Lain</p>
                     <p class="text-gray-700 text-sm">Hutan, bahan galian, dan hasil pertanian</p>
                 </div>

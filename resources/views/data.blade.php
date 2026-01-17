@@ -4,26 +4,26 @@
 
 @section('content')
     <div class="mb-8 scroll-animate" data-animation="fade-up">
-        <h1 class="text-2xl md:text-3xl font-bold text-green-800 mb-2">Data Desa</h1>
+        <h1 class="text-2xl md:text-3xl font-bold text-[#1e3a8a] mb-2">Data Desa</h1>
         <p class="text-gray-600 text-base md:text-lg">Data kependudukan dan statistik desa</p>
     </div>
 
     <!-- Statistik Kependudukan -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-8">
-        <div class="scroll-animate bg-white border border-gray-200 p-6 text-center hover:border-green-600 transition-colors" data-animation="fade-up" data-delay="100">
-            <div class="text-3xl md:text-4xl font-bold text-green-800 mb-2">2.450</div>
+        <div class="scroll-animate bg-white border border-gray-200 p-6 text-center hover:border-[#1e3a8a] transition-colors" data-animation="fade-up" data-delay="100">
+            <div class="text-3xl md:text-4xl font-bold text-[#1e3a8a] mb-2">2.450</div>
             <div class="text-sm md:text-base text-gray-600 font-medium">Jumlah Penduduk</div>
         </div>
-        <div class="scroll-animate bg-white border border-gray-200 p-6 text-center hover:border-green-600 transition-colors" data-animation="fade-up" data-delay="200">
-            <div class="text-3xl md:text-4xl font-bold text-green-800 mb-2">1.250</div>
+        <div class="scroll-animate bg-white border border-gray-200 p-6 text-center hover:border-[#1e3a8a] transition-colors" data-animation="fade-up" data-delay="200">
+            <div class="text-3xl md:text-4xl font-bold text-[#1e3a8a] mb-2">1.250</div>
             <div class="text-sm md:text-base text-gray-600 font-medium">Laki-laki</div>
         </div>
-        <div class="scroll-animate bg-white border border-gray-200 p-6 text-center hover:border-green-600 transition-colors" data-animation="fade-up" data-delay="300">
-            <div class="text-3xl md:text-4xl font-bold text-green-800 mb-2">1.200</div>
+        <div class="scroll-animate bg-white border border-gray-200 p-6 text-center hover:border-[#1e3a8a] transition-colors" data-animation="fade-up" data-delay="300">
+            <div class="text-3xl md:text-4xl font-bold text-[#1e3a8a] mb-2">1.200</div>
             <div class="text-sm md:text-base text-gray-600 font-medium">Perempuan</div>
         </div>
-        <div class="scroll-animate bg-white border border-gray-200 p-6 text-center hover:border-green-600 transition-colors" data-animation="fade-up" data-delay="400">
-            <div class="text-3xl md:text-4xl font-bold text-green-800 mb-2">650</div>
+        <div class="scroll-animate bg-white border border-gray-200 p-6 text-center hover:border-[#1e3a8a] transition-colors" data-animation="fade-up" data-delay="400">
+            <div class="text-3xl md:text-4xl font-bold text-[#1e3a8a] mb-2">650</div>
             <div class="text-sm md:text-base text-gray-600 font-medium">Kepala Keluarga</div>
         </div>
     </div>
@@ -31,8 +31,8 @@
     <!-- Data Penduduk -->
     <div class="bg-white border border-gray-200 p-6 md:p-8 mb-8 print-section">
         <div class="flex items-center justify-between mb-6">
-            <h2 class="text-xl md:text-2xl font-bold text-green-800 pb-3 border-b-2 border-green-800">Data Penduduk</h2>
-            <button onclick="window.print()" class="hidden print:hidden bg-green-800 text-white px-4 py-2 text-sm font-medium hover:bg-green-900 transition-colors no-print">
+            <h2 class="text-xl md:text-2xl font-bold text-[#1e3a8a] pb-3 border-b-2 border-[#1e3a8a]">Data Penduduk</h2>
+            <button onclick="window.print()" class="hidden print:hidden bg-[#1e3a8a] text-white px-4 py-2 text-sm font-medium hover:bg-blue-900 transition-colors no-print">
                 Cetak Data
             </button>
         </div>
@@ -180,7 +180,7 @@
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mb-8">
         <!-- Data Wilayah -->
         <div class="scroll-animate bg-white border border-gray-200 p-6 md:p-8 print-section" data-animation="slide-left">
-            <h2 class="text-xl md:text-2xl font-bold text-green-800 mb-6 pb-3 border-b-2 border-green-800">Data Wilayah</h2>
+            <h2 class="text-xl md:text-2xl font-bold text-[#1e3a8a] mb-6 pb-3 border-b-2 border-[#1e3a8a]">Data Wilayah</h2>
             <div class="space-y-4">
                 <div class="bg-gray-50 border border-gray-200 p-4">
                     <p class="font-semibold text-gray-900 mb-2">Pembagian Wilayah</p>
@@ -205,7 +205,7 @@
 
         <!-- Data Pendidikan -->
         <div class="scroll-animate bg-white border border-gray-200 p-6 md:p-8 print-section" data-animation="slide-right">
-            <h2 class="text-xl md:text-2xl font-bold text-green-800 mb-6 pb-3 border-b-2 border-green-800">Data Pendidikan</h2>
+            <h2 class="text-xl md:text-2xl font-bold text-[#1e3a8a] mb-6 pb-3 border-b-2 border-[#1e3a8a]">Data Pendidikan</h2>
             <div class="overflow-x-auto">
                 <table class="w-full text-sm print-table">
                     <thead class="bg-gray-100">

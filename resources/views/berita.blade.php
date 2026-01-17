@@ -4,13 +4,13 @@
 
 @section('content')
     <div class="mb-8 scroll-animate" data-animation="fade-up">
-        <h1 class="text-2xl md:text-3xl font-bold text-green-800 mb-2">Berita & Pengumuman</h1>
+        <h1 class="text-2xl md:text-3xl font-bold text-[#1e3a8a] mb-2">Berita & Pengumuman</h1>
         <p class="text-gray-600 text-base md:text-lg">Informasi terbaru dari pemerintah desa</p>
     </div>
 
     <!-- Filter Kategori -->
     <div class="mb-6 flex flex-wrap gap-2 scroll-animate" data-animation="fade-up" data-delay="100">
-        <button class="px-4 py-2 bg-green-800 text-white text-sm font-medium hover:bg-green-900 transition-colors">Semua</button>
+        <button class="px-4 py-2 bg-[#1e3a8a] text-white text-sm font-medium hover:bg-blue-900 transition-colors">Semua</button>
         <button class="px-4 py-2 bg-gray-200 text-gray-700 text-sm font-medium hover:bg-gray-300 transition-colors">Pengumuman</button>
         <button class="px-4 py-2 bg-gray-200 text-gray-700 text-sm font-medium hover:bg-gray-300 transition-colors">Informasi</button>
         <button class="px-4 py-2 bg-gray-200 text-gray-700 text-sm font-medium hover:bg-gray-300 transition-colors">Berita</button>
@@ -65,7 +65,7 @@
     <!-- Daftar Berita Content -->
     <div class="space-y-6 skeleton-content" id="berita-list-content">
         <!-- Berita 1 -->
-        <article class="scroll-animate bg-white border border-gray-200 p-6 md:p-8 hover:border-green-600 transition-colors group" data-animation="fade-up" data-delay="200">
+        <article class="scroll-animate bg-white border border-gray-200 p-6 md:p-8 hover:border-[#1e3a8a] transition-colors group" data-animation="fade-up" data-delay="200">
             <div class="flex flex-col md:flex-row gap-6">
                 <!-- Gambar -->
                 <div class="flex-shrink-0 w-full md:w-64">
@@ -84,10 +84,10 @@
                 <!-- Konten -->
                 <div class="flex-1">
                     <div class="flex items-start gap-4 mb-4">
-                        <span class="bg-green-100 text-green-800 px-4 py-1.5 text-xs font-semibold">Pengumuman</span>
+                        <span class="bg-blue-100 text-[#1e3a8a] px-4 py-1.5 text-xs font-semibold">Pengumuman</span>
                         <time class="text-sm text-gray-500">15 Januari 2024</time>
                     </div>
-                    <h2 class="text-xl md:text-2xl font-bold text-gray-900 mb-3 group-hover:text-green-800 transition-colors">
+                    <h2 class="text-xl md:text-2xl font-bold text-gray-900 mb-3 group-hover:text-[#1e3a8a] transition-colors">
                         Pendaftaran Program Bantuan Sosial Tahun 2024
                     </h2>
                     <p class="text-gray-700 text-base md:text-lg leading-relaxed mb-4">
@@ -96,7 +96,7 @@
                         Kartu Keluarga, KTP, Surat Keterangan Tidak Mampu dari RT/RW, dan dokumen pendukung lainnya. 
                         Formulir pendaftaran dapat diambil di kantor desa pada jam pelayanan atau diunduh melalui website ini.
                     </p>
-                    <a href="#" class="text-green-800 text-sm font-medium hover:underline inline-flex items-center gap-1">
+                    <a href="#" class="text-[#1e3a8a] text-sm font-medium hover:underline inline-flex items-center gap-1">
                         Baca selengkapnya
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
@@ -107,7 +107,7 @@
         </article>
 
         <!-- Berita 2 -->
-        <article class="scroll-animate bg-white border border-gray-200 p-6 md:p-8 hover:border-green-600 transition-colors group" data-animation="fade-up" data-delay="300">
+        <article class="scroll-animate bg-white border border-gray-200 p-6 md:p-8 hover:border-[#1e3a8a] transition-colors group" data-animation="fade-up" data-delay="300">
             <div class="flex flex-col md:flex-row gap-6">
                 <!-- Gambar -->
                 <div class="flex-shrink-0 w-full md:w-64">
@@ -129,7 +129,7 @@
                         <span class="bg-blue-100 text-blue-800 px-4 py-1.5 text-xs font-semibold">Informasi</span>
                         <time class="text-sm text-gray-500">10 Januari 2024</time>
                     </div>
-                    <h2 class="text-xl md:text-2xl font-bold text-gray-900 mb-3 group-hover:text-green-800 transition-colors">
+                    <h2 class="text-xl md:text-2xl font-bold text-gray-900 mb-3 group-hover:text-[#1e3a8a] transition-colors">
                         Jadwal Pelayanan Administrasi Kependudukan
                     </h2>
                     <p class="text-gray-700 text-base md:text-lg leading-relaxed mb-4">
@@ -138,7 +138,7 @@
                         dan berbagai surat administrasi lainnya. Untuk layanan khusus atau di luar jam kerja, warga dapat 
                         menghubungi kantor desa terlebih dahulu untuk koordinasi.
                     </p>
-                    <a href="#" class="text-green-800 text-sm font-medium hover:underline inline-flex items-center gap-1">
+                    <a href="#" class="text-[#1e3a8a] text-sm font-medium hover:underline inline-flex items-center gap-1">
                         Baca selengkapnya
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
@@ -149,7 +149,7 @@
         </article>
 
         <!-- Berita 3 -->
-        <article class="bg-white border border-gray-200 p-6 md:p-8 hover:border-green-600 transition-colors group">
+        <article class="bg-white border border-gray-200 p-6 md:p-8 hover:border-[#1e3a8a] transition-colors group">
             <div class="flex flex-col md:flex-row gap-6">
                 <!-- Gambar -->
                 <div class="flex-shrink-0 w-full md:w-64">
@@ -171,7 +171,7 @@
                         <span class="bg-yellow-100 text-yellow-800 px-4 py-1.5 text-xs font-semibold">Berita</span>
                         <time class="text-sm text-gray-500">5 Januari 2024</time>
                     </div>
-                    <h2 class="text-xl md:text-2xl font-bold text-gray-900 mb-3 group-hover:text-green-800 transition-colors">
+                    <h2 class="text-xl md:text-2xl font-bold text-gray-900 mb-3 group-hover:text-[#1e3a8a] transition-colors">
                         Kegiatan Gotong Royong Pembersihan Lingkungan
                     </h2>
                     <p class="text-gray-700 text-base md:text-lg leading-relaxed mb-4">
@@ -181,7 +181,7 @@
                         Peralatan kebersihan akan disediakan oleh pemerintah desa. Kegiatan ini merupakan bagian dari program 
                         kebersihan lingkungan desa yang dilaksanakan secara rutin setiap bulan.
                     </p>
-                    <a href="#" class="text-green-800 text-sm font-medium hover:underline inline-flex items-center gap-1">
+                    <a href="#" class="text-[#1e3a8a] text-sm font-medium hover:underline inline-flex items-center gap-1">
                         Baca selengkapnya
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
@@ -192,7 +192,7 @@
         </article>
 
         <!-- Berita 4 -->
-        <article class="bg-white border border-gray-200 p-6 md:p-8 hover:border-green-600 transition-colors group">
+        <article class="bg-white border border-gray-200 p-6 md:p-8 hover:border-[#1e3a8a] transition-colors group">
             <div class="flex flex-col md:flex-row gap-6">
                 <!-- Gambar -->
                 <div class="flex-shrink-0 w-full md:w-64">
@@ -211,10 +211,10 @@
                 <!-- Konten -->
                 <div class="flex-1">
                     <div class="flex items-start gap-4 mb-4">
-                        <span class="bg-green-100 text-green-800 px-4 py-1.5 text-xs font-semibold">Pengumuman</span>
+                        <span class="bg-blue-100 text-[#1e3a8a] px-4 py-1.5 text-xs font-semibold">Pengumuman</span>
                         <time class="text-sm text-gray-500">28 Desember 2023</time>
                     </div>
-                    <h2 class="text-xl md:text-2xl font-bold text-gray-900 mb-3 group-hover:text-green-800 transition-colors">
+                    <h2 class="text-xl md:text-2xl font-bold text-gray-900 mb-3 group-hover:text-[#1e3a8a] transition-colors">
                         Musyawarah Desa Perencanaan Pembangunan Tahun 2024
                     </h2>
                     <p class="text-gray-700 text-base md:text-lg leading-relaxed mb-4">
@@ -223,7 +223,7 @@
                         pembangunan, alokasi anggaran, dan prioritas program yang akan dilaksanakan sepanjang tahun 2024. 
                         Seluruh warga desa diundang untuk hadir dan menyampaikan aspirasi terkait pembangunan desa.
                     </p>
-                    <a href="#" class="text-green-800 text-sm font-medium hover:underline inline-flex items-center gap-1">
+                    <a href="#" class="text-[#1e3a8a] text-sm font-medium hover:underline inline-flex items-center gap-1">
                         Baca selengkapnya
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
@@ -234,7 +234,7 @@
         </article>
 
         <!-- Berita 5 -->
-        <article class="bg-white border border-gray-200 p-6 md:p-8 hover:border-green-600 transition-colors group">
+        <article class="bg-white border border-gray-200 p-6 md:p-8 hover:border-[#1e3a8a] transition-colors group">
             <div class="flex flex-col md:flex-row gap-6">
                 <!-- Gambar -->
                 <div class="flex-shrink-0 w-full md:w-64">
@@ -256,7 +256,7 @@
                         <span class="bg-blue-100 text-blue-800 px-4 py-1.5 text-xs font-semibold">Informasi</span>
                         <time class="text-sm text-gray-500">3 Januari 2024</time>
                     </div>
-                    <h2 class="text-xl md:text-2xl font-bold text-gray-900 mb-3 group-hover:text-green-800 transition-colors">
+                    <h2 class="text-xl md:text-2xl font-bold text-gray-900 mb-3 group-hover:text-[#1e3a8a] transition-colors">
                         Pelaksanaan Posyandu Bulan Januari 2024
                     </h2>
                     <p class="text-gray-700 text-base md:text-lg leading-relaxed mb-4">
@@ -265,7 +265,7 @@
                         dan penyuluhan kesehatan ibu dan anak. Jadwal lengkap dapat dilihat di papan pengumuman masing-masing RW 
                         atau ditanyakan kepada ketua RW setempat. Pelayanan Posyandu dilaksanakan secara gratis untuk seluruh warga.
                     </p>
-                    <a href="#" class="text-green-800 text-sm font-medium hover:underline inline-flex items-center gap-1">
+                    <a href="#" class="text-[#1e3a8a] text-sm font-medium hover:underline inline-flex items-center gap-1">
                         Baca selengkapnya
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
@@ -276,7 +276,7 @@
         </article>
 
         <!-- Berita 6 -->
-        <article class="bg-white border border-gray-200 p-6 md:p-8 hover:border-green-600 transition-colors group">
+        <article class="bg-white border border-gray-200 p-6 md:p-8 hover:border-[#1e3a8a] transition-colors group">
             <div class="flex flex-col md:flex-row gap-6">
                 <!-- Gambar -->
                 <div class="flex-shrink-0 w-full md:w-64">
@@ -298,7 +298,7 @@
                         <span class="bg-yellow-100 text-yellow-800 px-4 py-1.5 text-xs font-semibold">Berita</span>
                         <time class="text-sm text-gray-500">20 Desember 2023</time>
                     </div>
-                    <h2 class="text-xl md:text-2xl font-bold text-gray-900 mb-3 group-hover:text-green-800 transition-colors">
+                    <h2 class="text-xl md:text-2xl font-bold text-gray-900 mb-3 group-hover:text-[#1e3a8a] transition-colors">
                         Pembangunan Jalan Lingkungan di RT 05 dan RT 06
                     </h2>
                     <p class="text-gray-700 text-base md:text-lg leading-relaxed mb-4">
@@ -308,7 +308,7 @@
                         pembangunan, warga diimbau untuk berhati-hati saat melintasi area pekerjaan dan mengikuti arahan petugas 
                         yang bertugas di lokasi.
                     </p>
-                    <a href="#" class="text-green-800 text-sm font-medium hover:underline inline-flex items-center gap-1">
+                    <a href="#" class="text-[#1e3a8a] text-sm font-medium hover:underline inline-flex items-center gap-1">
                         Baca selengkapnya
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
@@ -319,7 +319,7 @@
         </article>
 
         <!-- Berita 7 -->
-        <article class="bg-white border border-gray-200 p-6 md:p-8 hover:border-green-600 transition-colors group">
+        <article class="bg-white border border-gray-200 p-6 md:p-8 hover:border-[#1e3a8a] transition-colors group">
             <div class="flex flex-col md:flex-row gap-6">
                 <!-- Gambar -->
                 <div class="flex-shrink-0 w-full md:w-64">
@@ -338,10 +338,10 @@
                 <!-- Konten -->
                 <div class="flex-1">
                     <div class="flex items-start gap-4 mb-4">
-                        <span class="bg-green-100 text-green-800 px-4 py-1.5 text-xs font-semibold">Pengumuman</span>
+                        <span class="bg-blue-100 text-[#1e3a8a] px-4 py-1.5 text-xs font-semibold">Pengumuman</span>
                         <time class="text-sm text-gray-500">15 Desember 2023</time>
                     </div>
-                    <h2 class="text-xl md:text-2xl font-bold text-gray-900 mb-3 group-hover:text-green-800 transition-colors">
+                    <h2 class="text-xl md:text-2xl font-bold text-gray-900 mb-3 group-hover:text-[#1e3a8a] transition-colors">
                         Pendataan Penduduk untuk Sensus Penduduk 2024
                     </h2>
                     <p class="text-gray-700 text-base md:text-lg leading-relaxed mb-4">
@@ -350,7 +350,7 @@
                         memberikan data yang akurat dan lengkap kepada petugas sensus. Pendataan dimulai pada bulan Februari 2024 
                         dan diperkirakan selesai dalam waktu 1 bulan. Informasi lebih lanjut dapat ditanyakan di kantor desa.
                     </p>
-                    <a href="#" class="text-green-800 text-sm font-medium hover:underline inline-flex items-center gap-1">
+                    <a href="#" class="text-[#1e3a8a] text-sm font-medium hover:underline inline-flex items-center gap-1">
                         Baca selengkapnya
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
@@ -361,7 +361,7 @@
         </article>
 
         <!-- Berita 8 -->
-        <article class="bg-white border border-gray-200 p-6 md:p-8 hover:border-green-600 transition-colors group">
+        <article class="bg-white border border-gray-200 p-6 md:p-8 hover:border-[#1e3a8a] transition-colors group">
             <div class="flex flex-col md:flex-row gap-6">
                 <!-- Gambar -->
                 <div class="flex-shrink-0 w-full md:w-64">
@@ -383,7 +383,7 @@
                         <span class="bg-blue-100 text-blue-800 px-4 py-1.5 text-xs font-semibold">Informasi</span>
                         <time class="text-sm text-gray-500">12 Desember 2023</time>
                     </div>
-                    <h2 class="text-xl md:text-2xl font-bold text-gray-900 mb-3 group-hover:text-green-800 transition-colors">
+                    <h2 class="text-xl md:text-2xl font-bold text-gray-900 mb-3 group-hover:text-[#1e3a8a] transition-colors">
                         Pembagian Sembako untuk Keluarga Miskin
                     </h2>
                     <p class="text-gray-700 text-base md:text-lg leading-relaxed mb-4">
@@ -392,7 +392,7 @@
                         Setiap keluarga penerima akan mendapatkan paket sembako yang terdiri dari beras, minyak goreng, gula, dan 
                         bahan pokok lainnya. Penerima diharapkan hadir tepat waktu dan membawa Kartu Keluarga untuk verifikasi.
                     </p>
-                    <a href="#" class="text-green-800 text-sm font-medium hover:underline inline-flex items-center gap-1">
+                    <a href="#" class="text-[#1e3a8a] text-sm font-medium hover:underline inline-flex items-center gap-1">
                         Baca selengkapnya
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
@@ -403,7 +403,7 @@
         </article>
 
         <!-- Berita 9 -->
-        <article class="bg-white border border-gray-200 p-6 md:p-8 hover:border-green-600 transition-colors group">
+        <article class="bg-white border border-gray-200 p-6 md:p-8 hover:border-[#1e3a8a] transition-colors group">
             <div class="flex flex-col md:flex-row gap-6">
                 <!-- Gambar -->
                 <div class="flex-shrink-0 w-full md:w-64">
@@ -425,7 +425,7 @@
                         <span class="bg-yellow-100 text-yellow-800 px-4 py-1.5 text-xs font-semibold">Berita</span>
                         <time class="text-sm text-gray-500">8 Desember 2023</time>
                     </div>
-                    <h2 class="text-xl md:text-2xl font-bold text-gray-900 mb-3 group-hover:text-green-800 transition-colors">
+                    <h2 class="text-xl md:text-2xl font-bold text-gray-900 mb-3 group-hover:text-[#1e3a8a] transition-colors">
                         Peresmian Balai Desa Baru
                     </h2>
                     <p class="text-gray-700 text-base md:text-lg leading-relaxed mb-4">
@@ -434,7 +434,7 @@
                         Peresmian dihadiri oleh Bupati, Camat, dan seluruh perangkat desa. Balai desa baru ini diharapkan dapat 
                         meningkatkan kualitas pelayanan kepada masyarakat dan menjadi pusat kegiatan pemerintahan desa.
                     </p>
-                    <a href="#" class="text-green-800 text-sm font-medium hover:underline inline-flex items-center gap-1">
+                    <a href="#" class="text-[#1e3a8a] text-sm font-medium hover:underline inline-flex items-center gap-1">
                         Baca selengkapnya
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
@@ -445,7 +445,7 @@
         </article>
 
         <!-- Berita 10 -->
-        <article class="bg-white border border-gray-200 p-6 md:p-8 hover:border-green-600 transition-colors group">
+        <article class="bg-white border border-gray-200 p-6 md:p-8 hover:border-[#1e3a8a] transition-colors group">
             <div class="flex flex-col md:flex-row gap-6">
                 <!-- Gambar -->
                 <div class="flex-shrink-0 w-full md:w-64">
@@ -464,10 +464,10 @@
                 <!-- Konten -->
                 <div class="flex-1">
                     <div class="flex items-start gap-4 mb-4">
-                        <span class="bg-green-100 text-green-800 px-4 py-1.5 text-xs font-semibold">Pengumuman</span>
+                        <span class="bg-blue-100 text-[#1e3a8a] px-4 py-1.5 text-xs font-semibold">Pengumuman</span>
                         <time class="text-sm text-gray-500">1 Desember 2023</time>
                     </div>
-                    <h2 class="text-xl md:text-2xl font-bold text-gray-900 mb-3 group-hover:text-green-800 transition-colors">
+                    <h2 class="text-xl md:text-2xl font-bold text-gray-900 mb-3 group-hover:text-[#1e3a8a] transition-colors">
                         Program Pelatihan Kewirausahaan untuk Pemuda
                     </h2>
                     <p class="text-gray-700 text-base md:text-lg leading-relaxed mb-4">
@@ -476,7 +476,7 @@
                         Program ini bertujuan untuk meningkatkan kemampuan wirausaha pemuda dan mendorong tumbuhnya usaha kecil 
                         menengah di desa. Pendaftaran dibuka mulai tanggal 5 Desember 2023 di kantor desa.
                     </p>
-                    <a href="#" class="text-green-800 text-sm font-medium hover:underline inline-flex items-center gap-1">
+                    <a href="#" class="text-[#1e3a8a] text-sm font-medium hover:underline inline-flex items-center gap-1">
                         Baca selengkapnya
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
@@ -490,7 +490,7 @@
     <!-- Pagination -->
     <div class="scroll-animate mt-8 flex justify-center gap-2" data-animation="fade-up">
         <button class="px-4 py-2 bg-gray-200 text-gray-700 text-sm font-medium hover:bg-gray-300 transition-colors">Sebelumnya</button>
-        <button class="px-4 py-2 bg-green-800 text-white text-sm font-medium hover:bg-green-900 transition-colors">1</button>
+        <button class="px-4 py-2 bg-[#1e3a8a] text-white text-sm font-medium hover:bg-blue-900 transition-colors">1</button>
         <button class="px-4 py-2 bg-gray-200 text-gray-700 text-sm font-medium hover:bg-gray-300 transition-colors">2</button>
         <button class="px-4 py-2 bg-gray-200 text-gray-700 text-sm font-medium hover:bg-gray-300 transition-colors">3</button>
         <button class="px-4 py-2 bg-gray-200 text-gray-700 text-sm font-medium hover:bg-gray-300 transition-colors">Selanjutnya</button>
