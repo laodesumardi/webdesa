@@ -67,34 +67,34 @@
                 </button>
             </div>
             <!-- Menu Mobile -->
-            <div id="mobile-menu" class="hidden md:hidden border-t border-blue-700/50 bg-blue-900/50 backdrop-blur-sm mobile-menu-dropdown">
-                <div class="py-3">
-                    <a href="{{ route('beranda') }}" class="block px-5 py-4.5 hover:bg-[#1e3a8a] transition-all min-h-[56px] flex items-center {{ request()->routeIs('beranda') ? 'bg-[#1e3a8a] border-l-4 border-white' : '' }}">
-                        <span class="font-semibold text-base">Beranda</span>
+            <div id="mobile-menu" class="hidden md:hidden border-t-2 border-blue-600 bg-blue-800 mobile-menu-dropdown shadow-lg">
+                <div class="py-2">
+                    <a href="{{ route('beranda') }}" class="block px-6 py-5 hover:bg-[#1e3a8a] active:bg-[#1e3a8a] transition-all min-h-[60px] flex items-center border-b border-blue-700/30 {{ request()->routeIs('beranda') ? 'bg-[#1e3a8a] border-l-4 border-white shadow-md' : '' }}">
+                        <span class="font-bold text-lg text-white">Beranda</span>
                     </a>
-                    <a href="{{ route('profil') }}" class="block px-5 py-4.5 hover:bg-[#1e3a8a] transition-all min-h-[56px] flex items-center {{ request()->routeIs('profil') ? 'bg-[#1e3a8a] border-l-4 border-white' : '' }}">
-                        <span class="font-semibold text-base">Profil Desa</span>
+                    <a href="{{ route('profil') }}" class="block px-6 py-5 hover:bg-[#1e3a8a] active:bg-[#1e3a8a] transition-all min-h-[60px] flex items-center border-b border-blue-700/30 {{ request()->routeIs('profil') ? 'bg-[#1e3a8a] border-l-4 border-white shadow-md' : '' }}">
+                        <span class="font-bold text-lg text-white">Profil Desa</span>
                     </a>
-                    <a href="{{ route('pemerintahan') }}" class="block px-5 py-4.5 hover:bg-[#1e3a8a] transition-all min-h-[56px] flex items-center {{ request()->routeIs('pemerintahan') ? 'bg-[#1e3a8a] border-l-4 border-white' : '' }}">
-                        <span class="font-semibold text-base">Pemerintahan</span>
+                    <a href="{{ route('pemerintahan') }}" class="block px-6 py-5 hover:bg-[#1e3a8a] active:bg-[#1e3a8a] transition-all min-h-[60px] flex items-center border-b border-blue-700/30 {{ request()->routeIs('pemerintahan') ? 'bg-[#1e3a8a] border-l-4 border-white shadow-md' : '' }}">
+                        <span class="font-bold text-lg text-white">Pemerintahan</span>
                     </a>
-                    <a href="{{ route('berita') }}" class="block px-5 py-4.5 hover:bg-[#1e3a8a] transition-all min-h-[56px] flex items-center {{ request()->routeIs('berita') ? 'bg-[#1e3a8a] border-l-4 border-white' : '' }}">
-                        <span class="font-semibold text-base">Berita</span>
+                    <a href="{{ route('berita') }}" class="block px-6 py-5 hover:bg-[#1e3a8a] active:bg-[#1e3a8a] transition-all min-h-[60px] flex items-center border-b border-blue-700/30 {{ request()->routeIs('berita') ? 'bg-[#1e3a8a] border-l-4 border-white shadow-md' : '' }}">
+                        <span class="font-bold text-lg text-white">Berita</span>
                     </a>
-                    <a href="{{ route('layanan') }}" class="block px-5 py-4.5 hover:bg-[#1e3a8a] transition-all min-h-[56px] flex items-center {{ request()->routeIs('layanan') ? 'bg-[#1e3a8a] border-l-4 border-white' : '' }}">
-                        <span class="font-semibold text-base">Layanan</span>
+                    <a href="{{ route('layanan') }}" class="block px-6 py-5 hover:bg-[#1e3a8a] active:bg-[#1e3a8a] transition-all min-h-[60px] flex items-center border-b border-blue-700/30 {{ request()->routeIs('layanan') ? 'bg-[#1e3a8a] border-l-4 border-white shadow-md' : '' }}">
+                        <span class="font-bold text-lg text-white">Layanan</span>
                     </a>
-                    <a href="{{ route('data') }}" class="block px-5 py-4.5 hover:bg-[#1e3a8a] transition-all min-h-[56px] flex items-center {{ request()->routeIs('data') ? 'bg-[#1e3a8a] border-l-4 border-white' : '' }}">
-                        <span class="font-semibold text-base">Data Desa</span>
+                    <a href="{{ route('data') }}" class="block px-6 py-5 hover:bg-[#1e3a8a] active:bg-[#1e3a8a] transition-all min-h-[60px] flex items-center border-b border-blue-700/30 {{ request()->routeIs('data') ? 'bg-[#1e3a8a] border-l-4 border-white shadow-md' : '' }}">
+                        <span class="font-bold text-lg text-white">Data Desa</span>
                     </a>
-                    <a href="{{ route('galeri') }}" class="block px-5 py-4.5 hover:bg-[#1e3a8a] transition-all min-h-[56px] flex items-center {{ request()->routeIs('galeri') ? 'bg-[#1e3a8a] border-l-4 border-white' : '' }}">
-                        <span class="font-semibold text-base">Galeri</span>
+                    <a href="{{ route('galeri') }}" class="block px-6 py-5 hover:bg-[#1e3a8a] active:bg-[#1e3a8a] transition-all min-h-[60px] flex items-center border-b border-blue-700/30 {{ request()->routeIs('galeri') ? 'bg-[#1e3a8a] border-l-4 border-white shadow-md' : '' }}">
+                        <span class="font-bold text-lg text-white">Galeri</span>
                     </a>
-                    <a href="{{ route('umkm') }}" class="block px-5 py-4.5 hover:bg-[#1e3a8a] transition-all min-h-[56px] flex items-center {{ request()->routeIs('umkm') ? 'bg-[#1e3a8a] border-l-4 border-white' : '' }}">
-                        <span class="font-semibold text-base">Ekonomi & UMKM</span>
+                    <a href="{{ route('umkm') }}" class="block px-6 py-5 hover:bg-[#1e3a8a] active:bg-[#1e3a8a] transition-all min-h-[60px] flex items-center border-b border-blue-700/30 {{ request()->routeIs('umkm') ? 'bg-[#1e3a8a] border-l-4 border-white shadow-md' : '' }}">
+                        <span class="font-bold text-lg text-white">Ekonomi & UMKM</span>
                     </a>
-                    <a href="{{ route('kontak') }}" class="block px-5 py-4.5 hover:bg-[#1e3a8a] transition-all min-h-[56px] flex items-center {{ request()->routeIs('kontak') ? 'bg-[#1e3a8a] border-l-4 border-white' : '' }}">
-                        <span class="font-semibold text-base">Kontak</span>
+                    <a href="{{ route('kontak') }}" class="block px-6 py-5 hover:bg-[#1e3a8a] active:bg-[#1e3a8a] transition-all min-h-[60px] flex items-center {{ request()->routeIs('kontak') ? 'bg-[#1e3a8a] border-l-4 border-white shadow-md' : '' }}">
+                        <span class="font-bold text-lg text-white">Kontak</span>
                     </a>
                 </div>
             </div>
@@ -373,14 +373,24 @@
         .mobile-menu-dropdown a {
             transform: translateX(-20px);
             opacity: 0;
-            transition: transform 0.3s ease-out, opacity 0.3s ease-out;
-            -webkit-transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+            transition: transform 0.3s ease-out, opacity 0.3s ease-out, background-color 0.2s ease-out;
+            -webkit-transition: transform 0.3s ease-out, opacity 0.3s ease-out, background-color 0.2s ease-out;
+            -webkit-tap-highlight-color: rgba(255, 255, 255, 0.2);
+            touch-action: manipulation;
+            user-select: none;
+            -webkit-user-select: none;
         }
 
         .mobile-menu-dropdown.show a {
             transform: translateX(0);
             -webkit-transform: translateX(0);
             opacity: 1;
+        }
+
+        .mobile-menu-dropdown a:active {
+            background-color: #1e3a8a !important;
+            transform: scale(0.98);
+            -webkit-transform: scale(0.98);
         }
 
         .mobile-menu-dropdown.show a:nth-child(1) { transition-delay: 0.05s; -webkit-transition-delay: 0.05s; }
