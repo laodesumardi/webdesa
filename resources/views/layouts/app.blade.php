@@ -43,6 +43,7 @@
                     <a href="{{ route('darurat') }}" class="menu-item-animate px-4 py-3 text-sm font-medium hover:bg-green-800 transition-colors {{ request()->routeIs('darurat') ? 'bg-green-900 border-b-2 border-white' : '' }}">Darurat</a>
                     <a href="{{ route('kesehatan') }}" class="menu-item-animate px-4 py-3 text-sm font-medium hover:bg-green-800 transition-colors {{ request()->routeIs('kesehatan') ? 'bg-green-900 border-b-2 border-white' : '' }}">Kesehatan</a>
                     <a href="{{ route('galeri') }}" class="menu-item-animate px-4 py-3 text-sm font-medium hover:bg-green-800 transition-colors {{ request()->routeIs('galeri') ? 'bg-green-900 border-b-2 border-white' : '' }}">Galeri</a>
+                    <a href="{{ route('umkm') }}" class="menu-item-animate px-4 py-3 text-sm font-medium hover:bg-green-800 transition-colors {{ request()->routeIs('umkm') ? 'bg-green-900 border-b-2 border-white' : '' }}">Ekonomi & UMKM</a>
                     <a href="{{ route('kontak') }}" class="menu-item-animate px-4 py-3 text-sm font-medium hover:bg-green-800 transition-colors {{ request()->routeIs('kontak') ? 'bg-green-900 border-b-2 border-white' : '' }}">Kontak</a>
                 </div>
                 <!-- Tombol Mobile Menu -->
@@ -63,6 +64,7 @@
                 <a href="{{ route('darurat') }}" class="block px-4 py-2 hover:bg-green-800 transition-colors {{ request()->routeIs('darurat') ? 'bg-green-900' : '' }}">Darurat & Keamanan</a>
                 <a href="{{ route('kesehatan') }}" class="block px-4 py-2 hover:bg-green-800 transition-colors {{ request()->routeIs('kesehatan') ? 'bg-green-900' : '' }}">Kesehatan & Sosial</a>
                 <a href="{{ route('galeri') }}" class="block px-4 py-2 hover:bg-green-800 transition-colors {{ request()->routeIs('galeri') ? 'bg-green-900' : '' }}">Galeri</a>
+                <a href="{{ route('umkm') }}" class="block px-4 py-2 hover:bg-green-800 transition-colors {{ request()->routeIs('umkm') ? 'bg-green-900' : '' }}">Ekonomi & UMKM</a>
                 <a href="{{ route('kontak') }}" class="block px-4 py-2 hover:bg-green-800 transition-colors {{ request()->routeIs('kontak') ? 'bg-green-900' : '' }}">Kontak & Aspirasi</a>
             </div>
         </div>
@@ -103,6 +105,7 @@
                         <li><a href="{{ route('layanan') }}" class="text-gray-300 hover:text-white transition-colors">Layanan Desa</a></li>
                         <li><a href="{{ route('data') }}" class="text-gray-300 hover:text-white transition-colors">Data Desa</a></li>
                         <li><a href="{{ route('galeri') }}" class="text-gray-300 hover:text-white transition-colors">Galeri</a></li>
+                        <li><a href="{{ route('umkm') }}" class="text-gray-300 hover:text-white transition-colors">Ekonomi & UMKM</a></li>
                         <li><a href="{{ route('kontak') }}" class="text-gray-300 hover:text-white transition-colors">Kontak & Aspirasi</a></li>
                     </ul>
                 </div>

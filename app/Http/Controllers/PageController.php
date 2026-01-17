@@ -49,6 +49,11 @@ class PageController extends Controller
         return view('galeri');
     }
 
+    public function umkm()
+    {
+        return view('umkm');
+    }
+
     public function kontak()
     {
         return view('kontak');

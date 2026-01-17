@@ -12,4 +12,5 @@ Route::get('/data', [PageController::class, 'data'])->name('data');
 Route::get('/darurat', [PageController::class, 'darurat'])->name('darurat');
 Route::get('/kesehatan', [PageController::class, 'kesehatan'])->name('kesehatan');
 Route::get('/galeri', [PageController::class, 'galeri'])->name('galeri');
+Route::get('/ekonomi-umkm', [PageController::class, 'umkm'])->name('umkm');
 Route::get('/kontak', [PageController::class, 'kontak'])->name('kontak');
