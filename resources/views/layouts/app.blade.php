@@ -29,35 +29,25 @@
     </header>
 
     <!-- Navigasi Sticky -->
-    <nav id="sticky-nav" class="sticky top-0 z-50 bg-gradient-to-r from-blue-800 to-blue-900 text-white transition-all duration-300 nav-animate shadow-lg">
+    <nav id="sticky-nav" class="sticky top-0 z-50 bg-blue-800 text-white transition-all duration-300 nav-animate">
         <div class="container mx-auto px-4">
             <div class="flex items-center justify-between">
                 <!-- Menu Desktop -->
-                <div class="hidden lg:flex items-center gap-1">
-                    <a href="{{ route('beranda') }}" class="menu-item-animate px-4 py-3 text-sm font-semibold hover:bg-[#1e3a8a] transition-all rounded-lg {{ request()->routeIs('beranda') ? 'bg-[#1e3a8a] shadow-md' : '' }}">Beranda</a>
-                    <a href="{{ route('profil') }}" class="menu-item-animate px-4 py-3 text-sm font-semibold hover:bg-[#1e3a8a] transition-all rounded-lg {{ request()->routeIs('profil') ? 'bg-[#1e3a8a] shadow-md' : '' }}">Profil</a>
-                    <a href="{{ route('pemerintahan') }}" class="menu-item-animate px-4 py-3 text-sm font-semibold hover:bg-[#1e3a8a] transition-all rounded-lg {{ request()->routeIs('pemerintahan') ? 'bg-[#1e3a8a] shadow-md' : '' }}">Pemerintahan</a>
-                    <a href="{{ route('berita') }}" class="menu-item-animate px-4 py-3 text-sm font-semibold hover:bg-[#1e3a8a] transition-all rounded-lg {{ request()->routeIs('berita') ? 'bg-[#1e3a8a] shadow-md' : '' }}">Berita</a>
-                    <a href="{{ route('layanan') }}" class="menu-item-animate px-4 py-3 text-sm font-semibold hover:bg-[#1e3a8a] transition-all rounded-lg {{ request()->routeIs('layanan') ? 'bg-[#1e3a8a] shadow-md' : '' }}">Layanan</a>
-                    <a href="{{ route('data') }}" class="menu-item-animate px-4 py-3 text-sm font-semibold hover:bg-[#1e3a8a] transition-all rounded-lg {{ request()->routeIs('data') ? 'bg-[#1e3a8a] shadow-md' : '' }}">Data</a>
-                    <a href="{{ route('galeri') }}" class="menu-item-animate px-4 py-3 text-sm font-semibold hover:bg-[#1e3a8a] transition-all rounded-lg {{ request()->routeIs('galeri') ? 'bg-[#1e3a8a] shadow-md' : '' }}">Galeri</a>
-                    <a href="{{ route('umkm') }}" class="menu-item-animate px-4 py-3 text-sm font-semibold hover:bg-[#1e3a8a] transition-all rounded-lg {{ request()->routeIs('umkm') ? 'bg-[#1e3a8a] shadow-md' : '' }}">UMKM</a>
-                    <a href="{{ route('kontak') }}" class="menu-item-animate px-4 py-3 text-sm font-semibold hover:bg-[#1e3a8a] transition-all rounded-lg {{ request()->routeIs('kontak') ? 'bg-[#1e3a8a] shadow-md' : '' }}">Kontak</a>
-                </div>
-                <!-- Menu Tablet/Mobile Compact -->
-                <div class="hidden md:flex lg:hidden items-center gap-1 overflow-x-auto scrollbar-hide">
-                    <a href="{{ route('beranda') }}" class="menu-item-animate px-3 py-2.5 text-xs font-semibold hover:bg-[#1e3a8a] transition-all rounded-lg flex-shrink-0 {{ request()->routeIs('beranda') ? 'bg-[#1e3a8a] shadow-md' : '' }}">Beranda</a>
-                    <a href="{{ route('profil') }}" class="menu-item-animate px-3 py-2.5 text-xs font-semibold hover:bg-[#1e3a8a] transition-all rounded-lg flex-shrink-0 {{ request()->routeIs('profil') ? 'bg-[#1e3a8a] shadow-md' : '' }}">Profil</a>
-                    <a href="{{ route('pemerintahan') }}" class="menu-item-animate px-3 py-2.5 text-xs font-semibold hover:bg-[#1e3a8a] transition-all rounded-lg flex-shrink-0 {{ request()->routeIs('pemerintahan') ? 'bg-[#1e3a8a] shadow-md' : '' }}">Pemerintahan</a>
-                    <a href="{{ route('berita') }}" class="menu-item-animate px-3 py-2.5 text-xs font-semibold hover:bg-[#1e3a8a] transition-all rounded-lg flex-shrink-0 {{ request()->routeIs('berita') ? 'bg-[#1e3a8a] shadow-md' : '' }}">Berita</a>
-                    <a href="{{ route('layanan') }}" class="menu-item-animate px-3 py-2.5 text-xs font-semibold hover:bg-[#1e3a8a] transition-all rounded-lg flex-shrink-0 {{ request()->routeIs('layanan') ? 'bg-[#1e3a8a] shadow-md' : '' }}">Layanan</a>
-                    <a href="{{ route('data') }}" class="menu-item-animate px-3 py-2.5 text-xs font-semibold hover:bg-[#1e3a8a] transition-all rounded-lg flex-shrink-0 {{ request()->routeIs('data') ? 'bg-[#1e3a8a] shadow-md' : '' }}">Data</a>
-                    <a href="{{ route('galeri') }}" class="menu-item-animate px-3 py-2.5 text-xs font-semibold hover:bg-[#1e3a8a] transition-all rounded-lg flex-shrink-0 {{ request()->routeIs('galeri') ? 'bg-[#1e3a8a] shadow-md' : '' }}">Galeri</a>
-                    <a href="{{ route('umkm') }}" class="menu-item-animate px-3 py-2.5 text-xs font-semibold hover:bg-[#1e3a8a] transition-all rounded-lg flex-shrink-0 {{ request()->routeIs('umkm') ? 'bg-[#1e3a8a] shadow-md' : '' }}">UMKM</a>
-                    <a href="{{ route('kontak') }}" class="menu-item-animate px-3 py-2.5 text-xs font-semibold hover:bg-[#1e3a8a] transition-all rounded-lg flex-shrink-0 {{ request()->routeIs('kontak') ? 'bg-[#1e3a8a] shadow-md' : '' }}">Kontak</a>
+                <div class="hidden md:flex flex-wrap">
+                    <a href="{{ route('beranda') }}" class="menu-item-animate px-4 py-3 text-sm font-medium hover:bg-[#1e3a8a] transition-colors {{ request()->routeIs('beranda') ? 'bg-[#1e3a8a] border-b-2 border-white' : '' }}">Beranda</a>
+                    <a href="{{ route('profil') }}" class="menu-item-animate px-4 py-3 text-sm font-medium hover:bg-[#1e3a8a] transition-colors {{ request()->routeIs('profil') ? 'bg-[#1e3a8a] border-b-2 border-white' : '' }}">Profil Desa</a>
+                    <a href="{{ route('pemerintahan') }}" class="menu-item-animate px-4 py-3 text-sm font-medium hover:bg-[#1e3a8a] transition-colors {{ request()->routeIs('pemerintahan') ? 'bg-[#1e3a8a] border-b-2 border-white' : '' }}">Pemerintahan</a>
+                    <a href="{{ route('berita') }}" class="menu-item-animate px-4 py-3 text-sm font-medium hover:bg-[#1e3a8a] transition-colors {{ request()->routeIs('berita') ? 'bg-[#1e3a8a] border-b-2 border-white' : '' }}">Berita</a>
+                    <a href="{{ route('layanan') }}" class="menu-item-animate px-4 py-3 text-sm font-medium hover:bg-[#1e3a8a] transition-colors {{ request()->routeIs('layanan') ? 'bg-[#1e3a8a] border-b-2 border-white' : '' }}">Layanan</a>
+                    <a href="{{ route('data') }}" class="menu-item-animate px-4 py-3 text-sm font-medium hover:bg-[#1e3a8a] transition-colors {{ request()->routeIs('data') ? 'bg-[#1e3a8a] border-b-2 border-white' : '' }}">Data Desa</a>
+                    <a href="{{ route('darurat') }}" class="menu-item-animate px-4 py-3 text-sm font-medium hover:bg-[#1e3a8a] transition-colors {{ request()->routeIs('darurat') ? 'bg-[#1e3a8a] border-b-2 border-white' : '' }}">Darurat</a>
+                    <a href="{{ route('kesehatan') }}" class="menu-item-animate px-4 py-3 text-sm font-medium hover:bg-[#1e3a8a] transition-colors {{ request()->routeIs('kesehatan') ? 'bg-[#1e3a8a] border-b-2 border-white' : '' }}">Kesehatan</a>
+                    <a href="{{ route('galeri') }}" class="menu-item-animate px-4 py-3 text-sm font-medium hover:bg-[#1e3a8a] transition-colors {{ request()->routeIs('galeri') ? 'bg-[#1e3a8a] border-b-2 border-white' : '' }}">Galeri</a>
+                    <a href="{{ route('umkm') }}" class="menu-item-animate px-4 py-3 text-sm font-medium hover:bg-[#1e3a8a] transition-colors {{ request()->routeIs('umkm') ? 'bg-[#1e3a8a] border-b-2 border-white' : '' }}">Ekonomi & UMKM</a>
+                    <a href="{{ route('kontak') }}" class="menu-item-animate px-4 py-3 text-sm font-medium hover:bg-[#1e3a8a] transition-colors {{ request()->routeIs('kontak') ? 'bg-[#1e3a8a] border-b-2 border-white' : '' }}">Kontak</a>
                 </div>
                 <!-- Tombol Mobile Menu -->
-                <button id="mobile-menu-btn" class="md:hidden p-2.5 hover:bg-[#1e3a8a] transition-all rounded-lg">
+                <button id="mobile-menu-btn" class="md:hidden p-2 hover:bg-[#1e3a8a] transition-colors">
                     <svg id="menu-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                     </svg>
@@ -67,36 +57,18 @@
                 </button>
             </div>
             <!-- Menu Mobile -->
-            <div id="mobile-menu" class="hidden md:hidden border-t-2 border-blue-600 bg-blue-800 mobile-menu-dropdown shadow-lg">
-                <div class="py-2">
-                    <a href="{{ route('beranda') }}" class="block px-6 py-5 hover:bg-[#1e3a8a] active:bg-[#1e3a8a] transition-all min-h-[60px] flex items-center border-b border-blue-700/30 {{ request()->routeIs('beranda') ? 'bg-[#1e3a8a] border-l-4 border-white shadow-md' : '' }}">
-                        <span class="font-bold text-lg text-white">Beranda</span>
-                    </a>
-                    <a href="{{ route('profil') }}" class="block px-6 py-5 hover:bg-[#1e3a8a] active:bg-[#1e3a8a] transition-all min-h-[60px] flex items-center border-b border-blue-700/30 {{ request()->routeIs('profil') ? 'bg-[#1e3a8a] border-l-4 border-white shadow-md' : '' }}">
-                        <span class="font-bold text-lg text-white">Profil Desa</span>
-                    </a>
-                    <a href="{{ route('pemerintahan') }}" class="block px-6 py-5 hover:bg-[#1e3a8a] active:bg-[#1e3a8a] transition-all min-h-[60px] flex items-center border-b border-blue-700/30 {{ request()->routeIs('pemerintahan') ? 'bg-[#1e3a8a] border-l-4 border-white shadow-md' : '' }}">
-                        <span class="font-bold text-lg text-white">Pemerintahan</span>
-                    </a>
-                    <a href="{{ route('berita') }}" class="block px-6 py-5 hover:bg-[#1e3a8a] active:bg-[#1e3a8a] transition-all min-h-[60px] flex items-center border-b border-blue-700/30 {{ request()->routeIs('berita') ? 'bg-[#1e3a8a] border-l-4 border-white shadow-md' : '' }}">
-                        <span class="font-bold text-lg text-white">Berita</span>
-                    </a>
-                    <a href="{{ route('layanan') }}" class="block px-6 py-5 hover:bg-[#1e3a8a] active:bg-[#1e3a8a] transition-all min-h-[60px] flex items-center border-b border-blue-700/30 {{ request()->routeIs('layanan') ? 'bg-[#1e3a8a] border-l-4 border-white shadow-md' : '' }}">
-                        <span class="font-bold text-lg text-white">Layanan</span>
-                    </a>
-                    <a href="{{ route('data') }}" class="block px-6 py-5 hover:bg-[#1e3a8a] active:bg-[#1e3a8a] transition-all min-h-[60px] flex items-center border-b border-blue-700/30 {{ request()->routeIs('data') ? 'bg-[#1e3a8a] border-l-4 border-white shadow-md' : '' }}">
-                        <span class="font-bold text-lg text-white">Data Desa</span>
-                    </a>
-                    <a href="{{ route('galeri') }}" class="block px-6 py-5 hover:bg-[#1e3a8a] active:bg-[#1e3a8a] transition-all min-h-[60px] flex items-center border-b border-blue-700/30 {{ request()->routeIs('galeri') ? 'bg-[#1e3a8a] border-l-4 border-white shadow-md' : '' }}">
-                        <span class="font-bold text-lg text-white">Galeri</span>
-                    </a>
-                    <a href="{{ route('umkm') }}" class="block px-6 py-5 hover:bg-[#1e3a8a] active:bg-[#1e3a8a] transition-all min-h-[60px] flex items-center border-b border-blue-700/30 {{ request()->routeIs('umkm') ? 'bg-[#1e3a8a] border-l-4 border-white shadow-md' : '' }}">
-                        <span class="font-bold text-lg text-white">Ekonomi & UMKM</span>
-                    </a>
-                    <a href="{{ route('kontak') }}" class="block px-6 py-5 hover:bg-[#1e3a8a] active:bg-[#1e3a8a] transition-all min-h-[60px] flex items-center {{ request()->routeIs('kontak') ? 'bg-[#1e3a8a] border-l-4 border-white shadow-md' : '' }}">
-                        <span class="font-bold text-lg text-white">Kontak</span>
-                    </a>
-                </div>
+            <div id="mobile-menu" class="hidden md:hidden border-t border-blue-600">
+                <a href="{{ route('beranda') }}" class="block px-4 py-2 hover:bg-[#1e3a8a] transition-colors {{ request()->routeIs('beranda') ? 'bg-[#1e3a8a]' : '' }}">Beranda</a>
+                <a href="{{ route('profil') }}" class="block px-4 py-2 hover:bg-[#1e3a8a] transition-colors {{ request()->routeIs('profil') ? 'bg-[#1e3a8a]' : '' }}">Profil Desa</a>
+                <a href="{{ route('pemerintahan') }}" class="block px-4 py-2 hover:bg-[#1e3a8a] transition-colors {{ request()->routeIs('pemerintahan') ? 'bg-[#1e3a8a]' : '' }}">Pemerintahan Desa</a>
+                <a href="{{ route('berita') }}" class="block px-4 py-2 hover:bg-[#1e3a8a] transition-colors {{ request()->routeIs('berita') ? 'bg-[#1e3a8a]' : '' }}">Berita & Pengumuman</a>
+                <a href="{{ route('layanan') }}" class="block px-4 py-2 hover:bg-[#1e3a8a] transition-colors {{ request()->routeIs('layanan') ? 'bg-[#1e3a8a]' : '' }}">Layanan Desa</a>
+                <a href="{{ route('data') }}" class="block px-4 py-2 hover:bg-[#1e3a8a] transition-colors {{ request()->routeIs('data') ? 'bg-[#1e3a8a]' : '' }}">Data Desa</a>
+                <a href="{{ route('darurat') }}" class="block px-4 py-2 hover:bg-[#1e3a8a] transition-colors {{ request()->routeIs('darurat') ? 'bg-[#1e3a8a]' : '' }}">Darurat & Keamanan</a>
+                <a href="{{ route('kesehatan') }}" class="block px-4 py-2 hover:bg-[#1e3a8a] transition-colors {{ request()->routeIs('kesehatan') ? 'bg-[#1e3a8a]' : '' }}">Kesehatan & Sosial</a>
+                <a href="{{ route('galeri') }}" class="block px-4 py-2 hover:bg-[#1e3a8a] transition-colors {{ request()->routeIs('galeri') ? 'bg-[#1e3a8a]' : '' }}">Galeri</a>
+                <a href="{{ route('umkm') }}" class="block px-4 py-2 hover:bg-[#1e3a8a] transition-colors {{ request()->routeIs('umkm') ? 'bg-[#1e3a8a]' : '' }}">Ekonomi & UMKM</a>
+                <a href="{{ route('kontak') }}" class="block px-4 py-2 hover:bg-[#1e3a8a] transition-colors {{ request()->routeIs('kontak') ? 'bg-[#1e3a8a]' : '' }}">Kontak & Aspirasi</a>
             </div>
         </div>
     </nav>
@@ -346,131 +318,23 @@
             display: none;
         }
 
-        /* Mobile Menu Dropdown Animation */
-        .mobile-menu-dropdown {
-            max-height: 0;
-            opacity: 0;
-            overflow: hidden;
-            padding-top: 0;
-            padding-bottom: 0;
-            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
-                        opacity 0.3s ease-out, 
-                        padding-top 0.3s ease-out,
-                        padding-bottom 0.3s ease-out;
-            -webkit-transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
-                              opacity 0.3s ease-out, 
-                              padding-top 0.3s ease-out,
-                              padding-bottom 0.3s ease-out;
-        }
-
-        .mobile-menu-dropdown.show {
-            max-height: 1200px;
-            opacity: 1;
-            padding-top: 0.75rem;
-            padding-bottom: 0.75rem;
-        }
-
-        .mobile-menu-dropdown a {
-            transform: translateX(-20px);
-            opacity: 0;
-            transition: transform 0.3s ease-out, opacity 0.3s ease-out, background-color 0.2s ease-out;
-            -webkit-transition: transform 0.3s ease-out, opacity 0.3s ease-out, background-color 0.2s ease-out;
-            -webkit-tap-highlight-color: rgba(255, 255, 255, 0.2);
-            touch-action: manipulation;
-            user-select: none;
-            -webkit-user-select: none;
-        }
-
-        .mobile-menu-dropdown.show a {
-            transform: translateX(0);
-            -webkit-transform: translateX(0);
-            opacity: 1;
-        }
-
-        .mobile-menu-dropdown a:active {
-            background-color: #1e3a8a !important;
-            transform: scale(0.98);
-            -webkit-transform: scale(0.98);
-        }
-
-        .mobile-menu-dropdown.show a:nth-child(1) { transition-delay: 0.05s; -webkit-transition-delay: 0.05s; }
-        .mobile-menu-dropdown.show a:nth-child(2) { transition-delay: 0.1s; -webkit-transition-delay: 0.1s; }
-        .mobile-menu-dropdown.show a:nth-child(3) { transition-delay: 0.15s; -webkit-transition-delay: 0.15s; }
-        .mobile-menu-dropdown.show a:nth-child(4) { transition-delay: 0.2s; -webkit-transition-delay: 0.2s; }
-        .mobile-menu-dropdown.show a:nth-child(5) { transition-delay: 0.25s; -webkit-transition-delay: 0.25s; }
-        .mobile-menu-dropdown.show a:nth-child(6) { transition-delay: 0.3s; -webkit-transition-delay: 0.3s; }
-        .mobile-menu-dropdown.show a:nth-child(7) { transition-delay: 0.35s; -webkit-transition-delay: 0.35s; }
-        .mobile-menu-dropdown.show a:nth-child(8) { transition-delay: 0.4s; -webkit-transition-delay: 0.4s; }
-        .mobile-menu-dropdown.show a:nth-child(9) { transition-delay: 0.45s; -webkit-transition-delay: 0.45s; }
-        .mobile-menu-dropdown.show a:nth-child(10) { transition-delay: 0.5s; -webkit-transition-delay: 0.5s; }
-        .mobile-menu-dropdown.show a:nth-child(11) { transition-delay: 0.55s; -webkit-transition-delay: 0.55s; }
     </style>
     <script>
-        // Toggle Mobile Menu dengan Animasi Smooth (Compatible dengan Android)
-        document.addEventListener('DOMContentLoaded', function() {
-            const menuBtn = document.getElementById('mobile-menu-btn');
+        // Toggle Mobile Menu
+        document.getElementById('mobile-menu-btn').addEventListener('click', function() {
             const menu = document.getElementById('mobile-menu');
             const menuIcon = document.getElementById('menu-icon');
             const closeIcon = document.getElementById('close-icon');
             
-            if (!menuBtn || !menu || !menuIcon || !closeIcon) return;
+            menu.classList.toggle('hidden');
             
-            let isMenuOpen = false;
-            
-            function openMenu() {
-                if (isMenuOpen) return;
-                isMenuOpen = true;
-                menu.classList.remove('hidden');
-                // Force reflow untuk memastikan animasi berjalan
-                void menu.offsetHeight;
-                setTimeout(function() {
-                    menu.classList.add('show');
-                }, 10);
+            if (menu.classList.contains('hidden')) {
+                menuIcon.classList.remove('hidden');
+                closeIcon.classList.add('hidden');
+            } else {
                 menuIcon.classList.add('hidden');
                 closeIcon.classList.remove('hidden');
             }
-            
-            function closeMenu() {
-                if (!isMenuOpen) return;
-                isMenuOpen = false;
-                menu.classList.remove('show');
-                setTimeout(function() {
-                    menu.classList.add('hidden');
-                }, 400);
-                menuIcon.classList.remove('hidden');
-                closeIcon.classList.add('hidden');
-            }
-            
-            function toggleMenu(e) {
-                if (e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                }
-                if (isMenuOpen) {
-                    closeMenu();
-                } else {
-                    openMenu();
-                }
-            }
-            
-            // Support untuk click dan touch events (Android)
-            menuBtn.addEventListener('click', toggleMenu);
-            menuBtn.addEventListener('touchend', toggleMenu);
-            
-            // Tutup menu saat klik di luar atau saat klik link
-            document.addEventListener('click', function(e) {
-                if (isMenuOpen && !menuBtn.contains(e.target) && !menu.contains(e.target)) {
-                    closeMenu();
-                }
-            });
-            
-            // Tutup menu saat klik link di dalam menu
-            const menuLinks = menu.querySelectorAll('a');
-            menuLinks.forEach(function(link) {
-                link.addEventListener('click', function() {
-                    setTimeout(closeMenu, 100);
-                });
-            });
         });
 
         // Sticky Navigation dengan Shadow saat Scroll
