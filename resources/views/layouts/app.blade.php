@@ -34,117 +34,27 @@
             <div class="flex items-center justify-between">
                 <!-- Menu Desktop -->
                 <div class="hidden lg:flex items-center gap-1">
-                    <a href="{{ route('beranda') }}" class="menu-item-animate px-4 py-3 text-sm font-semibold hover:bg-[#1e3a8a] transition-all rounded-lg flex items-center gap-2 {{ request()->routeIs('beranda') ? 'bg-[#1e3a8a] shadow-md' : '' }}">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
-                        </svg>
-                        Beranda
-                    </a>
-                    <a href="{{ route('profil') }}" class="menu-item-animate px-4 py-3 text-sm font-semibold hover:bg-[#1e3a8a] transition-all rounded-lg flex items-center gap-2 {{ request()->routeIs('profil') ? 'bg-[#1e3a8a] shadow-md' : '' }}">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
-                        </svg>
-                        Profil
-                    </a>
-                    <a href="{{ route('pemerintahan') }}" class="menu-item-animate px-4 py-3 text-sm font-semibold hover:bg-[#1e3a8a] transition-all rounded-lg flex items-center gap-2 {{ request()->routeIs('pemerintahan') ? 'bg-[#1e3a8a] shadow-md' : '' }}">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
-                        </svg>
-                        Pemerintahan
-                    </a>
-                    <a href="{{ route('berita') }}" class="menu-item-animate px-4 py-3 text-sm font-semibold hover:bg-[#1e3a8a] transition-all rounded-lg flex items-center gap-2 {{ request()->routeIs('berita') ? 'bg-[#1e3a8a] shadow-md' : '' }}">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path>
-                        </svg>
-                        Berita
-                    </a>
-                    <a href="{{ route('layanan') }}" class="menu-item-animate px-4 py-3 text-sm font-semibold hover:bg-[#1e3a8a] transition-all rounded-lg flex items-center gap-2 {{ request()->routeIs('layanan') ? 'bg-[#1e3a8a] shadow-md' : '' }}">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                        </svg>
-                        Layanan
-                    </a>
-                    <a href="{{ route('data') }}" class="menu-item-animate px-4 py-3 text-sm font-semibold hover:bg-[#1e3a8a] transition-all rounded-lg flex items-center gap-2 {{ request()->routeIs('data') ? 'bg-[#1e3a8a] shadow-md' : '' }}">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
-                        </svg>
-                        Data
-                    </a>
-                    <a href="{{ route('galeri') }}" class="menu-item-animate px-4 py-3 text-sm font-semibold hover:bg-[#1e3a8a] transition-all rounded-lg flex items-center gap-2 {{ request()->routeIs('galeri') ? 'bg-[#1e3a8a] shadow-md' : '' }}">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                        </svg>
-                        Galeri
-                    </a>
-                    <a href="{{ route('umkm') }}" class="menu-item-animate px-4 py-3 text-sm font-semibold hover:bg-[#1e3a8a] transition-all rounded-lg flex items-center gap-2 {{ request()->routeIs('umkm') ? 'bg-[#1e3a8a] shadow-md' : '' }}">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-                        </svg>
-                        UMKM
-                    </a>
-                    <a href="{{ route('kontak') }}" class="menu-item-animate px-4 py-3 text-sm font-semibold hover:bg-[#1e3a8a] transition-all rounded-lg flex items-center gap-2 {{ request()->routeIs('kontak') ? 'bg-[#1e3a8a] shadow-md' : '' }}">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-                        </svg>
-                        Kontak
-                    </a>
+                    <a href="{{ route('beranda') }}" class="menu-item-animate px-4 py-3 text-sm font-semibold hover:bg-[#1e3a8a] transition-all rounded-lg {{ request()->routeIs('beranda') ? 'bg-[#1e3a8a] shadow-md' : '' }}">Beranda</a>
+                    <a href="{{ route('profil') }}" class="menu-item-animate px-4 py-3 text-sm font-semibold hover:bg-[#1e3a8a] transition-all rounded-lg {{ request()->routeIs('profil') ? 'bg-[#1e3a8a] shadow-md' : '' }}">Profil</a>
+                    <a href="{{ route('pemerintahan') }}" class="menu-item-animate px-4 py-3 text-sm font-semibold hover:bg-[#1e3a8a] transition-all rounded-lg {{ request()->routeIs('pemerintahan') ? 'bg-[#1e3a8a] shadow-md' : '' }}">Pemerintahan</a>
+                    <a href="{{ route('berita') }}" class="menu-item-animate px-4 py-3 text-sm font-semibold hover:bg-[#1e3a8a] transition-all rounded-lg {{ request()->routeIs('berita') ? 'bg-[#1e3a8a] shadow-md' : '' }}">Berita</a>
+                    <a href="{{ route('layanan') }}" class="menu-item-animate px-4 py-3 text-sm font-semibold hover:bg-[#1e3a8a] transition-all rounded-lg {{ request()->routeIs('layanan') ? 'bg-[#1e3a8a] shadow-md' : '' }}">Layanan</a>
+                    <a href="{{ route('data') }}" class="menu-item-animate px-4 py-3 text-sm font-semibold hover:bg-[#1e3a8a] transition-all rounded-lg {{ request()->routeIs('data') ? 'bg-[#1e3a8a] shadow-md' : '' }}">Data</a>
+                    <a href="{{ route('galeri') }}" class="menu-item-animate px-4 py-3 text-sm font-semibold hover:bg-[#1e3a8a] transition-all rounded-lg {{ request()->routeIs('galeri') ? 'bg-[#1e3a8a] shadow-md' : '' }}">Galeri</a>
+                    <a href="{{ route('umkm') }}" class="menu-item-animate px-4 py-3 text-sm font-semibold hover:bg-[#1e3a8a] transition-all rounded-lg {{ request()->routeIs('umkm') ? 'bg-[#1e3a8a] shadow-md' : '' }}">UMKM</a>
+                    <a href="{{ route('kontak') }}" class="menu-item-animate px-4 py-3 text-sm font-semibold hover:bg-[#1e3a8a] transition-all rounded-lg {{ request()->routeIs('kontak') ? 'bg-[#1e3a8a] shadow-md' : '' }}">Kontak</a>
                 </div>
                 <!-- Menu Tablet/Mobile Compact -->
                 <div class="hidden md:flex lg:hidden items-center gap-1 overflow-x-auto scrollbar-hide">
-                    <a href="{{ route('beranda') }}" class="menu-item-animate px-3 py-2.5 text-xs font-semibold hover:bg-[#1e3a8a] transition-all rounded-lg flex items-center gap-1.5 flex-shrink-0 {{ request()->routeIs('beranda') ? 'bg-[#1e3a8a] shadow-md' : '' }}">
-                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
-                        </svg>
-                        Beranda
-                    </a>
-                    <a href="{{ route('profil') }}" class="menu-item-animate px-3 py-2.5 text-xs font-semibold hover:bg-[#1e3a8a] transition-all rounded-lg flex items-center gap-1.5 flex-shrink-0 {{ request()->routeIs('profil') ? 'bg-[#1e3a8a] shadow-md' : '' }}">
-                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
-                        </svg>
-                        Profil
-                    </a>
-                    <a href="{{ route('pemerintahan') }}" class="menu-item-animate px-3 py-2.5 text-xs font-semibold hover:bg-[#1e3a8a] transition-all rounded-lg flex items-center gap-1.5 flex-shrink-0 {{ request()->routeIs('pemerintahan') ? 'bg-[#1e3a8a] shadow-md' : '' }}">
-                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
-                        </svg>
-                        Pemerintahan
-                    </a>
-                    <a href="{{ route('berita') }}" class="menu-item-animate px-3 py-2.5 text-xs font-semibold hover:bg-[#1e3a8a] transition-all rounded-lg flex items-center gap-1.5 flex-shrink-0 {{ request()->routeIs('berita') ? 'bg-[#1e3a8a] shadow-md' : '' }}">
-                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path>
-                        </svg>
-                        Berita
-                    </a>
-                    <a href="{{ route('layanan') }}" class="menu-item-animate px-3 py-2.5 text-xs font-semibold hover:bg-[#1e3a8a] transition-all rounded-lg flex items-center gap-1.5 flex-shrink-0 {{ request()->routeIs('layanan') ? 'bg-[#1e3a8a] shadow-md' : '' }}">
-                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                        </svg>
-                        Layanan
-                    </a>
-                    <a href="{{ route('data') }}" class="menu-item-animate px-3 py-2.5 text-xs font-semibold hover:bg-[#1e3a8a] transition-all rounded-lg flex items-center gap-1.5 flex-shrink-0 {{ request()->routeIs('data') ? 'bg-[#1e3a8a] shadow-md' : '' }}">
-                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
-                        </svg>
-                        Data
-                    </a>
-                    <a href="{{ route('galeri') }}" class="menu-item-animate px-3 py-2.5 text-xs font-semibold hover:bg-[#1e3a8a] transition-all rounded-lg flex items-center gap-1.5 flex-shrink-0 {{ request()->routeIs('galeri') ? 'bg-[#1e3a8a] shadow-md' : '' }}">
-                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                        </svg>
-                        Galeri
-                    </a>
-                    <a href="{{ route('umkm') }}" class="menu-item-animate px-3 py-2.5 text-xs font-semibold hover:bg-[#1e3a8a] transition-all rounded-lg flex items-center gap-1.5 flex-shrink-0 {{ request()->routeIs('umkm') ? 'bg-[#1e3a8a] shadow-md' : '' }}">
-                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-                        </svg>
-                        UMKM
-                    </a>
-                    <a href="{{ route('kontak') }}" class="menu-item-animate px-3 py-2.5 text-xs font-semibold hover:bg-[#1e3a8a] transition-all rounded-lg flex items-center gap-1.5 flex-shrink-0 {{ request()->routeIs('kontak') ? 'bg-[#1e3a8a] shadow-md' : '' }}">
-                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-                        </svg>
-                        Kontak
-                    </a>
+                    <a href="{{ route('beranda') }}" class="menu-item-animate px-3 py-2.5 text-xs font-semibold hover:bg-[#1e3a8a] transition-all rounded-lg flex-shrink-0 {{ request()->routeIs('beranda') ? 'bg-[#1e3a8a] shadow-md' : '' }}">Beranda</a>
+                    <a href="{{ route('profil') }}" class="menu-item-animate px-3 py-2.5 text-xs font-semibold hover:bg-[#1e3a8a] transition-all rounded-lg flex-shrink-0 {{ request()->routeIs('profil') ? 'bg-[#1e3a8a] shadow-md' : '' }}">Profil</a>
+                    <a href="{{ route('pemerintahan') }}" class="menu-item-animate px-3 py-2.5 text-xs font-semibold hover:bg-[#1e3a8a] transition-all rounded-lg flex-shrink-0 {{ request()->routeIs('pemerintahan') ? 'bg-[#1e3a8a] shadow-md' : '' }}">Pemerintahan</a>
+                    <a href="{{ route('berita') }}" class="menu-item-animate px-3 py-2.5 text-xs font-semibold hover:bg-[#1e3a8a] transition-all rounded-lg flex-shrink-0 {{ request()->routeIs('berita') ? 'bg-[#1e3a8a] shadow-md' : '' }}">Berita</a>
+                    <a href="{{ route('layanan') }}" class="menu-item-animate px-3 py-2.5 text-xs font-semibold hover:bg-[#1e3a8a] transition-all rounded-lg flex-shrink-0 {{ request()->routeIs('layanan') ? 'bg-[#1e3a8a] shadow-md' : '' }}">Layanan</a>
+                    <a href="{{ route('data') }}" class="menu-item-animate px-3 py-2.5 text-xs font-semibold hover:bg-[#1e3a8a] transition-all rounded-lg flex-shrink-0 {{ request()->routeIs('data') ? 'bg-[#1e3a8a] shadow-md' : '' }}">Data</a>
+                    <a href="{{ route('galeri') }}" class="menu-item-animate px-3 py-2.5 text-xs font-semibold hover:bg-[#1e3a8a] transition-all rounded-lg flex-shrink-0 {{ request()->routeIs('galeri') ? 'bg-[#1e3a8a] shadow-md' : '' }}">Galeri</a>
+                    <a href="{{ route('umkm') }}" class="menu-item-animate px-3 py-2.5 text-xs font-semibold hover:bg-[#1e3a8a] transition-all rounded-lg flex-shrink-0 {{ request()->routeIs('umkm') ? 'bg-[#1e3a8a] shadow-md' : '' }}">UMKM</a>
+                    <a href="{{ route('kontak') }}" class="menu-item-animate px-3 py-2.5 text-xs font-semibold hover:bg-[#1e3a8a] transition-all rounded-lg flex-shrink-0 {{ request()->routeIs('kontak') ? 'bg-[#1e3a8a] shadow-md' : '' }}">Kontak</a>
                 </div>
                 <!-- Tombol Mobile Menu -->
                 <button id="mobile-menu-btn" class="md:hidden p-2.5 hover:bg-[#1e3a8a] transition-all rounded-lg">
@@ -158,60 +68,33 @@
             </div>
             <!-- Menu Mobile -->
             <div id="mobile-menu" class="hidden md:hidden border-t border-blue-700/50 bg-blue-900/50 backdrop-blur-sm mobile-menu-dropdown">
-                <div class="py-2">
-                    <a href="{{ route('beranda') }}" class="flex items-center gap-3 px-4 py-3 hover:bg-[#1e3a8a] transition-all {{ request()->routeIs('beranda') ? 'bg-[#1e3a8a] border-l-4 border-white' : '' }}">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
-                        </svg>
-                        <span class="font-medium">Beranda</span>
+                <div class="py-3">
+                    <a href="{{ route('beranda') }}" class="block px-5 py-4.5 hover:bg-[#1e3a8a] transition-all min-h-[56px] flex items-center {{ request()->routeIs('beranda') ? 'bg-[#1e3a8a] border-l-4 border-white' : '' }}">
+                        <span class="font-semibold text-base">Beranda</span>
                     </a>
-                    <a href="{{ route('profil') }}" class="flex items-center gap-3 px-4 py-3 hover:bg-[#1e3a8a] transition-all {{ request()->routeIs('profil') ? 'bg-[#1e3a8a] border-l-4 border-white' : '' }}">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
-                        </svg>
-                        <span class="font-medium">Profil Desa</span>
+                    <a href="{{ route('profil') }}" class="block px-5 py-4.5 hover:bg-[#1e3a8a] transition-all min-h-[56px] flex items-center {{ request()->routeIs('profil') ? 'bg-[#1e3a8a] border-l-4 border-white' : '' }}">
+                        <span class="font-semibold text-base">Profil Desa</span>
                     </a>
-                    <a href="{{ route('pemerintahan') }}" class="flex items-center gap-3 px-4 py-3 hover:bg-[#1e3a8a] transition-all {{ request()->routeIs('pemerintahan') ? 'bg-[#1e3a8a] border-l-4 border-white' : '' }}">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
-                        </svg>
-                        <span class="font-medium">Pemerintahan</span>
+                    <a href="{{ route('pemerintahan') }}" class="block px-5 py-4.5 hover:bg-[#1e3a8a] transition-all min-h-[56px] flex items-center {{ request()->routeIs('pemerintahan') ? 'bg-[#1e3a8a] border-l-4 border-white' : '' }}">
+                        <span class="font-semibold text-base">Pemerintahan</span>
                     </a>
-                    <a href="{{ route('berita') }}" class="flex items-center gap-3 px-4 py-3 hover:bg-[#1e3a8a] transition-all {{ request()->routeIs('berita') ? 'bg-[#1e3a8a] border-l-4 border-white' : '' }}">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path>
-                        </svg>
-                        <span class="font-medium">Berita</span>
+                    <a href="{{ route('berita') }}" class="block px-5 py-4.5 hover:bg-[#1e3a8a] transition-all min-h-[56px] flex items-center {{ request()->routeIs('berita') ? 'bg-[#1e3a8a] border-l-4 border-white' : '' }}">
+                        <span class="font-semibold text-base">Berita</span>
                     </a>
-                    <a href="{{ route('layanan') }}" class="flex items-center gap-3 px-4 py-3 hover:bg-[#1e3a8a] transition-all {{ request()->routeIs('layanan') ? 'bg-[#1e3a8a] border-l-4 border-white' : '' }}">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                        </svg>
-                        <span class="font-medium">Layanan</span>
+                    <a href="{{ route('layanan') }}" class="block px-5 py-4.5 hover:bg-[#1e3a8a] transition-all min-h-[56px] flex items-center {{ request()->routeIs('layanan') ? 'bg-[#1e3a8a] border-l-4 border-white' : '' }}">
+                        <span class="font-semibold text-base">Layanan</span>
                     </a>
-                    <a href="{{ route('data') }}" class="flex items-center gap-3 px-4 py-3 hover:bg-[#1e3a8a] transition-all {{ request()->routeIs('data') ? 'bg-[#1e3a8a] border-l-4 border-white' : '' }}">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
-                        </svg>
-                        <span class="font-medium">Data Desa</span>
+                    <a href="{{ route('data') }}" class="block px-5 py-4.5 hover:bg-[#1e3a8a] transition-all min-h-[56px] flex items-center {{ request()->routeIs('data') ? 'bg-[#1e3a8a] border-l-4 border-white' : '' }}">
+                        <span class="font-semibold text-base">Data Desa</span>
                     </a>
-                    <a href="{{ route('galeri') }}" class="flex items-center gap-3 px-4 py-3 hover:bg-[#1e3a8a] transition-all {{ request()->routeIs('galeri') ? 'bg-[#1e3a8a] border-l-4 border-white' : '' }}">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                        </svg>
-                        <span class="font-medium">Galeri</span>
+                    <a href="{{ route('galeri') }}" class="block px-5 py-4.5 hover:bg-[#1e3a8a] transition-all min-h-[56px] flex items-center {{ request()->routeIs('galeri') ? 'bg-[#1e3a8a] border-l-4 border-white' : '' }}">
+                        <span class="font-semibold text-base">Galeri</span>
                     </a>
-                    <a href="{{ route('umkm') }}" class="flex items-center gap-3 px-4 py-3 hover:bg-[#1e3a8a] transition-all {{ request()->routeIs('umkm') ? 'bg-[#1e3a8a] border-l-4 border-white' : '' }}">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-                        </svg>
-                        <span class="font-medium">Ekonomi & UMKM</span>
+                    <a href="{{ route('umkm') }}" class="block px-5 py-4.5 hover:bg-[#1e3a8a] transition-all min-h-[56px] flex items-center {{ request()->routeIs('umkm') ? 'bg-[#1e3a8a] border-l-4 border-white' : '' }}">
+                        <span class="font-semibold text-base">Ekonomi & UMKM</span>
                     </a>
-                    <a href="{{ route('kontak') }}" class="flex items-center gap-3 px-4 py-3 hover:bg-[#1e3a8a] transition-all {{ request()->routeIs('kontak') ? 'bg-[#1e3a8a] border-l-4 border-white' : '' }}">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-                        </svg>
-                        <span class="font-medium">Kontak</span>
+                    <a href="{{ route('kontak') }}" class="block px-5 py-4.5 hover:bg-[#1e3a8a] transition-all min-h-[56px] flex items-center {{ request()->routeIs('kontak') ? 'bg-[#1e3a8a] border-l-4 border-white' : '' }}">
+                        <span class="font-semibold text-base">Kontak</span>
                     </a>
                 </div>
             </div>
@@ -481,10 +364,10 @@
         }
 
         .mobile-menu-dropdown.show {
-            max-height: 800px;
+            max-height: 1200px;
             opacity: 1;
-            padding-top: 0.5rem;
-            padding-bottom: 0.5rem;
+            padding-top: 0.75rem;
+            padding-bottom: 0.75rem;
         }
 
         .mobile-menu-dropdown a {
