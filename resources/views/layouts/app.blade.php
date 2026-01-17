@@ -454,16 +454,34 @@
             display: none;
         }
 
+        /* Hide Scrollbar */
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+
         /* Mobile Menu Dropdown Animation */
         .mobile-menu-dropdown {
             max-height: 0;
             opacity: 0;
             overflow: hidden;
-            transition: max-height 0.3s ease-out, opacity 0.3s ease-out, padding 0.3s ease-out;
+            padding-top: 0;
+            padding-bottom: 0;
+            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
+                        opacity 0.3s ease-out, 
+                        padding-top 0.3s ease-out,
+                        padding-bottom 0.3s ease-out;
+            -webkit-transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
+                              opacity 0.3s ease-out, 
+                              padding-top 0.3s ease-out,
+                              padding-bottom 0.3s ease-out;
         }
 
         .mobile-menu-dropdown.show {
-            max-height: 1000px;
+            max-height: 800px;
             opacity: 1;
             padding-top: 0.5rem;
             padding-bottom: 0.5rem;
@@ -473,41 +491,93 @@
             transform: translateX(-20px);
             opacity: 0;
             transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+            -webkit-transition: transform 0.3s ease-out, opacity 0.3s ease-out;
         }
 
         .mobile-menu-dropdown.show a {
             transform: translateX(0);
+            -webkit-transform: translateX(0);
             opacity: 1;
         }
 
-        .mobile-menu-dropdown.show a:nth-child(1) { transition-delay: 0.05s; }
-        .mobile-menu-dropdown.show a:nth-child(2) { transition-delay: 0.1s; }
-        .mobile-menu-dropdown.show a:nth-child(3) { transition-delay: 0.15s; }
-        .mobile-menu-dropdown.show a:nth-child(4) { transition-delay: 0.2s; }
-        .mobile-menu-dropdown.show a:nth-child(5) { transition-delay: 0.25s; }
-        .mobile-menu-dropdown.show a:nth-child(6) { transition-delay: 0.3s; }
-        .mobile-menu-dropdown.show a:nth-child(7) { transition-delay: 0.35s; }
-        .mobile-menu-dropdown.show a:nth-child(8) { transition-delay: 0.4s; }
-        .mobile-menu-dropdown.show a:nth-child(9) { transition-delay: 0.45s; }
-        .mobile-menu-dropdown.show a:nth-child(10) { transition-delay: 0.5s; }
-        .mobile-menu-dropdown.show a:nth-child(11) { transition-delay: 0.55s; }
+        .mobile-menu-dropdown.show a:nth-child(1) { transition-delay: 0.05s; -webkit-transition-delay: 0.05s; }
+        .mobile-menu-dropdown.show a:nth-child(2) { transition-delay: 0.1s; -webkit-transition-delay: 0.1s; }
+        .mobile-menu-dropdown.show a:nth-child(3) { transition-delay: 0.15s; -webkit-transition-delay: 0.15s; }
+        .mobile-menu-dropdown.show a:nth-child(4) { transition-delay: 0.2s; -webkit-transition-delay: 0.2s; }
+        .mobile-menu-dropdown.show a:nth-child(5) { transition-delay: 0.25s; -webkit-transition-delay: 0.25s; }
+        .mobile-menu-dropdown.show a:nth-child(6) { transition-delay: 0.3s; -webkit-transition-delay: 0.3s; }
+        .mobile-menu-dropdown.show a:nth-child(7) { transition-delay: 0.35s; -webkit-transition-delay: 0.35s; }
+        .mobile-menu-dropdown.show a:nth-child(8) { transition-delay: 0.4s; -webkit-transition-delay: 0.4s; }
+        .mobile-menu-dropdown.show a:nth-child(9) { transition-delay: 0.45s; -webkit-transition-delay: 0.45s; }
+        .mobile-menu-dropdown.show a:nth-child(10) { transition-delay: 0.5s; -webkit-transition-delay: 0.5s; }
+        .mobile-menu-dropdown.show a:nth-child(11) { transition-delay: 0.55s; -webkit-transition-delay: 0.55s; }
     </style>
     <script>
-        // Toggle Mobile Menu
-        document.getElementById('mobile-menu-btn').addEventListener('click', function() {
+        // Toggle Mobile Menu dengan Animasi Smooth (Compatible dengan Android)
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuBtn = document.getElementById('mobile-menu-btn');
             const menu = document.getElementById('mobile-menu');
             const menuIcon = document.getElementById('menu-icon');
             const closeIcon = document.getElementById('close-icon');
             
-            menu.classList.toggle('hidden');
+            if (!menuBtn || !menu || !menuIcon || !closeIcon) return;
             
-            if (menu.classList.contains('hidden')) {
-                menuIcon.classList.remove('hidden');
-                closeIcon.classList.add('hidden');
-            } else {
+            let isMenuOpen = false;
+            
+            function openMenu() {
+                if (isMenuOpen) return;
+                isMenuOpen = true;
+                menu.classList.remove('hidden');
+                // Force reflow untuk memastikan animasi berjalan
+                void menu.offsetHeight;
+                setTimeout(function() {
+                    menu.classList.add('show');
+                }, 10);
                 menuIcon.classList.add('hidden');
                 closeIcon.classList.remove('hidden');
             }
+            
+            function closeMenu() {
+                if (!isMenuOpen) return;
+                isMenuOpen = false;
+                menu.classList.remove('show');
+                setTimeout(function() {
+                    menu.classList.add('hidden');
+                }, 400);
+                menuIcon.classList.remove('hidden');
+                closeIcon.classList.add('hidden');
+            }
+            
+            function toggleMenu(e) {
+                if (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
+                if (isMenuOpen) {
+                    closeMenu();
+                } else {
+                    openMenu();
+                }
+            }
+            
+            // Support untuk click dan touch events (Android)
+            menuBtn.addEventListener('click', toggleMenu);
+            menuBtn.addEventListener('touchend', toggleMenu);
+            
+            // Tutup menu saat klik di luar atau saat klik link
+            document.addEventListener('click', function(e) {
+                if (isMenuOpen && !menuBtn.contains(e.target) && !menu.contains(e.target)) {
+                    closeMenu();
+                }
+            });
+            
+            // Tutup menu saat klik link di dalam menu
+            const menuLinks = menu.querySelectorAll('a');
+            menuLinks.forEach(function(link) {
+                link.addEventListener('click', function() {
+                    setTimeout(closeMenu, 100);
+                });
+            });
         });
 
         // Sticky Navigation dengan Shadow saat Scroll

@@ -207,15 +207,7 @@
                 <!-- Foto Kepala Desa -->
                 <div class="flex-shrink-0">
                     <div class="w-56 h-56 md:w-64 md:h-64 mx-auto md:mx-0 rounded-2xl overflow-hidden shadow-xl border-4 border-white ring-4 ring-[#1e3a8a]/10">
-                        @if (file_exists(public_path('images/kepala-desa.jpg')))
-                            <img src="{{ asset('images/kepala-desa.jpg') }}" alt="Kepala Desa" class="w-full h-full object-cover">
-                        @else
-                            <div class="w-full h-full bg-gradient-to-br from-[#1e3a8a] to-blue-900 flex items-center justify-center">
-                                <svg class="w-32 h-32 text-white/80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                                </svg>
-                            </div>
-                        @endif
+                        <img src="{{ asset('images/kepala-desa.jpg') }}" alt="Kepala Desa" class="w-full h-full object-cover" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'w-full h-full bg-gradient-to-br from-[#1e3a8a] to-blue-900 flex items-center justify-center\'><svg class=\'w-32 h-32 text-white/80\' fill=\'none\' stroke=\'currentColor\' viewBox=\'0 0 24 24\'><path stroke-linecap=\'round\' stroke-linejoin=\'round\' stroke-width=\'2\' d=\'M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z\'></path></svg></div>';">
                     </div>
                 </div>
                 <!-- Teks Sambutan -->
@@ -337,16 +329,13 @@
         <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
             @for($i = 1; $i <= 8; $i++)
             <div class="scroll-animate-gallery group relative bg-white rounded-xl border border-gray-200 overflow-hidden hover:border-[#1e3a8a] hover:shadow-xl transition-all duration-300 cursor-pointer">
-                <div class="aspect-square bg-gradient-to-br from-gray-100 to-gray-200 overflow-hidden">
-                    @if (file_exists(public_path('images/galeri/gotong-royong-' . $i . '.jpg')))
-                        <img src="{{ asset('images/galeri/gotong-royong-' . $i . '.jpg') }}" alt="Galeri {{ $i }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-                    @else
-                        <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-[#1e3a8a]/10 to-blue-100">
-                            <svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                            </svg>
-                        </div>
-                    @endif
+                <div class="aspect-square bg-gradient-to-br from-gray-100 to-gray-200 overflow-hidden relative">
+                    <img src="{{ asset('images/galeri/gotong-royong-' . $i . '.jpg') }}" alt="Galeri {{ $i }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="w-full h-full hidden absolute inset-0 items-center justify-center bg-gradient-to-br from-[#1e3a8a]/10 to-blue-100">
+                        <svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                        </svg>
+                    </div>
                 </div>
                 <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 <div class="absolute bottom-0 left-0 right-0 p-4 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
@@ -473,21 +462,25 @@
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            background-attachment: fixed;
         }
         .hero-bg-2 {
             background-image: url('{{ asset('images/hero-2.jpg') }}'), url('https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=1920&q=80');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            background-attachment: fixed;
         }
         .hero-bg-3 {
             background-image: url('{{ asset('images/hero-3.jpg') }}'), url('https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=1920&q=80');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            background-attachment: fixed;
+        }
+        @media (min-width: 769px) {
+            .hero-bg-1,
+            .hero-bg-2,
+            .hero-bg-3 {
+                background-attachment: fixed;
+            }
         }
         @media (max-width: 768px) {
             .hero-bg-1,
