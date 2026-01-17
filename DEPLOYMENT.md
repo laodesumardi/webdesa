@@ -52,6 +52,50 @@ Namun, untuk production yang optimal, gunakan Solusi 1 atau 2.
 - [ ] Set permission folder `public/build` (755 atau 644)
 - [ ] Test website di browser
 
+## Masalah: Gambar Hero Section Tidak Muncul
+
+Jika gambar di hero section tidak muncul di hosting, ikuti langkah berikut:
+
+### Solusi 1: Upload Gambar ke Server
+
+1. Siapkan 3 gambar dengan nama:
+   - `hero-1.jpg` (untuk slide pertama)
+   - `hero-2.jpg` (untuk slide kedua)
+   - `hero-3.jpg` (untuk slide ketiga)
+
+2. Upload gambar ke folder `public/images/` di server:
+   ```
+   public_html/public/images/hero-1.jpg
+   public_html/public/images/hero-2.jpg
+   public_html/public/images/hero-3.jpg
+   ```
+
+3. Set permission gambar:
+   ```bash
+   chmod 644 public/images/hero-*.jpg
+   ```
+
+### Solusi 2: Pastikan Folder Images Ada
+
+Pastikan folder `public/images/` ada di server:
+```bash
+mkdir -p public/images
+chmod 755 public/images
+```
+
+### Solusi 3: Cek Path Gambar
+
+Jika gambar masih tidak muncul:
+1. Buka browser developer tools (F12)
+2. Cek tab Network untuk melihat error loading gambar
+3. Pastikan URL gambar benar (contoh: `https://desa.odetune.shop/images/hero-1.jpg`)
+
+### Catatan
+
+- Jika gambar tidak ditemukan, sistem akan menggunakan fallback dari Unsplash
+- Pastikan hosting Anda mengizinkan akses ke URL external (Unsplash)
+- Ukuran gambar disarankan: 1920x600px, format JPG, maksimal 500KB per gambar
+
 ## Troubleshooting
 
 Jika masih error setelah build:
@@ -59,3 +103,4 @@ Jika masih error setelah build:
 2. Pastikan file `manifest.json` ada di `public/build/manifest.json`
 3. Clear cache Laravel: `php artisan cache:clear`
 4. Clear config cache: `php artisan config:clear`
+5. Pastikan folder `public/images` ada dan gambar hero sudah di-upload
