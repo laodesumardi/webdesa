@@ -10,19 +10,23 @@
 </head>
 <body class="bg-gray-50 text-gray-900">
     <!-- Header -->
-    <header class="bg-[#1e3a8a] text-white header-animate">
-        <div class="container mx-auto px-4 py-4">
-            <div class="flex items-center gap-4">
+    <header class="relative bg-[#1e3a8a] text-white header-animate overflow-hidden">
+        <!-- Background Image -->
+        <div class="absolute inset-0 header-bg"></div>
+        <!-- Overlay untuk readability -->
+        <div class="absolute inset-0 bg-gradient-to-r from-[#1e3a8a]/90 via-[#1e3a8a]/85 to-[#1e3a8a]/90"></div>
+        <div class="container mx-auto px-4 py-6 md:py-8 relative z-10">
+            <div class="flex items-center gap-4 md:gap-6">
                 <!-- Logo -->
-                <div class="logo-animate bg-white text-[#1e3a8a] px-3 py-2 rounded flex items-center justify-center">
-                    <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div class="logo-animate bg-white text-[#1e3a8a] px-4 py-3 md:px-5 md:py-4 rounded-lg flex items-center justify-center shadow-lg">
+                    <svg class="w-12 h-12 md:w-16 md:h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
                     </svg>
                 </div>
                 <!-- Nama Desa -->
-                <div class="header-text-animate">
-                    <h1 class="text-xl md:text-2xl font-bold">Pemerintah Desa</h1>
-                    <p class="text-sm text-blue-100">Website Resmi Informasi Desa</p>
+                <div class="header-text-animate flex-1">
+                    <h1 class="text-2xl md:text-3xl lg:text-4xl font-bold mb-1 drop-shadow-lg">Pemerintah Desa</h1>
+                    <p class="text-sm md:text-base text-blue-100 drop-shadow-md">Website Resmi Informasi Desa</p>
                 </div>
             </div>
         </div>
@@ -185,6 +189,20 @@
             opacity: 0;
             transform: translateX(-20px);
             animation: fadeInLeft 0.8s ease-out 0.3s forwards;
+        }
+
+        /* Header Background Image */
+        .header-bg {
+            background-image: url('{{ asset('images/header-bg.jpg') }}'), url('https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        @media (max-width: 768px) {
+            .header-bg {
+                background-attachment: scroll;
+            }
         }
 
         /* Navigation Animation */
