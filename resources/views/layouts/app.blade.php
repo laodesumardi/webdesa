@@ -15,7 +15,7 @@
         <div class="absolute inset-0 header-bg"></div>
         <!-- Overlay untuk readability -->
         <div class="absolute inset-0 bg-gradient-to-r from-[#1e3a8a]/90 via-[#1e3a8a]/85 to-[#1e3a8a]/90"></div>
-        <div class="container mx-auto px-4 py-6 md:py-8 relative z-10">
+        <div class="container mx-auto px-4 py-8 md:py-12 relative z-10">
             <div class="flex items-center gap-4 md:gap-6">
                 <!-- Logo -->
                 <div class="logo-animate bg-white text-[#1e3a8a] px-4 py-3 md:px-5 md:py-4 rounded-lg flex items-center justify-center shadow-lg">
