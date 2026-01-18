@@ -3,10 +3,11 @@
 @section('title', 'Kontak & Aspirasi - Website Resmi Pemerintah Desa')
 
 @section('content')
-    <div class="mb-8 scroll-animate" data-animation="fade-up">
-        <h1 class="text-2xl md:text-3xl font-bold text-[#1e3a8a] mb-2">Kontak & Aspirasi</h1>
-        <p class="text-gray-600 text-base md:text-lg">Hubungi kami atau sampaikan aspirasi Anda</p>
-    </div>
+    <div class="container mx-auto px-4 sm:px-6">
+        <div class="mb-6 sm:mb-8 scroll-animate" data-animation="fade-up">
+            <h1 class="text-xl sm:text-2xl md:text-3xl font-bold text-[#1e3a8a] mb-2">Kontak & Aspirasi</h1>
+            <p class="text-gray-600 text-sm sm:text-base md:text-lg">Hubungi kami atau sampaikan aspirasi Anda</p>
+        </div>
 
     <!-- Informasi Kontak Resmi -->
     <div class="scroll-animate bg-white border border-gray-200 p-6 md:p-8 mb-8" data-animation="fade-up" data-delay="100">
@@ -240,4 +241,5 @@
             document.querySelectorAll('.scroll-animate').forEach(el => observer.observe(el));
         });
     </script>
+    </div>
 @endsection

@@ -6,7 +6,18 @@ class PageController extends Controller
 {
     public function beranda()
     {
-        return view('beranda');
+        // Ambil data statistik dari database penduduk (sama seperti halaman data)
+        $penduduk = \App\Models\Penduduk::orderBy('rt')->orderBy('nama')->get();
+        
+        // Analisis statistik otomatis
+        $statistik = [
+            'jumlah_penduduk' => $penduduk->count(),
+            'laki_laki' => $penduduk->where('jenis_kelamin', 'Laki-laki')->count(),
+            'perempuan' => $penduduk->where('jenis_kelamin', 'Perempuan')->count(),
+            'kepala_keluarga' => $penduduk->groupBy('rt')->count(), // Estimasi berdasarkan RT
+        ];
+        
+        return view('beranda', compact('statistik'));
     }
 
     public function profil()
@@ -16,7 +27,8 @@ class PageController extends Controller
 
     public function pemerintahan()
     {
-        return view('pemerintahan');
+        $perangkatDesa = \App\Models\PerangkatDesa::orderBy('urutan')->orderBy('id')->get();
+        return view('pemerintahan', compact('perangkatDesa'));
     }
 
     public function berita()
@@ -31,7 +43,51 @@ class PageController extends Controller
 
     public function data()
     {
-        return view('data');
+        // Ambil data penduduk fresh dari database
+        $penduduk = \App\Models\Penduduk::orderBy('rt')->orderBy('nama')->get();
+        
+        // Analisis statistik otomatis
+        $statistik = [
+            'jumlah_penduduk' => $penduduk->count(),
+            'laki_laki' => $penduduk->where('jenis_kelamin', 'Laki-laki')->count(),
+            'perempuan' => $penduduk->where('jenis_kelamin', 'Perempuan')->count(),
+            'kepala_keluarga' => $penduduk->groupBy('rt')->count(), // Estimasi berdasarkan RT
+        ];
+        
+        // Hitung statistik pendidikan otomatis dari data penduduk (fresh dari database)
+        $pendidikanStats = [
+            'Tidak Sekolah' => $penduduk->where('pendidikan', 'Tidak Sekolah')->count(),
+            'SD/Sederajat' => $penduduk->where('pendidikan', 'SD/Sederajat')->count(),
+            'SMP/Sederajat' => $penduduk->where('pendidikan', 'SMP/Sederajat')->count(),
+            'SMA/Sederajat' => $penduduk->where('pendidikan', 'SMA/Sederajat')->count(),
+            'Diploma' => $penduduk->where('pendidikan', 'Diploma')->count(),
+            'S1/Sederajat' => $penduduk->where('pendidikan', 'S1/Sederajat')->count(),
+            'S2/Sederajat' => $penduduk->where('pendidikan', 'S2/Sederajat')->count(),
+        ];
+        
+        // Hitung jumlah SD/Sederajat secara eksplisit
+        $sdSederajatCount = $penduduk->where('pendidikan', 'SD/Sederajat')->count();
+        
+        // Data untuk grafik
+        $chartData = [
+            'jenis_kelamin' => [
+                'labels' => ['Laki-laki', 'Perempuan'],
+                'data' => [
+                    $statistik['laki_laki'],
+                    $statistik['perempuan'],
+                ],
+            ],
+            'sd_sederajat' => [
+                'label' => 'SD/Sederajat',
+                'data' => $sdSederajatCount,
+                'total' => $statistik['jumlah_penduduk'],
+            ],
+        ];
+        
+        // Hitung total pendidikan berdasarkan jumlah penduduk (otomatis)
+        $pendidikanTotal = $statistik['jumlah_penduduk'];
+        
+        return view('data', compact('penduduk', 'statistik', 'chartData', 'pendidikanTotal', 'pendidikanStats'));
     }
 
     public function darurat()

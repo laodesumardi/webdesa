@@ -3,21 +3,22 @@
 @section('title', 'Berita & Pengumuman - Website Resmi Pemerintah Desa')
 
 @section('content')
-    <div class="mb-8 scroll-animate" data-animation="fade-up">
-        <h1 class="text-2xl md:text-3xl font-bold text-[#1e3a8a] mb-2">Berita & Pengumuman</h1>
-        <p class="text-gray-600 text-base md:text-lg">Informasi terbaru dari pemerintah desa</p>
-    </div>
+    <div class="container mx-auto px-4 sm:px-6">
+        <div class="mb-6 sm:mb-8 scroll-animate" data-animation="fade-up">
+            <h1 class="text-xl sm:text-2xl md:text-3xl font-bold text-[#1e3a8a] mb-2">Berita & Pengumuman</h1>
+            <p class="text-gray-600 text-sm sm:text-base md:text-lg">Informasi terbaru dari pemerintah desa</p>
+        </div>
 
-    <!-- Filter Kategori -->
-    <div class="mb-6 flex flex-wrap gap-2 scroll-animate" data-animation="fade-up" data-delay="100">
-        <button class="px-4 py-2 bg-[#1e3a8a] text-white text-sm font-medium hover:bg-blue-900 transition-colors">Semua</button>
-        <button class="px-4 py-2 bg-gray-200 text-gray-700 text-sm font-medium hover:bg-gray-300 transition-colors">Pengumuman</button>
-        <button class="px-4 py-2 bg-gray-200 text-gray-700 text-sm font-medium hover:bg-gray-300 transition-colors">Informasi</button>
-        <button class="px-4 py-2 bg-gray-200 text-gray-700 text-sm font-medium hover:bg-gray-300 transition-colors">Berita</button>
-    </div>
+        <!-- Filter Kategori -->
+        <div class="mb-4 sm:mb-6 flex flex-wrap gap-2 scroll-animate" data-animation="fade-up" data-delay="100">
+            <button class="px-3 sm:px-4 py-1.5 sm:py-2 bg-[#1e3a8a] text-white text-xs sm:text-sm font-medium hover:bg-blue-900 transition-colors rounded-lg">Semua</button>
+            <button class="px-3 sm:px-4 py-1.5 sm:py-2 bg-gray-200 text-gray-700 text-xs sm:text-sm font-medium hover:bg-gray-300 transition-colors rounded-lg">Pengumuman</button>
+            <button class="px-3 sm:px-4 py-1.5 sm:py-2 bg-gray-200 text-gray-700 text-xs sm:text-sm font-medium hover:bg-gray-300 transition-colors rounded-lg">Informasi</button>
+            <button class="px-3 sm:px-4 py-1.5 sm:py-2 bg-gray-200 text-gray-700 text-xs sm:text-sm font-medium hover:bg-gray-300 transition-colors rounded-lg">Berita</button>
+        </div>
 
-    <!-- Daftar Berita -->
-    <div class="space-y-6 skeleton-wrapper" id="berita-list-skeleton">
+        <!-- Daftar Berita -->
+        <div class="space-y-4 sm:space-y-6 skeleton-wrapper" id="berita-list-skeleton">
         <!-- Skeleton Loading -->
         <article class="skeleton-card">
             <div class="flex flex-col md:flex-row gap-6">
@@ -62,14 +63,14 @@
             </div>
         </article>
     </div>
-    <!-- Daftar Berita Content -->
-    <div class="space-y-6 skeleton-content" id="berita-list-content">
-        <!-- Berita 1 -->
-        <article class="scroll-animate bg-white border border-gray-200 p-6 md:p-8 hover:border-[#1e3a8a] transition-colors group" data-animation="fade-up" data-delay="200">
-            <div class="flex flex-col md:flex-row gap-6">
-                <!-- Gambar -->
-                <div class="flex-shrink-0 w-full md:w-64">
-                    <div class="aspect-video md:aspect-square bg-gray-100 overflow-hidden">
+        <!-- Daftar Berita Content -->
+        <div class="space-y-4 sm:space-y-6 skeleton-content" id="berita-list-content">
+            <!-- Berita 1 -->
+            <article class="scroll-animate bg-white border border-gray-200 p-4 sm:p-6 md:p-8 hover:border-[#1e3a8a] transition-colors group rounded-lg" data-animation="fade-up" data-delay="200">
+                <div class="flex flex-col md:flex-row gap-4 sm:gap-6">
+                    <!-- Gambar -->
+                    <div class="flex-shrink-0 w-full md:w-64">
+                        <div class="aspect-video md:aspect-square bg-gray-100 overflow-hidden rounded-lg">
                         @if (file_exists(public_path('images/berita/bantuan-sosial.jpg')))
                             <img src="{{ asset('images/berita/bantuan-sosial.jpg') }}" alt="Bantuan Sosial" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
                         @else
@@ -81,37 +82,37 @@
                         @endif
                     </div>
                 </div>
-                <!-- Konten -->
-                <div class="flex-1">
-                    <div class="flex items-start gap-4 mb-4">
-                        <span class="bg-blue-100 text-[#1e3a8a] px-4 py-1.5 text-xs font-semibold">Pengumuman</span>
-                        <time class="text-sm text-gray-500">15 Januari 2024</time>
+                    <!-- Konten -->
+                    <div class="flex-1">
+                        <div class="flex items-start gap-2 sm:gap-4 mb-3 sm:mb-4">
+                            <span class="bg-blue-100 text-[#1e3a8a] px-3 sm:px-4 py-1 sm:py-1.5 text-xs font-semibold rounded-full">Pengumuman</span>
+                            <time class="text-xs sm:text-sm text-gray-500">15 Januari 2024</time>
+                        </div>
+                        <h2 class="text-lg sm:text-xl md:text-2xl font-bold text-gray-900 mb-2 sm:mb-3 group-hover:text-[#1e3a8a] transition-colors">
+                            Pendaftaran Program Bantuan Sosial Tahun 2024
+                        </h2>
+                        <p class="text-gray-700 text-sm sm:text-base md:text-lg leading-relaxed mb-3 sm:mb-4">
+                            Pemerintah Desa membuka pendaftaran program bantuan sosial untuk warga yang memenuhi kriteria. 
+                            Pendaftaran dibuka mulai tanggal 20 Januari 2024 hingga 5 Februari 2024. Persyaratan meliputi 
+                            Kartu Keluarga, KTP, Surat Keterangan Tidak Mampu dari RT/RW, dan dokumen pendukung lainnya. 
+                            Formulir pendaftaran dapat diambil di kantor desa pada jam pelayanan atau diunduh melalui website ini.
+                        </p>
+                        <a href="#" class="text-[#1e3a8a] text-xs sm:text-sm font-medium hover:underline inline-flex items-center gap-1">
+                            Baca selengkapnya
+                            <svg class="w-3 h-3 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </a>
                     </div>
-                    <h2 class="text-xl md:text-2xl font-bold text-gray-900 mb-3 group-hover:text-[#1e3a8a] transition-colors">
-                        Pendaftaran Program Bantuan Sosial Tahun 2024
-                    </h2>
-                    <p class="text-gray-700 text-base md:text-lg leading-relaxed mb-4">
-                        Pemerintah Desa membuka pendaftaran program bantuan sosial untuk warga yang memenuhi kriteria. 
-                        Pendaftaran dibuka mulai tanggal 20 Januari 2024 hingga 5 Februari 2024. Persyaratan meliputi 
-                        Kartu Keluarga, KTP, Surat Keterangan Tidak Mampu dari RT/RW, dan dokumen pendukung lainnya. 
-                        Formulir pendaftaran dapat diambil di kantor desa pada jam pelayanan atau diunduh melalui website ini.
-                    </p>
-                    <a href="#" class="text-[#1e3a8a] text-sm font-medium hover:underline inline-flex items-center gap-1">
-                        Baca selengkapnya
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                        </svg>
-                    </a>
                 </div>
-            </div>
-        </article>
+            </article>
 
         <!-- Berita 2 -->
-        <article class="scroll-animate bg-white border border-gray-200 p-6 md:p-8 hover:border-[#1e3a8a] transition-colors group" data-animation="fade-up" data-delay="300">
-            <div class="flex flex-col md:flex-row gap-6">
+            <article class="scroll-animate bg-white border border-gray-200 p-4 sm:p-6 md:p-8 hover:border-[#1e3a8a] transition-colors group rounded-lg" data-animation="fade-up" data-delay="300">
+                <div class="flex flex-col md:flex-row gap-4 sm:gap-6">
                 <!-- Gambar -->
                 <div class="flex-shrink-0 w-full md:w-64">
-                    <div class="aspect-video md:aspect-square bg-gray-100 overflow-hidden">
+                        <div class="aspect-video md:aspect-square bg-gray-100 overflow-hidden rounded-lg">
                         @if (file_exists(public_path('images/berita/pelayanan-administrasi.jpg')))
                             <img src="{{ asset('images/berita/pelayanan-administrasi.jpg') }}" alt="Pelayanan Administrasi" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
                         @else
@@ -153,7 +154,7 @@
             <div class="flex flex-col md:flex-row gap-6">
                 <!-- Gambar -->
                 <div class="flex-shrink-0 w-full md:w-64">
-                    <div class="aspect-video md:aspect-square bg-gray-100 overflow-hidden">
+                        <div class="aspect-video md:aspect-square bg-gray-100 overflow-hidden rounded-lg">
                         @if (file_exists(public_path('images/berita/gotong-royong.jpg')))
                             <img src="{{ asset('images/berita/gotong-royong.jpg') }}" alt="Gotong Royong" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
                         @else
@@ -196,7 +197,7 @@
             <div class="flex flex-col md:flex-row gap-6">
                 <!-- Gambar -->
                 <div class="flex-shrink-0 w-full md:w-64">
-                    <div class="aspect-video md:aspect-square bg-gray-100 overflow-hidden">
+                        <div class="aspect-video md:aspect-square bg-gray-100 overflow-hidden rounded-lg">
                         @if (file_exists(public_path('images/berita/musyawarah-desa.jpg')))
                             <img src="{{ asset('images/berita/musyawarah-desa.jpg') }}" alt="Musyawarah Desa" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
                         @else
@@ -238,7 +239,7 @@
             <div class="flex flex-col md:flex-row gap-6">
                 <!-- Gambar -->
                 <div class="flex-shrink-0 w-full md:w-64">
-                    <div class="aspect-video md:aspect-square bg-gray-100 overflow-hidden">
+                        <div class="aspect-video md:aspect-square bg-gray-100 overflow-hidden rounded-lg">
                         @if (file_exists(public_path('images/berita/posyandu.jpg')))
                             <img src="{{ asset('images/berita/posyandu.jpg') }}" alt="Posyandu" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
                         @else
@@ -280,7 +281,7 @@
             <div class="flex flex-col md:flex-row gap-6">
                 <!-- Gambar -->
                 <div class="flex-shrink-0 w-full md:w-64">
-                    <div class="aspect-video md:aspect-square bg-gray-100 overflow-hidden">
+                        <div class="aspect-video md:aspect-square bg-gray-100 overflow-hidden rounded-lg">
                         @if (file_exists(public_path('images/berita/pembangunan-jalan.jpg')))
                             <img src="{{ asset('images/berita/pembangunan-jalan.jpg') }}" alt="Pembangunan Jalan" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
                         @else
@@ -323,7 +324,7 @@
             <div class="flex flex-col md:flex-row gap-6">
                 <!-- Gambar -->
                 <div class="flex-shrink-0 w-full md:w-64">
-                    <div class="aspect-video md:aspect-square bg-gray-100 overflow-hidden">
+                        <div class="aspect-video md:aspect-square bg-gray-100 overflow-hidden rounded-lg">
                         @if (file_exists(public_path('images/berita/sensus-penduduk.jpg')))
                             <img src="{{ asset('images/berita/sensus-penduduk.jpg') }}" alt="Sensus Penduduk" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
                         @else
@@ -365,7 +366,7 @@
             <div class="flex flex-col md:flex-row gap-6">
                 <!-- Gambar -->
                 <div class="flex-shrink-0 w-full md:w-64">
-                    <div class="aspect-video md:aspect-square bg-gray-100 overflow-hidden">
+                        <div class="aspect-video md:aspect-square bg-gray-100 overflow-hidden rounded-lg">
                         @if (file_exists(public_path('images/berita/pembagian-sembako.jpg')))
                             <img src="{{ asset('images/berita/pembagian-sembako.jpg') }}" alt="Pembagian Sembako" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
                         @else
@@ -407,7 +408,7 @@
             <div class="flex flex-col md:flex-row gap-6">
                 <!-- Gambar -->
                 <div class="flex-shrink-0 w-full md:w-64">
-                    <div class="aspect-video md:aspect-square bg-gray-100 overflow-hidden">
+                        <div class="aspect-video md:aspect-square bg-gray-100 overflow-hidden rounded-lg">
                         @if (file_exists(public_path('images/berita/peresmian-balai-desa.jpg')))
                             <img src="{{ asset('images/berita/peresmian-balai-desa.jpg') }}" alt="Peresmian Balai Desa" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
                         @else
@@ -449,7 +450,7 @@
             <div class="flex flex-col md:flex-row gap-6">
                 <!-- Gambar -->
                 <div class="flex-shrink-0 w-full md:w-64">
-                    <div class="aspect-video md:aspect-square bg-gray-100 overflow-hidden">
+                        <div class="aspect-video md:aspect-square bg-gray-100 overflow-hidden rounded-lg">
                         @if (file_exists(public_path('images/berita/pelatihan-kewirausahaan.jpg')))
                             <img src="{{ asset('images/berita/pelatihan-kewirausahaan.jpg') }}" alt="Pelatihan Kewirausahaan" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
                         @else
@@ -555,4 +556,5 @@
             display: none;
         }
     </style>
+    </div>
 @endsection

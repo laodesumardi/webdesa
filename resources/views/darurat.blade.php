@@ -2,74 +2,93 @@
 
 @section('title', 'Darurat & Keamanan - Website Resmi Pemerintah Desa')
 
+@php
+    use App\Models\Content;
+    function getContent($page, $section, $key, $default = '') {
+        return Content::getContent($page, $section, $key, $default);
+    }
+    
+    // Get header
+    $headerTitle = getContent('darurat', 'header', 'title', 'Darurat & Keamanan');
+    $headerSubtitle = getContent('darurat', 'header', 'subtitle', 'Informasi darurat, keamanan, dan penanggulangan bencana');
+@endphp
+
 @section('content')
-    <div class="mb-8 scroll-animate" data-animation="fade-up">
-        <h1 class="text-2xl md:text-3xl font-bold text-[#1e3a8a] mb-2">Darurat & Keamanan</h1>
-        <p class="text-gray-600 text-base md:text-lg">Informasi darurat, keamanan, dan penanggulangan bencana</p>
-    </div>
+    <div class="container mx-auto px-4 sm:px-6">
+        <div class="mb-6 sm:mb-8 scroll-animate" data-animation="fade-up">
+            <h1 class="text-xl sm:text-2xl md:text-3xl font-bold text-[#1e3a8a] mb-2">{{ $headerTitle }}</h1>
+            <p class="text-gray-600 text-sm sm:text-base md:text-lg">{{ $headerSubtitle }}</p>
+        </div>
 
-    <!-- Kontak Darurat -->
-    <div class="scroll-animate bg-red-50 border-2 border-red-300 p-6 md:p-8 mb-8" data-animation="fade-up" data-delay="100">
-        <h2 class="text-xl md:text-2xl font-bold text-red-800 mb-6">Kontak Darurat</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-            <div class="bg-white border border-red-200 p-5 hover:border-red-400 transition-colors">
-                <h3 class="font-bold text-gray-900 mb-2">Polisi</h3>
-                <p class="text-sm text-gray-600 mb-3">Polsek Kecamatan</p>
-                <p class="text-2xl font-bold text-red-600 mb-1">
-                    <a href="tel:110" class="hover:underline">110</a>
-                </p>
-                <p class="text-sm text-gray-600">
-                    Atau <a href="tel:02112345678" class="text-[#1e3a8a] font-medium hover:underline">(021) 1234-5678</a>
-                </p>
-            </div>
+        <!-- Kontak Darurat -->
+        <div class="scroll-animate bg-red-50 border-2 border-red-300 p-4 sm:p-6 md:p-8 mb-6 sm:mb-8 rounded-lg" data-animation="fade-up" data-delay="100">
+            <h2 class="text-lg sm:text-xl md:text-2xl font-bold text-red-800 mb-4 sm:mb-6">{{ getContent('darurat', 'kontak', 'title', 'Kontak Darurat') }}</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
+                <div class="bg-white border border-red-200 p-4 sm:p-5 hover:border-red-400 transition-colors rounded-lg">
+                    <h3 class="font-bold text-gray-900 mb-2">{{ getContent('darurat', 'kontak_1', 'nama', 'Polisi') }}</h3>
+                    <p class="text-sm text-gray-600 mb-3">{{ getContent('darurat', 'kontak_1', 'deskripsi', 'Polsek Kecamatan') }}</p>
+                    <p class="text-2xl font-bold text-red-600 mb-1">
+                        <a href="tel:{{ getContent('darurat', 'kontak_1', 'nomor_darurat', '110') }}" class="hover:underline">{{ getContent('darurat', 'kontak_1', 'nomor_darurat', '110') }}</a>
+                    </p>
+                    @if(getContent('darurat', 'kontak_1', 'nomor_alternatif', ''))
+                    <p class="text-sm text-gray-600">
+                        Atau <a href="tel:{{ getContent('darurat', 'kontak_1', 'nomor_alternatif') }}" class="text-[#1e3a8a] font-medium hover:underline">{{ getContent('darurat', 'kontak_1', 'nomor_alternatif') }}</a>
+                    </p>
+                    @endif
+                </div>
 
-            <div class="bg-white border border-red-200 p-5 hover:border-red-400 transition-colors">
-                <h3 class="font-bold text-gray-900 mb-2">Pemadam Kebakaran</h3>
-                <p class="text-sm text-gray-600 mb-3">Damkar Kecamatan</p>
-                <p class="text-2xl font-bold text-red-600 mb-1">
-                    <a href="tel:113" class="hover:underline">113</a>
-                </p>
-                <p class="text-sm text-gray-600">
-                    Atau <a href="tel:02112345679" class="text-[#1e3a8a] font-medium hover:underline">(021) 1234-5679</a>
-                </p>
-            </div>
+                <div class="bg-white border border-red-200 p-4 sm:p-5 hover:border-red-400 transition-colors rounded-lg">
+                    <h3 class="font-bold text-gray-900 mb-2">{{ getContent('darurat', 'kontak_2', 'nama', 'Pemadam Kebakaran') }}</h3>
+                    <p class="text-sm text-gray-600 mb-3">{{ getContent('darurat', 'kontak_2', 'deskripsi', 'Damkar Kecamatan') }}</p>
+                    <p class="text-2xl font-bold text-red-600 mb-1">
+                        <a href="tel:{{ getContent('darurat', 'kontak_2', 'nomor_darurat', '113') }}" class="hover:underline">{{ getContent('darurat', 'kontak_2', 'nomor_darurat', '113') }}</a>
+                    </p>
+                    @if(getContent('darurat', 'kontak_2', 'nomor_alternatif', ''))
+                    <p class="text-sm text-gray-600">
+                        Atau <a href="tel:{{ getContent('darurat', 'kontak_2', 'nomor_alternatif') }}" class="text-[#1e3a8a] font-medium hover:underline">{{ getContent('darurat', 'kontak_2', 'nomor_alternatif') }}</a>
+                    </p>
+                    @endif
+                </div>
 
-            <div class="bg-white border border-red-200 p-5 hover:border-red-400 transition-colors">
-                <h3 class="font-bold text-gray-900 mb-2">Ambulans</h3>
-                <p class="text-sm text-gray-600 mb-3">Rumah Sakit Terdekat</p>
-                <p class="text-2xl font-bold text-red-600 mb-1">
-                    <a href="tel:119" class="hover:underline">119</a>
-                </p>
-                <p class="text-sm text-gray-600">
-                    Atau <a href="tel:02112345680" class="text-[#1e3a8a] font-medium hover:underline">(021) 1234-5680</a>
-                </p>
-            </div>
+                <div class="bg-white border border-red-200 p-4 sm:p-5 hover:border-red-400 transition-colors rounded-lg">
+                    <h3 class="font-bold text-gray-900 mb-2">{{ getContent('darurat', 'kontak_3', 'nama', 'Ambulans') }}</h3>
+                    <p class="text-sm text-gray-600 mb-3">{{ getContent('darurat', 'kontak_3', 'deskripsi', 'Rumah Sakit Terdekat') }}</p>
+                    <p class="text-2xl font-bold text-red-600 mb-1">
+                        <a href="tel:{{ getContent('darurat', 'kontak_3', 'nomor_darurat', '119') }}" class="hover:underline">{{ getContent('darurat', 'kontak_3', 'nomor_darurat', '119') }}</a>
+                    </p>
+                    @if(getContent('darurat', 'kontak_3', 'nomor_alternatif', ''))
+                    <p class="text-sm text-gray-600">
+                        Atau <a href="tel:{{ getContent('darurat', 'kontak_3', 'nomor_alternatif') }}" class="text-[#1e3a8a] font-medium hover:underline">{{ getContent('darurat', 'kontak_3', 'nomor_alternatif') }}</a>
+                    </p>
+                    @endif
+                </div>
 
-            <div class="bg-white border border-red-200 p-5 hover:border-red-400 transition-colors">
-                <h3 class="font-bold text-gray-900 mb-2">Pos Keamanan Desa</h3>
-                <p class="text-sm text-gray-600 mb-3">Poskamling</p>
-                <p class="text-xl font-bold text-red-600 mb-1">
-                    <a href="tel:02112345681" class="hover:underline">(021) 1234-5681</a>
-                </p>
-                <p class="text-sm text-gray-600">Tersedia 24 jam</p>
-            </div>
+                <div class="bg-white border border-red-200 p-4 sm:p-5 hover:border-red-400 transition-colors rounded-lg">
+                    <h3 class="font-bold text-gray-900 mb-2">{{ getContent('darurat', 'kontak_4', 'nama', 'Pos Keamanan Desa') }}</h3>
+                    <p class="text-sm text-gray-600 mb-3">{{ getContent('darurat', 'kontak_4', 'deskripsi', 'Poskamling') }}</p>
+                    <p class="text-xl font-bold text-red-600 mb-1">
+                        <a href="tel:{{ getContent('darurat', 'kontak_4', 'nomor_darurat', '(021) 1234-5681') }}" class="hover:underline">{{ getContent('darurat', 'kontak_4', 'nomor_darurat', '(021) 1234-5681') }}</a>
+                    </p>
+                    <p class="text-sm text-gray-600">{{ getContent('darurat', 'kontak_4', 'keterangan', 'Tersedia 24 jam') }}</p>
+                </div>
 
-            <div class="bg-white border border-red-200 p-5 hover:border-red-400 transition-colors">
-                <h3 class="font-bold text-gray-900 mb-2">Kantor Desa</h3>
-                <p class="text-sm text-gray-600 mb-3">Pemerintah Desa</p>
-                <p class="text-xl font-bold text-red-600 mb-1">
-                    <a href="tel:02112345682" class="hover:underline">(021) 1234-5682</a>
-                </p>
-                <p class="text-sm text-gray-600">Senin - Jumat, 08:00 - 15:00 WIB</p>
-            </div>
+                <div class="bg-white border border-red-200 p-4 sm:p-5 hover:border-red-400 transition-colors rounded-lg">
+                    <h3 class="font-bold text-gray-900 mb-2">{{ getContent('darurat', 'kontak_5', 'nama', 'Kantor Desa') }}</h3>
+                    <p class="text-sm text-gray-600 mb-3">{{ getContent('darurat', 'kontak_5', 'deskripsi', 'Pemerintah Desa') }}</p>
+                    <p class="text-xl font-bold text-red-600 mb-1">
+                        <a href="tel:{{ getContent('darurat', 'kontak_5', 'nomor_darurat', '(021) 1234-5682') }}" class="hover:underline">{{ getContent('darurat', 'kontak_5', 'nomor_darurat', '(021) 1234-5682') }}</a>
+                    </p>
+                    <p class="text-sm text-gray-600">{{ getContent('darurat', 'kontak_5', 'keterangan', 'Senin - Jumat, 08:00 - 15:00 WIB') }}</p>
+                </div>
 
-            <div class="bg-white border border-red-200 p-5 hover:border-red-400 transition-colors">
-                <h3 class="font-bold text-gray-900 mb-2">Ketua RT/RW</h3>
-                <p class="text-sm text-gray-600 mb-3">Koordinasi Lokal</p>
-                <p class="text-xl font-bold text-red-600 mb-1">
-                    <a href="tel:02112345683" class="hover:underline">(021) 1234-5683</a>
-                </p>
-                <p class="text-sm text-gray-600">Hubungi ketua RT/RW setempat</p>
+                <div class="bg-white border border-red-200 p-4 sm:p-5 hover:border-red-400 transition-colors rounded-lg">
+                    <h3 class="font-bold text-gray-900 mb-2">{{ getContent('darurat', 'kontak_6', 'nama', 'Ketua RT/RW') }}</h3>
+                    <p class="text-sm text-gray-600 mb-3">{{ getContent('darurat', 'kontak_6', 'deskripsi', 'Koordinasi Lokal') }}</p>
+                    <p class="text-xl font-bold text-red-600 mb-1">
+                        <a href="tel:{{ getContent('darurat', 'kontak_6', 'nomor_darurat', '(021) 1234-5683') }}" class="hover:underline">{{ getContent('darurat', 'kontak_6', 'nomor_darurat', '(021) 1234-5683') }}</a>
+                    </p>
+                    <p class="text-sm text-gray-600">{{ getContent('darurat', 'kontak_6', 'keterangan', 'Hubungi ketua RT/RW setempat') }}</p>
+                </div>
             </div>
         </div>
     </div>
@@ -276,4 +295,5 @@
             document.querySelectorAll('.scroll-animate').forEach(el => observer.observe(el));
         });
     </script>
+    </div>
 @endsection

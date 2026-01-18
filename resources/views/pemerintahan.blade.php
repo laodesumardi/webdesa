@@ -2,20 +2,44 @@
 
 @section('title', 'Pemerintahan Desa - Website Resmi Pemerintah Desa')
 
-@section('content')
-    <div class="mb-8 scroll-animate" data-animation="fade-up">
-        <h1 class="text-2xl md:text-3xl font-bold text-[#1e3a8a] mb-2">Pemerintahan Desa</h1>
-        <p class="text-gray-600 text-base md:text-lg">Struktur organisasi dan perangkat desa</p>
-    </div>
+@php
+    use App\Models\Content;
+    use App\Models\PerangkatDesa;
+    
+    // Helper function untuk mengambil konten
+    function getContent($page, $section, $key, $default = '') {
+        return Content::getContent($page, $section, $key, $default);
+    }
+    
+    // Get struktur organisasi
+    $strukturGambar = getContent('pemerintahan', 'struktur', 'gambar', '');
+    if (empty($strukturGambar)) {
+        if (file_exists(public_path('images/struktur-organisasi.jpg'))) {
+            $strukturGambar = 'images/struktur-organisasi.jpg';
+        } elseif (file_exists(public_path('images/struktur-organisasi.png'))) {
+            $strukturGambar = 'images/struktur-organisasi.png';
+        }
+    }
+    
+    // Get perangkat desa
+    $perangkatDesa = PerangkatDesa::orderBy('urutan')->orderBy('id')->get();
+@endphp
 
-    <!-- Struktur Organisasi -->
-    <div class="scroll-animate bg-white border border-gray-200 p-6 md:p-8 mb-8" data-animation="fade-up">
-        <h2 class="text-xl md:text-2xl font-bold text-[#1e3a8a] mb-6 pb-3 border-b-2 border-[#1e3a8a]">Struktur Organisasi Pemerintahan Desa</h2>
-        
-        <div class="mb-6 overflow-x-auto">
-            <div class="min-w-full flex justify-center bg-gray-50 border border-gray-200 p-4 md:p-8">
-                @if (file_exists(public_path('images/struktur-organisasi.jpg')))
-                    <img src="{{ asset('images/struktur-organisasi.jpg') }}" alt="Struktur Organisasi Pemerintahan Desa" class="w-full max-w-6xl mx-auto">
+@section('content')
+    <div class="container mx-auto px-4 sm:px-6">
+        <div class="mb-6 sm:mb-8 scroll-animate" data-animation="fade-up">
+            <h1 class="text-xl sm:text-2xl md:text-3xl font-bold text-[#1e3a8a] mb-2">Pemerintahan Desa</h1>
+            <p class="text-gray-600 text-sm sm:text-base md:text-lg">Struktur organisasi dan perangkat desa</p>
+        </div>
+
+        <!-- Struktur Organisasi -->
+        <div class="scroll-animate bg-white border border-gray-200 p-4 sm:p-6 md:p-8 mb-6 sm:mb-8 rounded-lg" data-animation="fade-up">
+            <h2 class="text-lg sm:text-xl md:text-2xl font-bold text-[#1e3a8a] mb-4 sm:mb-6 pb-2 sm:pb-3 border-b-2 border-[#1e3a8a]">Struktur Organisasi Pemerintahan Desa</h2>
+            
+            <div class="mb-4 sm:mb-6 overflow-x-auto">
+                <div class="min-w-full flex justify-center bg-gray-50 border border-gray-200 p-3 sm:p-4 md:p-8 rounded-lg">
+                @if ($strukturGambar && file_exists(public_path($strukturGambar)))
+                    <img src="{{ asset($strukturGambar) }}" alt="Struktur Organisasi Pemerintahan Desa" class="w-full max-w-6xl mx-auto scroll-animate" data-animation="fade-up">
                 @else
                     <svg viewBox="0 0 1000 750" class="w-full max-w-6xl" xmlns="http://www.w3.org/2000/svg">
                         <!-- Garis penghubung -->
@@ -95,128 +119,58 @@
             </div>
         </div>
         
-        <div class="bg-blue-50 border border-blue-200 p-4 text-sm text-gray-700">
-            <p><strong>Catatan:</strong> Struktur organisasi di atas dapat diganti dengan gambar asli. Simpan gambar dengan nama <code class="bg-blue-100 px-1">struktur-organisasi.jpg</code> di folder <code class="bg-blue-100 px-1">public/images/</code></p>
         </div>
-    </div>
 
-    <!-- Daftar Perangkat Desa -->
-    <div class="scroll-animate bg-white border border-gray-200 p-6 md:p-8 mb-8" data-animation="fade-up">
-        <h2 class="text-xl md:text-2xl font-bold text-[#1e3a8a] mb-6 pb-3 border-b-2 border-[#1e3a8a]">Daftar Perangkat Desa</h2>
-        <div class="overflow-x-auto">
-            <table class="w-full text-sm md:text-base">
-                <thead class="bg-gray-100">
-                    <tr>
-                        <th class="px-4 py-3 text-left border border-gray-300 font-semibold text-gray-900">No</th>
-                        <th class="px-4 py-3 text-left border border-gray-300 font-semibold text-gray-900">Jabatan</th>
-                        <th class="px-4 py-3 text-left border border-gray-300 font-semibold text-gray-900">Nama Lengkap</th>
-                        <th class="px-4 py-3 text-left border border-gray-300 font-semibold text-gray-900">NIP</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr class="hover:bg-gray-50">
-                        <td class="px-4 py-3 border border-gray-300">1</td>
-                        <td class="px-4 py-3 border border-gray-300 font-medium">Kepala Desa</td>
-                        <td class="px-4 py-3 border border-gray-300">Nama Kepala Desa</td>
-                        <td class="px-4 py-3 border border-gray-300 text-gray-500">-</td>
-                    </tr>
-                    <tr class="bg-gray-50 hover:bg-gray-100">
-                        <td class="px-4 py-3 border border-gray-300">2</td>
-                        <td class="px-4 py-3 border border-gray-300 font-medium">Sekretaris Desa</td>
-                        <td class="px-4 py-3 border border-gray-300">Nama Sekretaris Desa</td>
-                        <td class="px-4 py-3 border border-gray-300">1234567890123456</td>
-                    </tr>
-                    <tr class="hover:bg-gray-50">
-                        <td class="px-4 py-3 border border-gray-300">3</td>
-                        <td class="px-4 py-3 border border-gray-300 font-medium">Kepala Urusan Pemerintahan</td>
-                        <td class="px-4 py-3 border border-gray-300">Nama Kepala Urusan Pemerintahan</td>
-                        <td class="px-4 py-3 border border-gray-300">1234567890123457</td>
-                    </tr>
-                    <tr class="bg-gray-50 hover:bg-gray-100">
-                        <td class="px-4 py-3 border border-gray-300">4</td>
-                        <td class="px-4 py-3 border border-gray-300 font-medium">Kepala Urusan Pembangunan</td>
-                        <td class="px-4 py-3 border border-gray-300">Nama Kepala Urusan Pembangunan</td>
-                        <td class="px-4 py-3 border border-gray-300">1234567890123458</td>
-                    </tr>
-                    <tr class="hover:bg-gray-50">
-                        <td class="px-4 py-3 border border-gray-300">5</td>
-                        <td class="px-4 py-3 border border-gray-300 font-medium">Kepala Urusan Kesejahteraan Rakyat</td>
-                        <td class="px-4 py-3 border border-gray-300">Nama Kepala Urusan Kesejahteraan Rakyat</td>
-                        <td class="px-4 py-3 border border-gray-300">1234567890123459</td>
-                    </tr>
-                    <tr class="bg-gray-50 hover:bg-gray-100">
-                        <td class="px-4 py-3 border border-gray-300">6</td>
-                        <td class="px-4 py-3 border border-gray-300 font-medium">Staf Urusan Pemerintahan</td>
-                        <td class="px-4 py-3 border border-gray-300">Nama Staf Urusan Pemerintahan</td>
-                        <td class="px-4 py-3 border border-gray-300">1234567890123460</td>
-                    </tr>
-                    <tr class="hover:bg-gray-50">
-                        <td class="px-4 py-3 border border-gray-300">7</td>
-                        <td class="px-4 py-3 border border-gray-300 font-medium">Staf Urusan Pembangunan</td>
-                        <td class="px-4 py-3 border border-gray-300">Nama Staf Urusan Pembangunan</td>
-                        <td class="px-4 py-3 border border-gray-300">1234567890123461</td>
-                    </tr>
-                    <tr class="bg-gray-50 hover:bg-gray-100">
-                        <td class="px-4 py-3 border border-gray-300">8</td>
-                        <td class="px-4 py-3 border border-gray-300 font-medium">Staf Urusan Kesejahteraan Rakyat</td>
-                        <td class="px-4 py-3 border border-gray-300">Nama Staf Urusan Kesejahteraan Rakyat</td>
-                        <td class="px-4 py-3 border border-gray-300">1234567890123462</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-    <!-- Badan Permusyawaratan Desa & Lembaga Kemasyarakatan -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-        <!-- BPD -->
-        <div class="scroll-animate bg-white border border-gray-200 p-6 md:p-8" data-animation="slide-left">
-            <h2 class="text-xl md:text-2xl font-bold text-[#1e3a8a] mb-6 pb-3 border-b-2 border-[#1e3a8a]">Badan Permusyawaratan Desa (BPD)</h2>
-            <div class="space-y-3">
-                <div class="border-l-4 border-[#1e3a8a] pl-4 py-2">
-                    <p class="font-semibold text-gray-900">Ketua BPD</p>
-                    <p class="text-gray-700 text-sm">Nama Ketua Badan Permusyawaratan Desa</p>
-                </div>
-                <div class="border-l-4 border-[#1e3a8a] pl-4 py-2">
-                    <p class="font-semibold text-gray-900">Wakil Ketua BPD</p>
-                    <p class="text-gray-700 text-sm">Nama Wakil Ketua Badan Permusyawaratan Desa</p>
-                </div>
-                <div class="border-l-4 border-[#1e3a8a] pl-4 py-2">
-                    <p class="font-semibold text-gray-900">Sekretaris BPD</p>
-                    <p class="text-gray-700 text-sm">Nama Sekretaris Badan Permusyawaratan Desa</p>
-                </div>
-                <div class="border-l-4 border-[#1e3a8a] pl-4 py-2">
-                    <p class="font-semibold text-gray-900">Anggota BPD</p>
-                    <p class="text-gray-700 text-sm">Nama Anggota Badan Permusyawaratan Desa</p>
-                </div>
+        <!-- Daftar Perangkat Desa -->
+        <div class="scroll-animate bg-white border border-gray-200 p-4 sm:p-6 md:p-8 mb-6 sm:mb-8 rounded-lg" data-animation="fade-up">
+            <div class="flex items-center gap-2 sm:gap-3 mb-6 sm:mb-8">
+                <div class="h-1 w-12 sm:w-16 bg-[#1e3a8a] rounded-full"></div>
+                <h2 class="text-xl sm:text-2xl md:text-3xl font-bold text-[#1e3a8a]">Daftar Perangkat Desa</h2>
             </div>
-        </div>
-
-        <!-- Lembaga Kemasyarakatan -->
-        <div class="scroll-animate bg-white border border-gray-200 p-6 md:p-8" data-animation="slide-right">
-            <h2 class="text-xl md:text-2xl font-bold text-[#1e3a8a] mb-6 pb-3 border-b-2 border-[#1e3a8a]">Lembaga Kemasyarakatan</h2>
-            <div class="space-y-4">
-                <div class="bg-gray-50 border border-gray-200 p-4">
-                    <h3 class="font-semibold text-gray-900 mb-2">LPM</h3>
-                    <p class="text-gray-700 text-sm"><strong>Ketua:</strong> Nama Ketua LPM</p>
-                    <p class="text-gray-700 text-sm"><strong>Sekretaris:</strong> Nama Sekretaris LPM</p>
+            
+            @if($perangkatDesa->count() > 0)
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+                    @foreach($perangkatDesa as $index => $perangkat)
+                        <div class="scroll-animate bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-300" data-animation="fade-up" data-delay="{{ $index * 100 }}">
+                            <!-- Foto Full -->
+                            <div class="w-full h-48 sm:h-56 md:h-64 overflow-hidden bg-gray-100">
+                                @if($perangkat->foto && file_exists(public_path($perangkat->foto)))
+                                    <img src="{{ asset($perangkat->foto) }}" alt="{{ $perangkat->nama }}" class="w-full h-full object-cover scroll-animate" data-animation="scale-fade">
+                                @else
+                                    <div class="w-full h-full bg-gray-200 flex items-center justify-center">
+                                        <svg class="w-16 h-16 text-gray-400 scroll-animate" data-animation="scale-fade" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                                        </svg>
+                                    </div>
+                                @endif
+                            </div>
+                            
+                            <!-- Informasi -->
+                            <div class="p-4 sm:p-5 text-center">
+                                <div class="mb-3">
+                                    <h3 class="font-bold text-[#1e3a8a] text-base sm:text-lg md:text-xl mb-2">{{ $perangkat->jabatan }}</h3>
+                                    <div class="h-0.5 w-16 bg-[#1e3a8a] mx-auto mb-3"></div>
+                                    <p class="font-semibold text-gray-900 text-sm sm:text-base mb-1">{{ $perangkat->nama }}</p>
+                                </div>
+                                @if(!empty($perangkat->nip) && trim($perangkat->nip) !== '')
+                                    <div class="bg-gray-50 border border-gray-200 rounded-lg p-2 mt-3">
+                                        <p class="text-gray-600 text-xs font-medium mb-1">NIP</p>
+                                        <p class="text-gray-800 text-xs sm:text-sm font-semibold">{{ trim($perangkat->nip) }}</p>
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
+                    @endforeach
                 </div>
-                <div class="bg-gray-50 border border-gray-200 p-4">
-                    <h3 class="font-semibold text-gray-900 mb-2">PKK</h3>
-                    <p class="text-gray-700 text-sm"><strong>Ketua:</strong> Nama Ketua PKK</p>
-                    <p class="text-gray-700 text-sm"><strong>Sekretaris:</strong> Nama Sekretaris PKK</p>
+            @else
+                <div class="text-center py-12 bg-gray-50 border-2 border-dashed border-gray-300 rounded-lg">
+                    <svg class="w-16 h-16 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                    </svg>
+                    <p class="text-gray-600 font-medium">Belum ada data perangkat desa</p>
+                    <p class="text-gray-500 text-sm mt-1">Silakan tambahkan dari halaman admin</p>
                 </div>
-                <div class="bg-gray-50 border border-gray-200 p-4">
-                    <h3 class="font-semibold text-gray-900 mb-2">Karang Taruna</h3>
-                    <p class="text-gray-700 text-sm"><strong>Ketua:</strong> Nama Ketua Karang Taruna</p>
-                    <p class="text-gray-700 text-sm"><strong>Sekretaris:</strong> Nama Sekretaris Karang Taruna</p>
-                </div>
-                <div class="bg-gray-50 border border-gray-200 p-4">
-                    <h3 class="font-semibold text-gray-900 mb-2">Kelompok Tani</h3>
-                    <p class="text-gray-700 text-sm"><strong>Ketua:</strong> Nama Ketua Kelompok Tani</p>
-                    <p class="text-gray-700 text-sm"><strong>Sekretaris:</strong> Nama Sekretaris Kelompok Tani</p>
-                </div>
-            </div>
+            @endif
         </div>
     </div>
 
@@ -254,6 +208,14 @@
             opacity: 1;
             transform: translateX(0);
         }
+        .scroll-animate[data-animation="scale-fade"] {
+            opacity: 0;
+            transform: scale(0.9);
+        }
+        .scroll-animate[data-animation="scale-fade"].animate-active {
+            opacity: 1;
+            transform: scale(1);
+        }
     </style>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -272,4 +234,5 @@
             document.querySelectorAll('.scroll-animate').forEach(el => observer.observe(el));
         });
     </script>
+    </div>
 @endsection

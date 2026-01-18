@@ -3,14 +3,15 @@
 @section('title', 'Kesehatan & Sosial - Website Resmi Pemerintah Desa')
 
 @section('content')
-    <div class="mb-6 scroll-animate" data-animation="fade-up">
-        <h1 class="text-xl md:text-2xl font-bold text-[#1e3a8a] mb-2">Kesehatan & Sosial</h1>
-        <p class="text-gray-600 text-sm md:text-base">Program kesehatan dan bantuan sosial untuk masyarakat</p>
-    </div>
+    <div class="container mx-auto px-4 sm:px-6">
+        <div class="mb-6 scroll-animate" data-animation="fade-up">
+            <h1 class="text-xl sm:text-2xl md:text-2xl font-bold text-[#1e3a8a] mb-2">Kesehatan & Sosial</h1>
+            <p class="text-gray-600 text-sm md:text-base">Program kesehatan dan bantuan sosial untuk masyarakat</p>
+        </div>
 
-    <!-- Jadwal Posyandu -->
-    <div class="scroll-animate bg-white border border-gray-300 p-4 md:p-6 mb-6" data-animation="fade-up" data-delay="100">
-        <h2 class="text-lg md:text-xl font-bold text-[#1e3a8a] mb-4 pb-2 border-b-2 border-[#1e3a8a]">Jadwal Posyandu</h2>
+        <!-- Jadwal Posyandu -->
+        <div class="scroll-animate bg-white border border-gray-300 p-4 sm:p-5 md:p-6 mb-6 rounded-lg" data-animation="fade-up" data-delay="100">
+            <h2 class="text-lg md:text-xl font-bold text-[#1e3a8a] mb-4 pb-2 border-b-2 border-[#1e3a8a]">Jadwal Posyandu</h2>
         <p class="text-gray-700 text-sm md:text-base mb-4">
             Pelayanan kesehatan ibu dan anak dilaksanakan setiap bulan di setiap Rukun Warga (RW). 
             Berikut adalah jadwal pelaksanaan Posyandu:
@@ -332,4 +333,5 @@
             document.querySelectorAll('.scroll-animate').forEach(el => observer.observe(el));
         });
     </script>
+    </div>
 @endsection

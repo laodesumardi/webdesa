@@ -1,32 +1,66 @@
 @extends('layouts.app')
 
-@section('title', 'Data Desa - Website Resmi Pemerintah Desa')
+@section('title', 'Statistik - Website Resmi Pemerintah Desa')
+
+@php
+    use App\Models\Content;
+    function getContent($page, $section, $key, $default = '') {
+        return Content::getContent($page, $section, $key, $default);
+    }
+    
+    // Get header
+    $headerTitle = getContent('data', 'header', 'title', 'Statistik');
+    $headerSubtitle = getContent('data', 'header', 'subtitle', 'Data kependudukan dan statistik desa');
+    
+    // Get statistik kependudukan
+    $statJumlahPenduduk = getContent('data', 'statistik', 'jumlah_penduduk', '2.450');
+    $statLakiLaki = getContent('data', 'statistik', 'laki_laki', '1.250');
+    $statPerempuan = getContent('data', 'statistik', 'perempuan', '1.200');
+    $statKepalaKeluarga = getContent('data', 'statistik', 'kepala_keluarga', '650');
+@endphp
 
 @section('content')
-    <div class="mb-8 scroll-animate" data-animation="fade-up">
-        <h1 class="text-2xl md:text-3xl font-bold text-[#1e3a8a] mb-2">Data Desa</h1>
-        <p class="text-gray-600 text-base md:text-lg">Data kependudukan dan statistik desa</p>
-    </div>
+    <div class="container mx-auto px-4 sm:px-6">
+        <div class="mb-6 sm:mb-8 scroll-animate" data-animation="fade-up">
+            <h1 class="text-xl sm:text-2xl md:text-3xl font-bold text-[#1e3a8a] mb-2">{{ $headerTitle }}</h1>
+            <p class="text-gray-600 text-sm sm:text-base md:text-lg">{{ $headerSubtitle }}</p>
+        </div>
 
-    <!-- Statistik Kependudukan -->
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-8">
-        <div class="scroll-animate bg-white border border-gray-200 p-6 text-center hover:border-[#1e3a8a] transition-colors" data-animation="fade-up" data-delay="100">
-            <div class="text-3xl md:text-4xl font-bold text-[#1e3a8a] mb-2">2.450</div>
-            <div class="text-sm md:text-base text-gray-600 font-medium">Jumlah Penduduk</div>
+        <!-- Statistik Kependudukan (Otomatis dari Database) -->
+        <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 md:gap-6 mb-6 sm:mb-8">
+            <div class="scroll-animate bg-white border border-gray-200 p-4 sm:p-5 md:p-6 text-center hover:border-[#1e3a8a] transition-colors rounded-lg" data-animation="fade-up" data-delay="100">
+                <div class="text-2xl sm:text-3xl md:text-4xl font-bold text-[#1e3a8a] mb-2">{{ number_format($statistik['jumlah_penduduk']) }}</div>
+                <div class="text-xs sm:text-sm md:text-base text-gray-600 font-medium">Jumlah Penduduk</div>
+            </div>
+            <div class="scroll-animate bg-white border border-gray-200 p-4 sm:p-5 md:p-6 text-center hover:border-[#1e3a8a] transition-colors rounded-lg" data-animation="fade-up" data-delay="200">
+                <div class="text-2xl sm:text-3xl md:text-4xl font-bold text-[#1e3a8a] mb-2">{{ number_format($statistik['laki_laki']) }}</div>
+                <div class="text-xs sm:text-sm md:text-base text-gray-600 font-medium">Laki-laki</div>
+            </div>
+            <div class="scroll-animate bg-white border border-gray-200 p-4 sm:p-5 md:p-6 text-center hover:border-[#1e3a8a] transition-colors rounded-lg" data-animation="fade-up" data-delay="300">
+                <div class="text-2xl sm:text-3xl md:text-4xl font-bold text-[#1e3a8a] mb-2">{{ number_format($statistik['perempuan']) }}</div>
+                <div class="text-xs sm:text-sm md:text-base text-gray-600 font-medium">Perempuan</div>
+            </div>
+            <div class="scroll-animate bg-white border border-gray-200 p-4 sm:p-5 md:p-6 text-center hover:border-[#1e3a8a] transition-colors rounded-lg" data-animation="fade-up" data-delay="400">
+                <div class="text-2xl sm:text-3xl md:text-4xl font-bold text-[#1e3a8a] mb-2">{{ number_format($statistik['kepala_keluarga']) }}</div>
+                <div class="text-xs sm:text-sm md:text-base text-gray-600 font-medium">Kepala Keluarga</div>
+            </div>
         </div>
-        <div class="scroll-animate bg-white border border-gray-200 p-6 text-center hover:border-[#1e3a8a] transition-colors" data-animation="fade-up" data-delay="200">
-            <div class="text-3xl md:text-4xl font-bold text-[#1e3a8a] mb-2">1.250</div>
-            <div class="text-sm md:text-base text-gray-600 font-medium">Laki-laki</div>
+
+        <!-- Grafik Statistik -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6 sm:mb-8">
+            <div class="bg-white border border-gray-200 p-4 sm:p-6 md:p-8 rounded-lg">
+                <h2 class="text-lg sm:text-xl md:text-2xl font-bold text-[#1e3a8a] mb-4 pb-2 border-b-2 border-[#1e3a8a]">Grafik Jenis Kelamin</h2>
+                <div style="position: relative; height: 300px;">
+                    <canvas id="chartJenisKelamin"></canvas>
+                </div>
+            </div>
+            <div class="bg-white border border-gray-200 p-4 sm:p-6 md:p-8 rounded-lg">
+                <h2 class="text-lg sm:text-xl md:text-2xl font-bold text-[#1e3a8a] mb-4 pb-2 border-b-2 border-[#1e3a8a]">Grafik SD/Sederajat</h2>
+                <div style="position: relative; height: 300px;">
+                    <canvas id="chartSDSederajat"></canvas>
+                </div>
+            </div>
         </div>
-        <div class="scroll-animate bg-white border border-gray-200 p-6 text-center hover:border-[#1e3a8a] transition-colors" data-animation="fade-up" data-delay="300">
-            <div class="text-3xl md:text-4xl font-bold text-[#1e3a8a] mb-2">1.200</div>
-            <div class="text-sm md:text-base text-gray-600 font-medium">Perempuan</div>
-        </div>
-        <div class="scroll-animate bg-white border border-gray-200 p-6 text-center hover:border-[#1e3a8a] transition-colors" data-animation="fade-up" data-delay="400">
-            <div class="text-3xl md:text-4xl font-bold text-[#1e3a8a] mb-2">650</div>
-            <div class="text-sm md:text-base text-gray-600 font-medium">Kepala Keluarga</div>
-        </div>
-    </div>
 
     <!-- Data Penduduk -->
     <div class="bg-white border border-gray-200 p-6 md:p-8 mb-8 print-section">
@@ -77,190 +111,40 @@
                         <th class="px-4 py-3 text-left border border-gray-300 font-semibold text-gray-900">Jenis Kelamin</th>
                         <th class="px-4 py-3 text-left border border-gray-300 font-semibold text-gray-900">Alamat</th>
                         <th class="px-4 py-3 text-left border border-gray-300 font-semibold text-gray-900">RT/RW</th>
+                        <th class="px-4 py-3 text-left border border-gray-300 font-semibold text-gray-900">Pendidikan</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="hover:bg-gray-50">
-                        <td class="px-4 py-3 border border-gray-300">1</td>
-                        <td class="px-4 py-3 border border-gray-300">3201010101010001</td>
-                        <td class="px-4 py-3 border border-gray-300 font-medium">Ahmad Hidayat</td>
-                        <td class="px-4 py-3 border border-gray-300">Jakarta, 15 Jan 1980</td>
-                        <td class="px-4 py-3 border border-gray-300">Laki-laki</td>
-                        <td class="px-4 py-3 border border-gray-300">Jalan Raya Desa No. 10</td>
-                        <td class="px-4 py-3 border border-gray-300">001/001</td>
-                    </tr>
-                    <tr class="bg-gray-50 hover:bg-gray-100">
-                        <td class="px-4 py-3 border border-gray-300">2</td>
-                        <td class="px-4 py-3 border border-gray-300">3201010101010002</td>
-                        <td class="px-4 py-3 border border-gray-300 font-medium">Siti Nurhaliza</td>
-                        <td class="px-4 py-3 border border-gray-300">Bandung, 20 Feb 1985</td>
-                        <td class="px-4 py-3 border border-gray-300">Perempuan</td>
-                        <td class="px-4 py-3 border border-gray-300">Jalan Raya Desa No. 15</td>
-                        <td class="px-4 py-3 border border-gray-300">001/001</td>
-                    </tr>
-                    <tr class="hover:bg-gray-50">
-                        <td class="px-4 py-3 border border-gray-300">3</td>
-                        <td class="px-4 py-3 border border-gray-300">3201010101010003</td>
-                        <td class="px-4 py-3 border border-gray-300 font-medium">Budi Santoso</td>
-                        <td class="px-4 py-3 border border-gray-300">Surabaya, 10 Mar 1990</td>
-                        <td class="px-4 py-3 border border-gray-300">Laki-laki</td>
-                        <td class="px-4 py-3 border border-gray-300">Jalan Raya Desa No. 20</td>
-                        <td class="px-4 py-3 border border-gray-300">002/001</td>
-                    </tr>
-                    <tr class="bg-gray-50 hover:bg-gray-100">
-                        <td class="px-4 py-3 border border-gray-300">4</td>
-                        <td class="px-4 py-3 border border-gray-300">3201010101010004</td>
-                        <td class="px-4 py-3 border border-gray-300 font-medium">Dewi Sartika</td>
-                        <td class="px-4 py-3 border border-gray-300">Yogyakarta, 25 Apr 1992</td>
-                        <td class="px-4 py-3 border border-gray-300">Perempuan</td>
-                        <td class="px-4 py-3 border border-gray-300">Jalan Raya Desa No. 25</td>
-                        <td class="px-4 py-3 border border-gray-300">002/001</td>
-                    </tr>
-                    <tr class="hover:bg-gray-50">
-                        <td class="px-4 py-3 border border-gray-300">5</td>
-                        <td class="px-4 py-3 border border-gray-300">3201010101010005</td>
-                        <td class="px-4 py-3 border border-gray-300 font-medium">Eko Prasetyo</td>
-                        <td class="px-4 py-3 border border-gray-300">Semarang, 5 Mei 1988</td>
-                        <td class="px-4 py-3 border border-gray-300">Laki-laki</td>
-                        <td class="px-4 py-3 border border-gray-300">Jalan Raya Desa No. 30</td>
-                        <td class="px-4 py-3 border border-gray-300">003/002</td>
-                    </tr>
-                    <tr class="bg-gray-50 hover:bg-gray-100">
-                        <td class="px-4 py-3 border border-gray-300">6</td>
-                        <td class="px-4 py-3 border border-gray-300">3201010101010006</td>
-                        <td class="px-4 py-3 border border-gray-300 font-medium">Fitri Handayani</td>
-                        <td class="px-4 py-3 border border-gray-300">Malang, 12 Jun 1995</td>
-                        <td class="px-4 py-3 border border-gray-300">Perempuan</td>
-                        <td class="px-4 py-3 border border-gray-300">Jalan Raya Desa No. 35</td>
-                        <td class="px-4 py-3 border border-gray-300">003/002</td>
-                    </tr>
-                    <tr class="hover:bg-gray-50">
-                        <td class="px-4 py-3 border border-gray-300">7</td>
-                        <td class="px-4 py-3 border border-gray-300">3201010101010007</td>
-                        <td class="px-4 py-3 border border-gray-300 font-medium">Gunawan Wijaya</td>
-                        <td class="px-4 py-3 border border-gray-300">Medan, 18 Jul 1987</td>
-                        <td class="px-4 py-3 border border-gray-300">Laki-laki</td>
-                        <td class="px-4 py-3 border border-gray-300">Jalan Raya Desa No. 40</td>
-                        <td class="px-4 py-3 border border-gray-300">004/002</td>
-                    </tr>
-                    <tr class="bg-gray-50 hover:bg-gray-100">
-                        <td class="px-4 py-3 border border-gray-300">8</td>
-                        <td class="px-4 py-3 border border-gray-300">3201010101010008</td>
-                        <td class="px-4 py-3 border border-gray-300 font-medium">Hesti Wulandari</td>
-                        <td class="px-4 py-3 border border-gray-300">Palembang, 22 Agu 1993</td>
-                        <td class="px-4 py-3 border border-gray-300">Perempuan</td>
-                        <td class="px-4 py-3 border border-gray-300">Jalan Raya Desa No. 45</td>
-                        <td class="px-4 py-3 border border-gray-300">004/002</td>
-                    </tr>
-                    <tr class="hover:bg-gray-50">
-                        <td class="px-4 py-3 border border-gray-300">9</td>
-                        <td class="px-4 py-3 border border-gray-300">3201010101010009</td>
-                        <td class="px-4 py-3 border border-gray-300 font-medium">Indra Kurniawan</td>
-                        <td class="px-4 py-3 border border-gray-300">Makassar, 30 Sep 1991</td>
-                        <td class="px-4 py-3 border border-gray-300">Laki-laki</td>
-                        <td class="px-4 py-3 border border-gray-300">Jalan Raya Desa No. 50</td>
-                        <td class="px-4 py-3 border border-gray-300">005/003</td>
-                    </tr>
-                    <tr class="bg-gray-50 hover:bg-gray-100">
-                        <td class="px-4 py-3 border border-gray-300">10</td>
-                        <td class="px-4 py-3 border border-gray-300">3201010101010010</td>
-                        <td class="px-4 py-3 border border-gray-300 font-medium">Jihan Safitri</td>
-                        <td class="px-4 py-3 border border-gray-300">Denpasar, 8 Okt 1994</td>
-                        <td class="px-4 py-3 border border-gray-300">Perempuan</td>
-                        <td class="px-4 py-3 border border-gray-300">Jalan Raya Desa No. 55</td>
-                        <td class="px-4 py-3 border border-gray-300">005/003</td>
-                    </tr>
+                    @forelse($penduduk as $index => $p)
+                        <tr class="{{ $index % 2 == 0 ? 'hover:bg-gray-50' : 'bg-gray-50 hover:bg-gray-100' }}">
+                            <td class="px-4 py-3 border border-gray-300">{{ $index + 1 }}</td>
+                            <td class="px-4 py-3 border border-gray-300">{{ $p->nik }}</td>
+                            <td class="px-4 py-3 border border-gray-300 font-medium">{{ $p->nama }}</td>
+                            <td class="px-4 py-3 border border-gray-300">{{ $p->tempat_lahir }}, {{ \Carbon\Carbon::parse($p->tanggal_lahir)->format('d M Y') }}</td>
+                            <td class="px-4 py-3 border border-gray-300">{{ $p->jenis_kelamin }}</td>
+                            <td class="px-4 py-3 border border-gray-300">{{ $p->alamat }}</td>
+                            <td class="px-4 py-3 border border-gray-300">{{ $p->rt }}/{{ $p->rw }}</td>
+                            <td class="px-4 py-3 border border-gray-300">{{ $p->pendidikan ?? '-' }}</td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="8" class="px-4 py-8 text-center text-gray-500">
+                                Belum ada data penduduk. Silakan tambahkan data dari halaman admin.
+                            </td>
+                        </tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>
-        <p class="text-sm text-gray-600 mt-4 italic">Catatan: Data yang ditampilkan merupakan contoh. Data lengkap dapat dilihat di kantor desa.</p>
+        <p class="text-sm text-gray-600 mt-4 italic">
+            @if(isset($penduduk) && $penduduk->count() > 0)
+                Menampilkan {{ $penduduk->count() }} data penduduk dari total {{ number_format($statistik['jumlah_penduduk']) }} penduduk.
+            @else
+                Belum ada data penduduk. Silakan tambahkan data dari halaman admin.
+            @endif
+        </p>
     </div>
 
-    <!-- Data Wilayah & Pendidikan -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mb-8">
-        <!-- Data Wilayah -->
-        <div class="scroll-animate bg-white border border-gray-200 p-6 md:p-8 print-section" data-animation="slide-left">
-            <h2 class="text-xl md:text-2xl font-bold text-[#1e3a8a] mb-6 pb-3 border-b-2 border-[#1e3a8a]">Data Wilayah</h2>
-            <div class="space-y-4">
-                <div class="bg-gray-50 border border-gray-200 p-4">
-                    <p class="font-semibold text-gray-900 mb-2">Pembagian Wilayah</p>
-                    <div class="space-y-2 text-sm text-gray-700">
-                        <p><strong>RT:</strong> 12 Rukun Tetangga</p>
-                        <p><strong>RW:</strong> 4 Rukun Warga</p>
-                        <p><strong>Dusun:</strong> 2 Dusun</p>
-                        <p><strong>Luas:</strong> 250 Hektar</p>
-                    </div>
-                </div>
-                <div class="bg-gray-50 border border-gray-200 p-4">
-                    <p class="font-semibold text-gray-900 mb-2">Batas Wilayah</p>
-                    <div class="space-y-2 text-sm text-gray-700">
-                        <p><strong>Utara:</strong> Desa Sebelah Utara</p>
-                        <p><strong>Selatan:</strong> Desa Sebelah Selatan</p>
-                        <p><strong>Timur:</strong> Desa Sebelah Timur</p>
-                        <p><strong>Barat:</strong> Desa Sebelah Barat</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Data Pendidikan -->
-        <div class="scroll-animate bg-white border border-gray-200 p-6 md:p-8 print-section" data-animation="slide-right">
-            <h2 class="text-xl md:text-2xl font-bold text-[#1e3a8a] mb-6 pb-3 border-b-2 border-[#1e3a8a]">Data Pendidikan</h2>
-            <div class="overflow-x-auto">
-                <table class="w-full text-sm print-table">
-                    <thead class="bg-gray-100">
-                        <tr>
-                            <th class="px-4 py-3 text-left border border-gray-300 font-semibold text-gray-900">Tingkat Pendidikan</th>
-                            <th class="px-4 py-3 text-left border border-gray-300 font-semibold text-gray-900">Jumlah</th>
-                            <th class="px-4 py-3 text-left border border-gray-300 font-semibold text-gray-900">%</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="hover:bg-gray-50">
-                            <td class="px-4 py-3 border border-gray-300">Tidak Sekolah</td>
-                            <td class="px-4 py-3 border border-gray-300">150</td>
-                            <td class="px-4 py-3 border border-gray-300">6,12%</td>
-                        </tr>
-                        <tr class="bg-gray-50 hover:bg-gray-100">
-                            <td class="px-4 py-3 border border-gray-300">SD/Sederajat</td>
-                            <td class="px-4 py-3 border border-gray-300">800</td>
-                            <td class="px-4 py-3 border border-gray-300">32,65%</td>
-                        </tr>
-                        <tr class="hover:bg-gray-50">
-                            <td class="px-4 py-3 border border-gray-300">SMP/Sederajat</td>
-                            <td class="px-4 py-3 border border-gray-300">600</td>
-                            <td class="px-4 py-3 border border-gray-300">24,49%</td>
-                        </tr>
-                        <tr class="bg-gray-50 hover:bg-gray-100">
-                            <td class="px-4 py-3 border border-gray-300">SMA/Sederajat</td>
-                            <td class="px-4 py-3 border border-gray-300">500</td>
-                            <td class="px-4 py-3 border border-gray-300">20,41%</td>
-                        </tr>
-                        <tr class="hover:bg-gray-50">
-                            <td class="px-4 py-3 border border-gray-300">Diploma</td>
-                            <td class="px-4 py-3 border border-gray-300">200</td>
-                            <td class="px-4 py-3 border border-gray-300">8,16%</td>
-                        </tr>
-                        <tr class="bg-gray-50 hover:bg-gray-100">
-                            <td class="px-4 py-3 border border-gray-300">S1/Sederajat</td>
-                            <td class="px-4 py-3 border border-gray-300">150</td>
-                            <td class="px-4 py-3 border border-gray-300">6,12%</td>
-                        </tr>
-                        <tr class="hover:bg-gray-50">
-                            <td class="px-4 py-3 border border-gray-300">S2/Sederajat</td>
-                            <td class="px-4 py-3 border border-gray-300">50</td>
-                            <td class="px-4 py-3 border border-gray-300">2,04%</td>
-                        </tr>
-                        <tr class="bg-gray-100 font-semibold">
-                            <td class="px-4 py-3 border border-gray-300">Jumlah</td>
-                            <td class="px-4 py-3 border border-gray-300">2.450</td>
-                            <td class="px-4 py-3 border border-gray-300">100%</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
 
     <style>
         @media print {
@@ -372,6 +256,158 @@
             }, 800);
         });
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Chart Jenis Kelamin - Pie Chart
+            const ctxJenisKelamin = document.getElementById('chartJenisKelamin');
+            if (ctxJenisKelamin) {
+                const jenisKelaminData = @json($chartData['jenis_kelamin']);
+                const jenisKelaminLabels = jenisKelaminData.labels || ['Laki-laki', 'Perempuan'];
+                const jenisKelaminValues = jenisKelaminData.data || [0, 0];
+                
+                new Chart(ctxJenisKelamin, {
+                    type: 'pie',
+                    data: {
+                        labels: jenisKelaminLabels,
+                        datasets: [{
+                            label: 'Jumlah Penduduk',
+                            data: jenisKelaminValues,
+                            backgroundColor: [
+                                'rgba(30, 58, 138, 0.8)',
+                                'rgba(239, 68, 68, 0.8)',
+                            ],
+                            borderColor: [
+                                'rgba(30, 58, 138, 1)',
+                                'rgba(239, 68, 68, 1)',
+                            ],
+                            borderWidth: 2
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        animation: {
+                            duration: 0
+                        },
+                        transitions: {
+                            active: {
+                                animation: {
+                                    duration: 0
+                                }
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        let label = context.label || '';
+                                        if (label) {
+                                            label += ': ';
+                                        }
+                                        const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                        if (total > 0) {
+                                            const percentage = ((context.parsed / total) * 100).toFixed(1);
+                                            label += context.parsed + ' orang (' + percentage + '%)';
+                                        } else {
+                                            label += context.parsed + ' orang';
+                                        }
+                                        return label;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Chart SD/Sederajat - Doughnut Chart
+            const ctxSDSederajat = document.getElementById('chartSDSederajat');
+            if (ctxSDSederajat) {
+                // Hapus chart lama jika ada
+                if (window.chartSDSederajatInstance) {
+                    window.chartSDSederajatInstance.destroy();
+                }
+                
+                const sdData = @json($chartData['sd_sederajat'] ?? ['data' => 0, 'total' => 0]);
+                const sdCount = parseInt(sdData.data) || 0;
+                const totalPenduduk = parseInt(sdData.total) || 0;
+                const nonSD = Math.max(0, totalPenduduk - sdCount);
+                
+                // Debug log (bisa dihapus setelah testing)
+                console.log('SD/Sederajat Data:', {
+                    sdCount: sdCount,
+                    totalPenduduk: totalPenduduk,
+                    nonSD: nonSD,
+                    rawData: sdData
+                });
+                
+                if (totalPenduduk > 0) {
+                    window.chartSDSederajatInstance = new Chart(ctxSDSederajat, {
+                        type: 'doughnut',
+                        data: {
+                            labels: ['SD/Sederajat', 'Lainnya'],
+                            datasets: [{
+                                label: 'Jumlah Penduduk',
+                                data: [sdCount, nonSD],
+                                backgroundColor: [
+                                    'rgba(34, 197, 94, 0.8)', // Green for SD/Sederajat
+                                    'rgba(229, 231, 235, 0.8)', // Gray for Lainnya
+                                ],
+                                borderColor: [
+                                    'rgba(34, 197, 94, 1)',
+                                    'rgba(229, 231, 235, 1)',
+                                ],
+                                borderWidth: 2
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            animation: {
+                                duration: 0
+                            },
+                            transitions: {
+                                active: {
+                                    animation: {
+                                        duration: 0
+                                    }
+                                }
+                            },
+                            plugins: {
+                                legend: {
+                                    position: 'bottom',
+                                },
+                                tooltip: {
+                                    callbacks: {
+                                        label: function(context) {
+                                            let label = context.label || '';
+                                            if (label) {
+                                                label += ': ';
+                                            }
+                                            const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                            if (total > 0) {
+                                                const percentage = ((context.parsed / total) * 100).toFixed(1);
+                                                label += context.parsed + ' orang (' + percentage + '%)';
+                                            } else {
+                                                label += context.parsed + ' orang';
+                                            }
+                                            return label;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    });
+                } else {
+                    ctxSDSederajat.parentElement.innerHTML = '<div class="text-center py-8 text-gray-500">Belum ada data penduduk. Silakan tambahkan data dari halaman admin.</div>';
+                }
+            }
+        });
+    </script>
     <style>
         .skeleton-content {
             display: none;
@@ -383,4 +419,5 @@
             display: none;
         }
     </style>
+    </div>
 @endsection

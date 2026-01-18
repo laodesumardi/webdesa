@@ -3,25 +3,26 @@
 @section('title', 'Ekonomi & UMKM - Website Resmi Pemerintah Desa')
 
 @section('content')
-    <!-- Hero Section -->
-    <div class="mb-12 scroll-animate" data-animation="fade-up">
-        <div class="bg-gradient-to-r from-blue-800 to-[#1e3a8a] rounded-2xl p-8 md:p-12 text-white shadow-xl">
-            <div class="flex items-center gap-4 mb-6">
-                <div class="bg-white/20 backdrop-blur-sm p-4 rounded-xl">
-                    <svg class="w-10 h-10 md:w-12 md:h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-                    </svg>
-                </div>
-                <div>
-                    <h1 class="text-3xl md:text-5xl font-bold mb-2">Ekonomi & UMKM Desa</h1>
-                    <p class="text-blue-100 text-base md:text-lg">Mendorong pertumbuhan ekonomi lokal melalui pengembangan usaha mikro, kecil, dan menengah</p>
+    <div class="container mx-auto px-4 sm:px-6">
+        <!-- Hero Section -->
+        <div class="mb-8 sm:mb-12 scroll-animate" data-animation="fade-up">
+            <div class="bg-gradient-to-r from-blue-800 to-[#1e3a8a] rounded-xl md:rounded-2xl p-6 sm:p-8 md:p-12 text-white shadow-xl">
+                <div class="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
+                    <div class="bg-white/20 backdrop-blur-sm p-3 sm:p-4 rounded-xl">
+                        <svg class="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h1 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-2">Ekonomi & UMKM Desa</h1>
+                        <p class="text-blue-100 text-sm sm:text-base md:text-lg">Mendorong pertumbuhan ekonomi lokal melalui pengembangan usaha mikro, kecil, dan menengah</p>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- Statistik UMKM -->
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-12">
+        <!-- Statistik UMKM -->
+        <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 md:gap-6 mb-8 sm:mb-12">
         <div class="scroll-animate bg-white rounded-xl border border-gray-200 p-6 text-center hover:border-[#1e3a8a] hover:shadow-lg transition-all duration-300" data-animation="fade-up" data-delay="100">
             <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                 <svg class="w-8 h-8 text-[#1e3a8a]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -492,4 +493,5 @@
             });
         });
     </script>
+    </div>
 @endsection

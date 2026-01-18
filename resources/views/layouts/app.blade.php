@@ -8,7 +8,7 @@
     
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="bg-gray-50 text-gray-900">
+<body class="bg-gray-50">
     <!-- Header -->
     <header class="relative bg-[#1e3a8a] text-white header-animate overflow-hidden">
         <!-- Background Image -->
@@ -31,7 +31,7 @@
     </header>
 
     <!-- Navigasi Sticky -->
-    <nav id="sticky-nav" class="sticky top-0 z-50 bg-blue-800 text-white transition-all duration-300 nav-animate">
+    <nav id="sticky-nav" class="sticky top-0 z-50 bg-blue-900 text-white shadow-lg nav-animate">
         <div class="container mx-auto px-4">
             <div class="flex items-center justify-between">
                 <!-- Menu Desktop -->
@@ -41,105 +41,70 @@
                     <a href="{{ route('pemerintahan') }}" class="menu-item-animate px-4 py-3 text-sm font-medium hover:bg-[#1e3a8a] transition-colors {{ request()->routeIs('pemerintahan') ? 'bg-[#1e3a8a] border-b-2 border-white' : '' }}">Pemerintahan</a>
                     <a href="{{ route('berita') }}" class="menu-item-animate px-4 py-3 text-sm font-medium hover:bg-[#1e3a8a] transition-colors {{ request()->routeIs('berita') ? 'bg-[#1e3a8a] border-b-2 border-white' : '' }}">Berita</a>
                     <a href="{{ route('layanan') }}" class="menu-item-animate px-4 py-3 text-sm font-medium hover:bg-[#1e3a8a] transition-colors {{ request()->routeIs('layanan') ? 'bg-[#1e3a8a] border-b-2 border-white' : '' }}">Layanan</a>
-                    <a href="{{ route('data') }}" class="menu-item-animate px-4 py-3 text-sm font-medium hover:bg-[#1e3a8a] transition-colors {{ request()->routeIs('data') ? 'bg-[#1e3a8a] border-b-2 border-white' : '' }}">Data Desa</a>
+                    <a href="{{ route('data') }}" class="menu-item-animate px-4 py-3 text-sm font-medium hover:bg-[#1e3a8a] transition-colors {{ request()->routeIs('data') ? 'bg-[#1e3a8a] border-b-2 border-white' : '' }}">Statistik</a>
                     <a href="{{ route('darurat') }}" class="menu-item-animate px-4 py-3 text-sm font-medium hover:bg-[#1e3a8a] transition-colors {{ request()->routeIs('darurat') ? 'bg-[#1e3a8a] border-b-2 border-white' : '' }}">Darurat</a>
-                    <a href="{{ route('kesehatan') }}" class="menu-item-animate px-4 py-3 text-sm font-medium hover:bg-[#1e3a8a] transition-colors {{ request()->routeIs('kesehatan') ? 'bg-[#1e3a8a] border-b-2 border-white' : '' }}">Kesehatan</a>
                     <a href="{{ route('galeri') }}" class="menu-item-animate px-4 py-3 text-sm font-medium hover:bg-[#1e3a8a] transition-colors {{ request()->routeIs('galeri') ? 'bg-[#1e3a8a] border-b-2 border-white' : '' }}">Galeri</a>
                     <a href="{{ route('umkm') }}" class="menu-item-animate px-4 py-3 text-sm font-medium hover:bg-[#1e3a8a] transition-colors {{ request()->routeIs('umkm') ? 'bg-[#1e3a8a] border-b-2 border-white' : '' }}">Ekonomi & UMKM</a>
                     <a href="{{ route('kontak') }}" class="menu-item-animate px-4 py-3 text-sm font-medium hover:bg-[#1e3a8a] transition-colors {{ request()->routeIs('kontak') ? 'bg-[#1e3a8a] border-b-2 border-white' : '' }}">Kontak</a>
                 </div>
                 <!-- Tombol Mobile Menu -->
-                <button id="mobile-menu-btn" class="md:hidden p-2 hover:bg-[#1e3a8a] transition-colors">
-                    <svg id="menu-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <button id="mobile-menu-btn" class="md:hidden p-3 hover:bg-[#1e3a8a] transition-colors rounded-lg -webkit-tap-highlight-color:transparent" aria-label="Toggle menu" style="-webkit-tap-highlight-color: transparent;">
+                    <svg id="menu-icon" class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                     </svg>
-                    <svg id="close-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg id="close-icon" class="w-7 h-7 text-white hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                     </svg>
                 </button>
-            </div>
-            <!-- Menu Mobile -->
-            <div id="mobile-menu" class="hidden md:hidden border-t border-blue-600 mobile-menu-container">
-                <a href="{{ route('beranda') }}" class="mobile-menu-item block px-4 py-2 hover:bg-[#1e3a8a] transition-colors {{ request()->routeIs('beranda') ? 'bg-[#1e3a8a]' : '' }}">Beranda</a>
-                <a href="{{ route('profil') }}" class="mobile-menu-item block px-4 py-2 hover:bg-[#1e3a8a] transition-colors {{ request()->routeIs('profil') ? 'bg-[#1e3a8a]' : '' }}">Profil Desa</a>
-                <a href="{{ route('pemerintahan') }}" class="mobile-menu-item block px-4 py-2 hover:bg-[#1e3a8a] transition-colors {{ request()->routeIs('pemerintahan') ? 'bg-[#1e3a8a]' : '' }}">Pemerintahan Desa</a>
-                <a href="{{ route('berita') }}" class="mobile-menu-item block px-4 py-2 hover:bg-[#1e3a8a] transition-colors {{ request()->routeIs('berita') ? 'bg-[#1e3a8a]' : '' }}">Berita & Pengumuman</a>
-                <a href="{{ route('layanan') }}" class="mobile-menu-item block px-4 py-2 hover:bg-[#1e3a8a] transition-colors {{ request()->routeIs('layanan') ? 'bg-[#1e3a8a]' : '' }}">Layanan Desa</a>
-                <a href="{{ route('data') }}" class="mobile-menu-item block px-4 py-2 hover:bg-[#1e3a8a] transition-colors {{ request()->routeIs('data') ? 'bg-[#1e3a8a]' : '' }}">Data Desa</a>
-                <a href="{{ route('darurat') }}" class="mobile-menu-item block px-4 py-2 hover:bg-[#1e3a8a] transition-colors {{ request()->routeIs('darurat') ? 'bg-[#1e3a8a]' : '' }}">Darurat & Keamanan</a>
-                <a href="{{ route('kesehatan') }}" class="mobile-menu-item block px-4 py-2 hover:bg-[#1e3a8a] transition-colors {{ request()->routeIs('kesehatan') ? 'bg-[#1e3a8a]' : '' }}">Kesehatan & Sosial</a>
-                <a href="{{ route('galeri') }}" class="mobile-menu-item block px-4 py-2 hover:bg-[#1e3a8a] transition-colors {{ request()->routeIs('galeri') ? 'bg-[#1e3a8a]' : '' }}">Galeri</a>
-                <a href="{{ route('umkm') }}" class="mobile-menu-item block px-4 py-2 hover:bg-[#1e3a8a] transition-colors {{ request()->routeIs('umkm') ? 'bg-[#1e3a8a]' : '' }}">Ekonomi & UMKM</a>
-                <a href="{{ route('kontak') }}" class="mobile-menu-item block px-4 py-2 hover:bg-[#1e3a8a] transition-colors {{ request()->routeIs('kontak') ? 'bg-[#1e3a8a]' : '' }}">Kontak & Aspirasi</a>
+                <!-- Menu Mobile -->
+                <div id="mobile-menu" class="hidden md:hidden border-t border-blue-600 mobile-menu-container bg-white">
+                    <a href="{{ route('beranda') }}" class="mobile-menu-item block px-5 py-3.5 text-base font-medium text-gray-800 hover:bg-[#1e3a8a] hover:text-white transition-colors border-b border-gray-100 {{ request()->routeIs('beranda') ? 'bg-[#1e3a8a] text-white' : '' }}">Beranda</a>
+                    <a href="{{ route('profil') }}" class="mobile-menu-item block px-5 py-3.5 text-base font-medium text-gray-800 hover:bg-[#1e3a8a] hover:text-white transition-colors border-b border-gray-100 {{ request()->routeIs('profil') ? 'bg-[#1e3a8a] text-white' : '' }}">Profil Desa</a>
+                    <a href="{{ route('pemerintahan') }}" class="mobile-menu-item block px-5 py-3.5 text-base font-medium text-gray-800 hover:bg-[#1e3a8a] hover:text-white transition-colors border-b border-gray-100 {{ request()->routeIs('pemerintahan') ? 'bg-[#1e3a8a] text-white' : '' }}">Pemerintahan Desa</a>
+                    <a href="{{ route('berita') }}" class="mobile-menu-item block px-5 py-3.5 text-base font-medium text-gray-800 hover:bg-[#1e3a8a] hover:text-white transition-colors border-b border-gray-100 {{ request()->routeIs('berita') ? 'bg-[#1e3a8a] text-white' : '' }}">Berita & Pengumuman</a>
+                    <a href="{{ route('layanan') }}" class="mobile-menu-item block px-5 py-3.5 text-base font-medium text-gray-800 hover:bg-[#1e3a8a] hover:text-white transition-colors border-b border-gray-100 {{ request()->routeIs('layanan') ? 'bg-[#1e3a8a] text-white' : '' }}">Layanan Desa</a>
+                    <a href="{{ route('data') }}" class="mobile-menu-item block px-5 py-3.5 text-base font-medium text-gray-800 hover:bg-[#1e3a8a] hover:text-white transition-colors border-b border-gray-100 {{ request()->routeIs('data') ? 'bg-[#1e3a8a] text-white' : '' }}">Statistik</a>
+                    <a href="{{ route('darurat') }}" class="mobile-menu-item block px-5 py-3.5 text-base font-medium text-gray-800 hover:bg-[#1e3a8a] hover:text-white transition-colors border-b border-gray-100 {{ request()->routeIs('darurat') ? 'bg-[#1e3a8a] text-white' : '' }}">Darurat & Keamanan</a>
+                    <a href="{{ route('galeri') }}" class="mobile-menu-item block px-5 py-3.5 text-base font-medium text-gray-800 hover:bg-[#1e3a8a] hover:text-white transition-colors border-b border-gray-100 {{ request()->routeIs('galeri') ? 'bg-[#1e3a8a] text-white' : '' }}">Galeri</a>
+                    <a href="{{ route('umkm') }}" class="mobile-menu-item block px-5 py-3.5 text-base font-medium text-gray-800 hover:bg-[#1e3a8a] hover:text-white transition-colors border-b border-gray-100 {{ request()->routeIs('umkm') ? 'bg-[#1e3a8a] text-white' : '' }}">Ekonomi & UMKM</a>
+                    <a href="{{ route('kontak') }}" class="mobile-menu-item block px-5 py-3.5 text-base font-medium text-gray-800 hover:bg-[#1e3a8a] hover:text-white transition-colors border-b border-gray-100 {{ request()->routeIs('kontak') ? 'bg-[#1e3a8a] text-white' : '' }}">Kontak & Aspirasi</a>
+                </div>
             </div>
         </div>
     </nav>
 
-    <!-- Konten Utama -->
-    <main class="container mx-auto px-4 py-6">
-        @yield('content')
+    <!-- Main Content -->
+    <main class="pt-8 sm:pt-12 md:pt-16">
+        @isset($slot)
+            {{ $slot }}
+        @else
+            @yield('content')
+        @endisset
     </main>
 
     <!-- Footer -->
-    <footer class="bg-gray-800 text-white mt-12">
-        <div class="container mx-auto px-4 py-8 md:py-10">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 mb-8">
-                <!-- Informasi Desa -->
+    <footer class="bg-blue-900 text-white mt-16">
+        <div class="container mx-auto px-4 py-8 md:py-12">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
                 <div>
-                    <h3 class="text-lg font-bold text-white mb-4 pb-2 border-b border-gray-700">Informasi Desa</h3>
-                    <div class="space-y-2 text-sm text-gray-300">
-                        <p class="font-semibold text-white">Pemerintah Desa</p>
-                        <p>Website Resmi Informasi Desa</p>
-                        <p class="mt-3">
-                            Jalan Raya Desa No. 123<br>
-                            Kecamatan, Kabupaten<br>
-                            Provinsi<br>
-                            Kode Pos 12345
-                        </p>
-                    </div>
+                    <h3 class="text-lg font-bold text-white mb-4 pb-2 border-b border-gray-700">Tentang Desa</h3>
+                    <p class="text-gray-300 text-sm leading-relaxed">
+                        Website resmi Pemerintah Desa untuk menyampaikan informasi, kebijakan, dan layanan publik yang transparan dan akuntabel kepada seluruh masyarakat.
+                    </p>
                 </div>
-
-                <!-- Link Cepat -->
                 <div>
                     <h3 class="text-lg font-bold text-white mb-4 pb-2 border-b border-gray-700">Link Cepat</h3>
                     <ul class="space-y-2 text-sm">
                         <li><a href="{{ route('beranda') }}" class="text-gray-300 hover:text-white transition-colors">Beranda</a></li>
                         <li><a href="{{ route('profil') }}" class="text-gray-300 hover:text-white transition-colors">Profil Desa</a></li>
-                        <li><a href="{{ route('pemerintahan') }}" class="text-gray-300 hover:text-white transition-colors">Pemerintahan Desa</a></li>
                         <li><a href="{{ route('berita') }}" class="text-gray-300 hover:text-white transition-colors">Berita & Pengumuman</a></li>
                         <li><a href="{{ route('layanan') }}" class="text-gray-300 hover:text-white transition-colors">Layanan Desa</a></li>
-                        <li><a href="{{ route('data') }}" class="text-gray-300 hover:text-white transition-colors">Data Desa</a></li>
-                        <li><a href="{{ route('galeri') }}" class="text-gray-300 hover:text-white transition-colors">Galeri</a></li>
-                        <li><a href="{{ route('umkm') }}" class="text-gray-300 hover:text-white transition-colors">Ekonomi & UMKM</a></li>
-                        <li><a href="{{ route('kontak') }}" class="text-gray-300 hover:text-white transition-colors">Kontak & Aspirasi</a></li>
                     </ul>
                 </div>
-
-                <!-- Kontak -->
-                <div>
-                    <h3 class="text-lg font-bold text-white mb-4 pb-2 border-b border-gray-700">Kontak</h3>
-                    <div class="space-y-3 text-sm text-gray-300">
-                        <div>
-                            <p class="font-semibold text-white mb-1">Telepon</p>
-                            <p><a href="tel:02112345678" class="hover:text-white transition-colors">(021) 1234-5678</a></p>
-                        </div>
-                        <div>
-                            <p class="font-semibold text-white mb-1">Email</p>
-                            <p><a href="mailto:info@desa.go.id" class="hover:text-white transition-colors">info@desa.go.id</a></p>
-                        </div>
-                        <div>
-                            <p class="font-semibold text-white mb-1">Jam Pelayanan</p>
-                            <p>Senin - Jumat<br>08:00 - 15:00 WIB</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Informasi Penting -->
                 <div>
                     <h3 class="text-lg font-bold text-white mb-4 pb-2 border-b border-gray-700">Informasi Penting</h3>
                     <ul class="space-y-2 text-sm">
                         <li><a href="{{ route('darurat') }}" class="text-gray-300 hover:text-white transition-colors">Darurat & Keamanan</a></li>
-                        <li><a href="{{ route('kesehatan') }}" class="text-gray-300 hover:text-white transition-colors">Kesehatan & Sosial</a></li>
                         <li><a href="{{ route('kontak') }}" class="text-gray-300 hover:text-white transition-colors">Formulir Aspirasi</a></li>
                         <li><a href="{{ route('layanan') }}" class="text-gray-300 hover:text-white transition-colors">Pengajuan Layanan</a></li>
                     </ul>
@@ -155,11 +120,10 @@
             </div>
 
             <!-- Copyright -->
-            <div class="border-t border-gray-700 pt-6">
-                <div class="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-400">
-                    <p>&copy; {{ date('Y') }} Pemerintah Desa. Hak Cipta Dilindungi.</p>
-                    <p>Website Resmi Pemerintah Desa - Dibangun untuk Masyarakat</p>
-                </div>
+            <div class="border-t border-gray-700 pt-6 text-center">
+                <p class="text-sm text-gray-400">
+                    &copy; {{ date('Y') }} Pemerintah Desa. Hak Cipta Dilindungi.
+                </p>
             </div>
         </div>
     </footer>
@@ -189,20 +153,6 @@
             animation: fadeInLeft 0.8s ease-out 0.3s forwards;
         }
 
-        /* Header Background Image */
-        .header-bg {
-            background-image: url('{{ asset('images/header-bg.jpg') }}'), url('https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=1920&q=80');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-        }
-
-        @media (max-width: 768px) {
-            .header-bg {
-                background-attachment: scroll;
-            }
-        }
-
         /* Navigation Animation */
         .nav-animate {
             opacity: 0;
@@ -221,22 +171,77 @@
             transform: translateY(0);
         }
 
+        /* Header Background Image */
+        .header-bg {
+            background-image: url('{{ asset('images/header-bg.jpg') }}'), url('https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        @media (max-width: 768px) {
+            .header-bg {
+                background-attachment: scroll;
+            }
+        }
+
+        /* Mobile Menu Animation */
+        .mobile-menu-container {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            -webkit-transition: max-height 0.3s ease-out;
+        }
+
+        .mobile-menu-container.show {
+            max-height: 1000px;
+        }
+
+        .mobile-menu-item {
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: opacity 0.3s ease-out, transform 0.3s ease-out, background-color 0.2s ease-out, color 0.2s ease-out;
+            -webkit-transition: opacity 0.3s ease-out, transform 0.3s ease-out, background-color 0.2s ease-out, color 0.2s ease-out;
+            min-height: 48px; /* Minimum touch target size for Android */
+            display: flex;
+            align-items: center;
+            -webkit-tap-highlight-color: rgba(30, 58, 138, 0.1);
+        }
+
+        .mobile-menu-container.show .mobile-menu-item {
+            opacity: 1;
+            transform: translateX(0);
+            -webkit-transform: translateX(0);
+        }
+        
+        /* Better touch feedback for Android */
+        .mobile-menu-item:active {
+            background-color: rgba(30, 58, 138, 0.2);
+        }
+        
+        /* Improve mobile menu container */
+        .mobile-menu-container {
+            background-color: white;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .mobile-menu-container.show .mobile-menu-item:nth-child(1) { transition-delay: 0.05s; -webkit-transition-delay: 0.05s; }
+        .mobile-menu-container.show .mobile-menu-item:nth-child(2) { transition-delay: 0.1s; -webkit-transition-delay: 0.1s; }
+        .mobile-menu-container.show .mobile-menu-item:nth-child(3) { transition-delay: 0.15s; -webkit-transition-delay: 0.15s; }
+        .mobile-menu-container.show .mobile-menu-item:nth-child(4) { transition-delay: 0.2s; -webkit-transition-delay: 0.2s; }
+        .mobile-menu-container.show .mobile-menu-item:nth-child(5) { transition-delay: 0.25s; -webkit-transition-delay: 0.25s; }
+        .mobile-menu-container.show .mobile-menu-item:nth-child(6) { transition-delay: 0.3s; -webkit-transition-delay: 0.3s; }
+        .mobile-menu-container.show .mobile-menu-item:nth-child(7) { transition-delay: 0.35s; -webkit-transition-delay: 0.35s; }
+        .mobile-menu-container.show .mobile-menu-item:nth-child(8) { transition-delay: 0.4s; -webkit-transition-delay: 0.4s; }
+        .mobile-menu-container.show .mobile-menu-item:nth-child(9) { transition-delay: 0.45s; -webkit-transition-delay: 0.45s; }
+        .mobile-menu-container.show .mobile-menu-item:nth-child(10) { transition-delay: 0.5s; -webkit-transition-delay: 0.5s; }
+        .mobile-menu-container.show .mobile-menu-item:nth-child(11) { transition-delay: 0.55s; -webkit-transition-delay: 0.55s; }
+
         /* Keyframes */
         @keyframes fadeInDown {
             from {
                 opacity: 0;
                 transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
             }
             to {
                 opacity: 1;
@@ -266,63 +271,15 @@
             }
         }
 
-        /* Skeleton Loading Styles */
-        .skeleton {
-            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-            background-size: 200% 100%;
-            animation: skeleton-loading 1.5s ease-in-out infinite;
-            border-radius: 4px;
-        }
-
-        .skeleton-text {
-            height: 1rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .skeleton-title {
-            height: 1.5rem;
-            margin-bottom: 1rem;
-            width: 60%;
-        }
-
-        .skeleton-card {
-            background: white;
-            border: 1px solid #e5e7eb;
-            border-radius: 4px;
-            padding: 1.5rem;
-        }
-
-        .skeleton-image {
-            width: 100%;
-            height: 200px;
-            border-radius: 4px;
-        }
-
-        .skeleton-avatar {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-        }
-
-        @keyframes skeleton-loading {
-            0% {
-                background-position: 200% 0;
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
             }
-            100% {
-                background-position: -200% 0;
+            to {
+                opacity: 1;
+                transform: translateY(0);
             }
-        }
-
-        .skeleton-content {
-            display: none;
-        }
-
-        .skeleton-content.show {
-            display: block;
-        }
-
-        .skeleton-wrapper.hide .skeleton {
-            display: none;
         }
 
         /* Hide Scrollbar */
@@ -333,44 +290,6 @@
         .scrollbar-hide::-webkit-scrollbar {
             display: none;
         }
-
-        /* Mobile Menu Animation */
-        .mobile-menu-container {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease-out;
-            -webkit-transition: max-height 0.3s ease-out;
-        }
-
-        .mobile-menu-container.show {
-            max-height: 1000px;
-        }
-
-        .mobile-menu-item {
-            opacity: 0;
-            transform: translateX(-20px);
-            transition: opacity 0.3s ease-out, transform 0.3s ease-out;
-            -webkit-transition: opacity 0.3s ease-out, transform 0.3s ease-out;
-        }
-
-        .mobile-menu-container.show .mobile-menu-item {
-            opacity: 1;
-            transform: translateX(0);
-            -webkit-transform: translateX(0);
-        }
-
-        .mobile-menu-container.show .mobile-menu-item:nth-child(1) { transition-delay: 0.05s; -webkit-transition-delay: 0.05s; }
-        .mobile-menu-container.show .mobile-menu-item:nth-child(2) { transition-delay: 0.1s; -webkit-transition-delay: 0.1s; }
-        .mobile-menu-container.show .mobile-menu-item:nth-child(3) { transition-delay: 0.15s; -webkit-transition-delay: 0.15s; }
-        .mobile-menu-container.show .mobile-menu-item:nth-child(4) { transition-delay: 0.2s; -webkit-transition-delay: 0.2s; }
-        .mobile-menu-container.show .mobile-menu-item:nth-child(5) { transition-delay: 0.25s; -webkit-transition-delay: 0.25s; }
-        .mobile-menu-container.show .mobile-menu-item:nth-child(6) { transition-delay: 0.3s; -webkit-transition-delay: 0.3s; }
-        .mobile-menu-container.show .mobile-menu-item:nth-child(7) { transition-delay: 0.35s; -webkit-transition-delay: 0.35s; }
-        .mobile-menu-container.show .mobile-menu-item:nth-child(8) { transition-delay: 0.4s; -webkit-transition-delay: 0.4s; }
-        .mobile-menu-container.show .mobile-menu-item:nth-child(9) { transition-delay: 0.45s; -webkit-transition-delay: 0.45s; }
-        .mobile-menu-container.show .mobile-menu-item:nth-child(10) { transition-delay: 0.5s; -webkit-transition-delay: 0.5s; }
-        .mobile-menu-container.show .mobile-menu-item:nth-child(11) { transition-delay: 0.55s; -webkit-transition-delay: 0.55s; }
-
     </style>
     <script>
         // Toggle Mobile Menu dengan Animasi

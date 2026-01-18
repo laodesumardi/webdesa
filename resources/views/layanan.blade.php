@@ -2,74 +2,68 @@
 
 @section('title', 'Layanan Desa - Website Resmi Pemerintah Desa')
 
+@php
+    use App\Models\Content;
+    function getContent($page, $section, $key, $default = '') {
+        return Content::getContent($page, $section, $key, $default);
+    }
+    
+    // Get header
+    $headerTitle = getContent('layanan', 'header', 'title', 'Layanan Desa');
+    $headerSubtitle = getContent('layanan', 'header', 'subtitle', 'Pelayanan administrasi yang tersedia untuk masyarakat');
+    
+    // Get jam pelayanan
+    $jamHariKerja = getContent('layanan', 'jam', 'hari_kerja', 'Senin - Jumat');
+    $jamWaktuPelayanan = getContent('layanan', 'jam', 'waktu_pelayanan', '08:00 - 15:00 WIB');
+    $jamWaktuIstirahat = getContent('layanan', 'jam', 'waktu_istirahat', '12:00 - 13:00 WIB');
+    
+    // Get daftar layanan
+    $layananList = [];
+    for ($i = 1; $i <= 6; $i++) {
+        $layananList[$i] = [
+            'judul' => getContent('layanan', 'layanan_' . $i, 'judul', ''),
+            'deskripsi' => getContent('layanan', 'layanan_' . $i, 'deskripsi', ''),
+            'persyaratan' => getContent('layanan', 'layanan_' . $i, 'persyaratan', ''),
+            'waktu' => getContent('layanan', 'layanan_' . $i, 'waktu', ''),
+            'biaya' => getContent('layanan', 'layanan_' . $i, 'biaya', ''),
+        ];
+    }
+    
+    // Default values jika kosong
+    if (empty($layananList[1]['judul'])) {
+        $layananList[1] = ['judul' => 'Surat Keterangan Domisili', 'deskripsi' => 'Surat keterangan tempat tinggal untuk keperluan administrasi.', 'persyaratan' => 'KTP, Kartu Keluarga', 'waktu' => '1-2 hari kerja', 'biaya' => 'Gratis'];
+        $layananList[2] = ['judul' => 'Surat Keterangan Tidak Mampu', 'deskripsi' => 'Surat keterangan untuk keperluan bantuan sosial.', 'persyaratan' => 'KTP, Kartu Keluarga, Surat RT/RW', 'waktu' => '2-3 hari kerja', 'biaya' => 'Gratis'];
+        $layananList[3] = ['judul' => 'Surat Keterangan Usaha', 'deskripsi' => 'Surat keterangan untuk keperluan perizinan usaha.', 'persyaratan' => 'KTP, Kartu Keluarga, Surat RT/RW', 'waktu' => '2-3 hari kerja', 'biaya' => 'Gratis'];
+        $layananList[4] = ['judul' => 'Surat Pengantar KTP', 'deskripsi' => 'Surat pengantar untuk pembuatan atau perpanjangan KTP.', 'persyaratan' => 'Kartu Keluarga, Surat RT/RW', 'waktu' => '1 hari kerja', 'biaya' => 'Gratis'];
+        $layananList[5] = ['judul' => 'Surat Keterangan Kelakuan Baik', 'deskripsi' => 'Surat keterangan untuk keperluan pekerjaan atau pendidikan.', 'persyaratan' => 'KTP, Kartu Keluarga, Surat RT/RW', 'waktu' => '2-3 hari kerja', 'biaya' => 'Gratis'];
+        $layananList[6] = ['judul' => 'Surat Keterangan Kematian', 'deskripsi' => 'Surat keterangan untuk keperluan administrasi kematian.', 'persyaratan' => 'KTP, Kartu Keluarga, Surat Keterangan Dokter', 'waktu' => '1 hari kerja', 'biaya' => 'Gratis'];
+    }
+@endphp
+
 @section('content')
-    <div class="mb-8 scroll-animate" data-animation="fade-up">
-        <h1 class="text-2xl md:text-3xl font-bold text-[#1e3a8a] mb-2">Layanan Desa</h1>
-        <p class="text-gray-600 text-base md:text-lg">Pelayanan administrasi yang tersedia untuk masyarakat</p>
-    </div>
+    <div class="container mx-auto px-4 sm:px-6">
+        <div class="mb-6 sm:mb-8 scroll-animate" data-animation="fade-up">
+            <h1 class="text-xl sm:text-2xl md:text-3xl font-bold text-[#1e3a8a] mb-2">{{ $headerTitle }}</h1>
+            <p class="text-gray-600 text-sm sm:text-base md:text-lg">{{ $headerSubtitle }}</p>
+        </div>
 
-    <!-- Daftar Layanan -->
-    <div class="mb-8 scroll-animate" data-animation="fade-up" data-delay="100">
-        <h2 class="text-xl md:text-2xl font-bold text-[#1e3a8a] mb-6 pb-3 border-b-2 border-[#1e3a8a]">Daftar Layanan Administrasi</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-            <div class="scroll-animate bg-white border border-gray-200 p-5 hover:border-[#1e3a8a] transition-colors" data-animation="scale-fade" data-delay="200">
-                <h3 class="text-lg font-bold text-gray-900 mb-2">Surat Keterangan Domisili</h3>
-                <p class="text-gray-700 text-sm mb-3">Surat keterangan tempat tinggal untuk keperluan administrasi.</p>
-                <div class="space-y-1 text-sm text-gray-600">
-                    <p><strong>Persyaratan:</strong> KTP, Kartu Keluarga</p>
-                    <p><strong>Waktu:</strong> 1-2 hari kerja</p>
-                    <p><strong>Biaya:</strong> Gratis</p>
-                </div>
-            </div>
-
-            <div class="scroll-animate bg-white border border-gray-200 p-5 hover:border-[#1e3a8a] transition-colors" data-animation="scale-fade" data-delay="300">
-                <h3 class="text-lg font-bold text-gray-900 mb-2">Surat Keterangan Tidak Mampu</h3>
-                <p class="text-gray-700 text-sm mb-3">Surat keterangan untuk keperluan bantuan sosial.</p>
-                <div class="space-y-1 text-sm text-gray-600">
-                    <p><strong>Persyaratan:</strong> KTP, Kartu Keluarga, Surat RT/RW</p>
-                    <p><strong>Waktu:</strong> 2-3 hari kerja</p>
-                    <p><strong>Biaya:</strong> Gratis</p>
-                </div>
-            </div>
-
-            <div class="bg-white border border-gray-200 p-5 hover:border-[#1e3a8a] transition-colors">
-                <h3 class="text-lg font-bold text-gray-900 mb-2">Surat Keterangan Usaha</h3>
-                <p class="text-gray-700 text-sm mb-3">Surat keterangan untuk keperluan perizinan usaha.</p>
-                <div class="space-y-1 text-sm text-gray-600">
-                    <p><strong>Persyaratan:</strong> KTP, Kartu Keluarga, Surat RT/RW</p>
-                    <p><strong>Waktu:</strong> 2-3 hari kerja</p>
-                    <p><strong>Biaya:</strong> Gratis</p>
-                </div>
-            </div>
-
-            <div class="bg-white border border-gray-200 p-5 hover:border-[#1e3a8a] transition-colors">
-                <h3 class="text-lg font-bold text-gray-900 mb-2">Surat Pengantar KTP</h3>
-                <p class="text-gray-700 text-sm mb-3">Surat pengantar untuk pembuatan atau perpanjangan KTP.</p>
-                <div class="space-y-1 text-sm text-gray-600">
-                    <p><strong>Persyaratan:</strong> Kartu Keluarga, Surat RT/RW</p>
-                    <p><strong>Waktu:</strong> 1 hari kerja</p>
-                    <p><strong>Biaya:</strong> Gratis</p>
-                </div>
-            </div>
-
-            <div class="bg-white border border-gray-200 p-5 hover:border-[#1e3a8a] transition-colors">
-                <h3 class="text-lg font-bold text-gray-900 mb-2">Surat Keterangan Kelakuan Baik</h3>
-                <p class="text-gray-700 text-sm mb-3">Surat keterangan untuk keperluan pekerjaan atau pendidikan.</p>
-                <div class="space-y-1 text-sm text-gray-600">
-                    <p><strong>Persyaratan:</strong> KTP, Kartu Keluarga, Surat RT/RW</p>
-                    <p><strong>Waktu:</strong> 2-3 hari kerja</p>
-                    <p><strong>Biaya:</strong> Gratis</p>
-                </div>
-            </div>
-
-            <div class="bg-white border border-gray-200 p-5 hover:border-[#1e3a8a] transition-colors">
-                <h3 class="text-lg font-bold text-gray-900 mb-2">Surat Keterangan Kematian</h3>
-                <p class="text-gray-700 text-sm mb-3">Surat keterangan untuk keperluan administrasi kematian.</p>
-                <div class="space-y-1 text-sm text-gray-600">
-                    <p><strong>Persyaratan:</strong> KTP, Kartu Keluarga, Surat Keterangan Dokter</p>
-                    <p><strong>Waktu:</strong> 1 hari kerja</p>
-                    <p><strong>Biaya:</strong> Gratis</p>
-                </div>
+        <!-- Daftar Layanan -->
+        <div class="mb-6 sm:mb-8 scroll-animate" data-animation="fade-up" data-delay="100">
+            <h2 class="text-lg sm:text-xl md:text-2xl font-bold text-[#1e3a8a] mb-4 sm:mb-6 pb-2 sm:pb-3 border-b-2 border-[#1e3a8a]">Daftar Layanan Administrasi</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
+                @foreach($layananList as $index => $layanan)
+                    @if(!empty($layanan['judul']))
+                        <div class="scroll-animate bg-white border border-gray-200 p-4 sm:p-5 hover:border-[#1e3a8a] transition-colors rounded-lg" data-animation="scale-fade" data-delay="{{ ($index * 100) + 200 }}">
+                            <h3 class="text-base sm:text-lg font-bold text-gray-900 mb-2">{{ $layanan['judul'] }}</h3>
+                            <p class="text-gray-700 text-xs sm:text-sm mb-3">{{ $layanan['deskripsi'] }}</p>
+                            <div class="space-y-1 text-xs sm:text-sm text-gray-600">
+                                <p><strong>Persyaratan:</strong> {{ $layanan['persyaratan'] }}</p>
+                                <p><strong>Waktu:</strong> {{ $layanan['waktu'] }}</p>
+                                <p><strong>Biaya:</strong> {{ $layanan['biaya'] }}</p>
+                            </div>
+                        </div>
+                    @endif
+                @endforeach
             </div>
         </div>
     </div>
@@ -187,15 +181,15 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div class="bg-gray-50 border border-gray-200 p-4">
                 <p class="font-semibold text-gray-900 mb-1">Hari Kerja</p>
-                <p class="text-gray-700">Senin - Jumat</p>
+                <p class="text-gray-700">{{ $jamHariKerja }}</p>
             </div>
             <div class="bg-gray-50 border border-gray-200 p-4">
                 <p class="font-semibold text-gray-900 mb-1">Waktu Pelayanan</p>
-                <p class="text-gray-700">08:00 - 15:00 WIB</p>
+                <p class="text-gray-700">{{ $jamWaktuPelayanan }}</p>
             </div>
             <div class="bg-gray-50 border border-gray-200 p-4">
                 <p class="font-semibold text-gray-900 mb-1">Waktu Istirahat</p>
-                <p class="text-gray-700">12:00 - 13:00 WIB</p>
+                <p class="text-gray-700">{{ $jamWaktuIstirahat }}</p>
             </div>
         </div>
         <p class="text-sm text-gray-600 mt-4">
@@ -248,4 +242,5 @@
             document.querySelectorAll('.scroll-animate').forEach(el => observer.observe(el));
         });
     </script>
+    </div>
 @endsection
