@@ -1,106 +1,147 @@
-# Panduan Deployment Website Desa
+# Panduan Deployment ke Hosting
 
-## Masalah: Vite Manifest Not Found
+## Konfigurasi Database di Server Hosting
 
-Error ini terjadi karena file `public/build/manifest.json` tidak ditemukan di server production.
+### 1. Update File .env di Server
 
-## Solusi 1: Build di Server Production (Recommended)
+Setelah upload file ke server hosting, pastikan file `.env` di server memiliki konfigurasi database yang benar:
 
-Setelah upload semua file ke server, jalankan perintah berikut di server:
-
-```bash
-# Masuk ke direktori project
-cd /home/u798974089/domains/desa.odetune.shop/public_html
-
-# Install dependencies (jika belum)
-npm install
-
-# Build assets untuk production
-npm run build
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=nama_database_dari_hosting
+DB_USERNAME=username_dari_hosting
+DB_PASSWORD=password_dari_hosting
 ```
 
-Pastikan Node.js dan npm sudah terinstall di server.
+**Penting**: Ganti dengan kredensial database yang diberikan oleh hosting provider Anda.
 
-## Solusi 2: Build Lokal dan Upload
+### 2. Clear Cache Setelah Update .env
 
-1. Build assets di local:
+Setelah mengupdate file `.env`, jalankan perintah berikut di server hosting (via SSH atau terminal hosting):
+
 ```bash
-npm run build
+php artisan config:clear
+php artisan cache:clear
+php artisan config:cache
+php artisan optimize:clear
 ```
 
-2. Upload folder `public/build` ke server:
-   - Upload seluruh isi folder `public/build` ke `public_html/public/build/` di server
+### 3. Jalankan Migration
 
-## Solusi 3: Menggunakan Fallback (Sudah Diterapkan)
+Setelah konfigurasi database benar, jalankan migration:
 
-File `resources/views/layouts/app.blade.php` sudah memiliki fallback. Jika manifest tidak ditemukan, akan menggunakan asset langsung.
-
-Namun, untuk production yang optimal, gunakan Solusi 1 atau 2.
-
-## Checklist Deployment
-
-- [ ] Upload semua file ke server
-- [ ] Set permission folder storage dan cache
-- [ ] Copy `.env.example` ke `.env` dan konfigurasi
-- [ ] Run `composer install --no-dev --optimize-autoloader`
-- [ ] Run `php artisan key:generate`
-- [ ] Run `php artisan config:cache`
-- [ ] Run `php artisan route:cache`
-- [ ] Run `php artisan view:cache`
-- [ ] Run `npm install` (jika belum)
-- [ ] Run `npm run build`
-- [ ] Set permission folder `public/build` (755 atau 644)
-- [ ] Test website di browser
-
-## Masalah: Gambar Hero Section Tidak Muncul
-
-Jika gambar di hero section tidak muncul di hosting, ikuti langkah berikut:
-
-### Solusi 1: Upload Gambar ke Server
-
-1. Siapkan 3 gambar dengan nama:
-   - `hero-1.jpg` (untuk slide pertama)
-   - `hero-2.jpg` (untuk slide kedua)
-   - `hero-3.jpg` (untuk slide ketiga)
-
-2. Upload gambar ke folder `public/images/` di server:
-   ```
-   public_html/public/images/hero-1.jpg
-   public_html/public/images/hero-2.jpg
-   public_html/public/images/hero-3.jpg
-   ```
-
-3. Set permission gambar:
-   ```bash
-   chmod 644 public/images/hero-*.jpg
-   ```
-
-### Solusi 2: Pastikan Folder Images Ada
-
-Pastikan folder `public/images/` ada di server:
 ```bash
-mkdir -p public/images
-chmod 755 public/images
+php artisan migrate
 ```
 
-### Solusi 3: Cek Path Gambar
+### 4. Buat Folder Storage (PENTING!)
 
-Jika gambar masih tidak muncul:
-1. Buka browser developer tools (F12)
-2. Cek tab Network untuk melihat error loading gambar
-3. Pastikan URL gambar benar (contoh: `https://desa.odetune.shop/images/hero-1.jpg`)
+**Masalah**: Error "The storage\framework/sessions directory does not exist"
 
-### Catatan
+**Solusi**: Pastikan semua folder storage sudah dibuat di server hosting. Buat folder berikut:
 
-- Jika gambar tidak ditemukan, sistem akan menggunakan fallback dari Unsplash
-- Pastikan hosting Anda mengizinkan akses ke URL external (Unsplash)
-- Ukuran gambar disarankan: 1920x600px, format JPG, maksimal 500KB per gambar
+```
+storage/framework/sessions
+storage/framework/views
+storage/framework/cache
+storage/framework/cache/data
+storage/framework/testing
+storage/logs
+storage/app/public
+```
 
-## Troubleshooting
+**Cara membuat folder:**
 
-Jika masih error setelah build:
-1. Pastikan folder `public/build` ada dan memiliki permission yang benar
-2. Pastikan file `manifest.json` ada di `public/build/manifest.json`
-3. Clear cache Laravel: `php artisan cache:clear`
-4. Clear config cache: `php artisan config:clear`
-5. Pastikan folder `public/images` ada dan gambar hero sudah di-upload
+**Via SSH:**
+```bash
+mkdir -p storage/framework/sessions
+mkdir -p storage/framework/views
+mkdir -p storage/framework/cache/data
+mkdir -p storage/framework/testing
+mkdir -p storage/logs
+mkdir -p storage/app/public
+```
+
+**Via cPanel File Manager:**
+1. Buka File Manager di cPanel
+2. Navigasi ke folder `storage/framework`
+3. Buat folder `sessions`, `views`, `cache`, `testing`
+4. Di dalam folder `cache`, buat folder `data`
+5. Pastikan folder `storage/logs` dan `storage/app/public` juga ada
+
+**Via PHP Script (jika tidak bisa SSH):**
+
+Buat file `create-storage.php` di root project:
+
+```php
+<?php
+// create-storage.php (hapus setelah selesai)
+$folders = [
+    'storage/framework/sessions',
+    'storage/framework/views',
+    'storage/framework/cache/data',
+    'storage/framework/testing',
+    'storage/logs',
+    'storage/app/public',
+];
+
+foreach ($folders as $folder) {
+    if (!is_dir($folder)) {
+        mkdir($folder, 0755, true);
+        echo "Created: $folder<br>";
+    } else {
+        echo "Exists: $folder<br>";
+    }
+}
+
+echo "Done!";
+```
+
+Akses via browser: `https://desa.odetune.shop/create-storage.php` (hapus file setelah selesai)
+
+### 5. Set Permission (Jika Diperlukan)
+
+Pastikan folder storage dan bootstrap/cache memiliki permission yang benar:
+
+**Via SSH:**
+```bash
+chmod -R 775 storage
+chmod -R 775 bootstrap/cache
+```
+
+**Via cPanel File Manager:**
+1. Pilih folder `storage` dan `bootstrap/cache`
+2. Klik kanan → Change Permissions
+3. Set ke `775` (atau `755` jika `775` tidak bisa)
+
+### 6. Troubleshooting
+
+Jika masih error "Access denied for user 'desa'":
+1. Pastikan file `.env` di server sudah diupdate dengan kredensial yang benar
+2. Clear semua cache: `php artisan optimize:clear`
+3. Rebuild config cache: `php artisan config:cache`
+4. Restart web server (jika menggunakan Apache/Nginx)
+5. Pastikan kredensial database di `.env` sesuai dengan yang diberikan hosting provider
+
+### 7. Verifikasi Koneksi Database
+
+Untuk test koneksi database, buat file test sementara:
+
+```php
+<?php
+// test-db.php (hapus setelah testing)
+require __DIR__.'/vendor/autoload.php';
+$app = require_once __DIR__.'/bootstrap/app.php';
+$app->make('Illuminate\Contracts\Console\Kernel')->bootstrap();
+
+try {
+    DB::connection()->getPdo();
+    echo "Database connection OK!";
+} catch (Exception $e) {
+    echo "Error: " . $e->getMessage();
+}
+```
+
+Akses via browser: `https://desa.odetune.shop/test-db.php` (hapus file setelah testing)
