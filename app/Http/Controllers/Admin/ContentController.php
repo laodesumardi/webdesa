@@ -296,6 +296,32 @@ class ContentController extends Controller
     }
 
     /**
+     * Get the correct images path for both local and hosting environments
+     */
+    private function getImagesPath()
+    {
+        // Try public_path first (standard Laravel)
+        $path = public_path('images');
+        
+        // If public_path doesn't exist or we're in a hosting environment
+        // Try alternative paths
+        if (!is_dir(dirname($path))) {
+            // For Hostinger: public_html/images
+            $altPath = $_SERVER['DOCUMENT_ROOT'] . '/images';
+            if (is_dir($_SERVER['DOCUMENT_ROOT'])) {
+                $path = $altPath;
+            }
+        }
+        
+        // Create directory if it doesn't exist
+        if (!is_dir($path)) {
+            @mkdir($path, 0755, true);
+        }
+        
+        return $path;
+    }
+
+    /**
      * Upload foto kepala desa
      */
     public function uploadFoto(Request $request)
@@ -308,14 +334,16 @@ class ContentController extends Controller
             $file = $request->file('foto');
             $filename = 'kepala-desa-' . time() . '.' . $file->getClientOriginalExtension();
             
-            // Ensure images directory exists
-            $imagesPath = public_path('images');
-            if (!file_exists($imagesPath)) {
-                mkdir($imagesPath, 0755, true);
-            }
+            // Get correct images path
+            $imagesPath = $this->getImagesPath();
             
-            // Move file to public/images
+            // Move file to images folder
             $file->move($imagesPath, $filename);
+            
+            // Verify file was uploaded
+            if (!file_exists($imagesPath . '/' . $filename)) {
+                throw new \Exception('File gagal disimpan ke server');
+            }
             
             return response()->json([
                 'success' => true,
@@ -326,6 +354,10 @@ class ContentController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'Gagal upload gambar: ' . $e->getMessage(),
+                'debug' => [
+                    'public_path' => public_path('images'),
+                    'document_root' => $_SERVER['DOCUMENT_ROOT'] ?? 'N/A',
+                ]
             ], 500);
         }
     }
@@ -343,22 +375,24 @@ class ContentController extends Controller
             $file = $request->file('struktur');
             $filename = 'struktur-organisasi.' . $file->getClientOriginalExtension();
             
-            // Ensure images directory exists
-            $imagesPath = public_path('images');
-            if (!file_exists($imagesPath)) {
-                mkdir($imagesPath, 0755, true);
-            }
+            // Get correct images path
+            $imagesPath = $this->getImagesPath();
             
             // Hapus file lama jika ada
             $oldFiles = glob($imagesPath . '/struktur-organisasi.*');
             foreach ($oldFiles as $oldFile) {
                 if (is_file($oldFile)) {
-                    unlink($oldFile);
+                    @unlink($oldFile);
                 }
             }
             
-            // Move file to public/images
+            // Move file to images folder
             $file->move($imagesPath, $filename);
+            
+            // Verify file was uploaded
+            if (!file_exists($imagesPath . '/' . $filename)) {
+                throw new \Exception('File gagal disimpan ke server');
+            }
             
             return response()->json([
                 'success' => true,
@@ -389,22 +423,24 @@ class ContentController extends Controller
             $extension = $file->getClientOriginalExtension();
             $filename = 'hero-' . $slide . '.' . $extension;
             
-            // Ensure images directory exists
-            $imagesPath = public_path('images');
-            if (!file_exists($imagesPath)) {
-                mkdir($imagesPath, 0755, true);
-            }
+            // Get correct images path
+            $imagesPath = $this->getImagesPath();
             
             // Hapus file lama jika ada
             $oldFiles = glob($imagesPath . '/hero-' . $slide . '.*');
             foreach ($oldFiles as $oldFile) {
                 if (is_file($oldFile)) {
-                    unlink($oldFile);
+                    @unlink($oldFile);
                 }
             }
             
-            // Move file to public/images
+            // Move file to images folder
             $file->move($imagesPath, $filename);
+            
+            // Verify file was uploaded
+            if (!file_exists($imagesPath . '/' . $filename)) {
+                throw new \Exception('File gagal disimpan ke server');
+            }
             
             return response()->json([
                 'success' => true,
@@ -433,22 +469,24 @@ class ContentController extends Controller
             $extension = $file->getClientOriginalExtension();
             $filename = 'header-bg.' . $extension;
             
-            // Ensure images directory exists
-            $imagesPath = public_path('images');
-            if (!file_exists($imagesPath)) {
-                mkdir($imagesPath, 0755, true);
-            }
+            // Get correct images path
+            $imagesPath = $this->getImagesPath();
             
             // Hapus file lama jika ada
             $oldFiles = glob($imagesPath . '/header-bg.*');
             foreach ($oldFiles as $oldFile) {
                 if (is_file($oldFile)) {
-                    unlink($oldFile);
+                    @unlink($oldFile);
                 }
             }
             
-            // Move file to public/images
+            // Move file to images folder
             $file->move($imagesPath, $filename);
+            
+            // Verify file was uploaded
+            if (!file_exists($imagesPath . '/' . $filename)) {
+                throw new \Exception('File gagal disimpan ke server');
+            }
             
             return response()->json([
                 'success' => true,
