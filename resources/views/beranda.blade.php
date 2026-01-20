@@ -19,8 +19,8 @@
 
 @section('content')
     <!-- Hero Section Modern -->
-    <div class="w-full px-4 sm:px-6 lg:px-8 mb-16 sm:mb-20 md:mb-24">
-        <div class="relative bg-gradient-to-br from-[#1e3a8a] via-blue-900 to-[#1e3a8a] text-white overflow-hidden rounded-xl md:rounded-2xl shadow-2xl">
+    <div class="w-full mb-16 sm:mb-20 md:mb-24">
+        <div class="relative bg-gradient-to-br from-[#1e3a8a] via-blue-900 to-[#1e3a8a] text-white overflow-hidden shadow-2xl">
         <!-- Floating Shapes -->
         <div class="absolute inset-0 overflow-hidden pointer-events-none">
             <div class="absolute top-20 left-10 w-72 h-72 bg-blue-400/10 rounded-full blur-3xl animate-float"></div>
@@ -35,9 +35,9 @@
                 <!-- Text Shadow Overlay untuk readability -->
                 <div class="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/40"></div>
                 <div class="container mx-auto px-4 sm:px-6 text-center relative z-10 max-w-5xl">
-                    <div class="inline-block mb-4 md:mb-6 px-4 md:px-5 py-2 md:py-2.5 bg-gradient-to-r from-white/20 to-white/10 backdrop-blur-md rounded-full border border-white/30 shadow-lg animate-fade-in-up">
+                    <div class="inline-block mb-4 md:mb-6 px-4 md:px-5 py-2 md:py-2.5 bg-gradient-to-r from-white/20 to-white/10 backdrop-blur-md border border-white/30 shadow-lg animate-fade-in-up">
                         <span class="text-xs md:text-sm font-semibold flex items-center gap-2">
-                            <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+                            <span class="w-2 h-2 bg-green-400 animate-pulse"></span>
                             {{ getContent('beranda', 'hero', 'slide1_badge', 'Selamat Datang') }}
                         </span>
                     </div>
@@ -48,7 +48,7 @@
                         {{ getContent('beranda', 'hero', 'slide1_subtitle', 'Media resmi untuk menyampaikan informasi, kebijakan, dan layanan publik yang transparan dan akuntabel') }}
                     </p>
                     <div class="flex flex-wrap justify-center gap-2 sm:gap-3 md:gap-4 hero-buttons-animate px-2">
-                        <a href="{{ route('layanan') }}" class="group px-4 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 bg-white text-[#1e3a8a] font-bold rounded-lg md:rounded-xl hover:bg-blue-50 transition-all shadow-2xl hover:shadow-blue-500/50 transform hover:-translate-y-1 hover:scale-105 relative overflow-hidden text-xs sm:text-sm md:text-base">
+                        <a href="{{ route('layanan') }}" class="group px-4 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 bg-white text-[#1e3a8a] font-bold hover:bg-blue-50 transition-all shadow-2xl hover:shadow-blue-500/50 transform hover:-translate-y-1 hover:scale-105 relative overflow-hidden text-xs sm:text-sm md:text-base">
                             <span class="relative z-10 flex items-center gap-2">
                                 <svg class="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
@@ -57,7 +57,7 @@
                             </span>
                             <div class="absolute inset-0 bg-gradient-to-r from-blue-50 to-white opacity-0 group-hover:opacity-100 transition-opacity"></div>
                         </a>
-                        <a href="{{ route('berita') }}" class="px-4 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 bg-white/10 backdrop-blur-md text-white font-bold rounded-lg md:rounded-xl border-2 border-white/40 hover:bg-white/20 hover:border-white/60 transition-all shadow-xl hover:shadow-white/20 transform hover:-translate-y-1 hover:scale-105 flex items-center gap-2 text-xs sm:text-sm md:text-base">
+                        <a href="{{ route('berita') }}" class="px-4 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 bg-white/10 backdrop-blur-md text-white font-bold border-2 border-white/40 hover:bg-white/20 hover:border-white/60 transition-all shadow-xl hover:shadow-white/20 transform hover:-translate-y-1 hover:scale-105 flex items-center gap-2 text-xs sm:text-sm md:text-base">
                             <svg class="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path>
                             </svg>
@@ -73,9 +73,9 @@
                 <!-- Text Shadow Overlay untuk readability -->
                 <div class="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/40"></div>
                 <div class="container mx-auto px-4 sm:px-6 text-center relative z-10 max-w-5xl">
-                    <div class="inline-block mb-4 md:mb-6 px-4 md:px-5 py-2 md:py-2.5 bg-gradient-to-r from-white/20 to-white/10 backdrop-blur-md rounded-full border border-white/30 shadow-lg animate-fade-in-up">
+                    <div class="inline-block mb-4 md:mb-6 px-4 md:px-5 py-2 md:py-2.5 bg-gradient-to-r from-white/20 to-white/10 backdrop-blur-md border border-white/30 shadow-lg animate-fade-in-up">
                         <span class="text-xs md:text-sm font-semibold flex items-center gap-2">
-                            <span class="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></span>
+                            <span class="w-2 h-2 bg-blue-400 animate-pulse"></span>
                             {{ getContent('beranda', 'hero', 'slide2_badge', 'Pelayanan Publik') }}
                         </span>
                     </div>
@@ -86,7 +86,7 @@
                         {{ getContent('beranda', 'hero', 'slide2_subtitle', 'Informasi layanan administrasi dan program desa tersedia untuk seluruh masyarakat dengan mudah dan cepat') }}
                     </p>
                     <div class="flex flex-wrap justify-center gap-3 md:gap-4 hero-buttons-animate">
-                        <a href="{{ route('data') }}" class="group px-6 md:px-8 py-3 md:py-4 bg-white text-[#1e3a8a] font-bold rounded-xl hover:bg-blue-50 transition-all shadow-2xl hover:shadow-blue-500/50 transform hover:-translate-y-1 hover:scale-105 relative overflow-hidden text-sm md:text-base">
+                        <a href="{{ route('data') }}" class="group px-6 md:px-8 py-3 md:py-4 bg-white text-[#1e3a8a] font-bold hover:bg-blue-50 transition-all shadow-2xl hover:shadow-blue-500/50 transform hover:-translate-y-1 hover:scale-105 relative overflow-hidden text-sm md:text-base">
                             <span class="relative z-10 flex items-center gap-2">
                                 <svg class="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
@@ -95,7 +95,7 @@
                             </span>
                             <div class="absolute inset-0 bg-gradient-to-r from-blue-50 to-white opacity-0 group-hover:opacity-100 transition-opacity"></div>
                         </a>
-                        <a href="{{ route('kontak') }}" class="px-6 md:px-8 py-3 md:py-4 bg-white/10 backdrop-blur-md text-white font-bold rounded-xl border-2 border-white/40 hover:bg-white/20 hover:border-white/60 transition-all shadow-xl hover:shadow-white/20 transform hover:-translate-y-1 hover:scale-105 flex items-center gap-2 text-sm md:text-base">
+                        <a href="{{ route('kontak') }}" class="px-6 md:px-8 py-3 md:py-4 bg-white/10 backdrop-blur-md text-white font-bold border-2 border-white/40 hover:bg-white/20 hover:border-white/60 transition-all shadow-xl hover:shadow-white/20 transform hover:-translate-y-1 hover:scale-105 flex items-center gap-2 text-sm md:text-base">
                             <svg class="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
                             </svg>
@@ -111,9 +111,9 @@
                 <!-- Text Shadow Overlay untuk readability -->
                 <div class="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/40"></div>
                 <div class="container mx-auto px-4 sm:px-6 text-center relative z-10 max-w-5xl">
-                    <div class="inline-block mb-4 md:mb-6 px-4 md:px-5 py-2 md:py-2.5 bg-gradient-to-r from-white/20 to-white/10 backdrop-blur-md rounded-full border border-white/30 shadow-lg animate-fade-in-up">
+                    <div class="inline-block mb-4 md:mb-6 px-4 md:px-5 py-2 md:py-2.5 bg-gradient-to-r from-white/20 to-white/10 backdrop-blur-md border border-white/30 shadow-lg animate-fade-in-up">
                         <span class="text-xs md:text-sm font-semibold flex items-center gap-2">
-                            <span class="w-2 h-2 bg-yellow-400 rounded-full animate-pulse"></span>
+                            <span class="w-2 h-2 bg-yellow-400 animate-pulse"></span>
                             {{ getContent('beranda', 'hero', 'slide3_badge', 'Pembangunan Desa') }}
                         </span>
                     </div>
@@ -124,7 +124,7 @@
                         {{ getContent('beranda', 'hero', 'slide3_subtitle', 'Bersama membangun desa yang mandiri, sejahtera, dan berbudaya melalui partisipasi aktif seluruh warga') }}
                     </p>
                     <div class="flex flex-wrap justify-center gap-3 md:gap-4 hero-buttons-animate">
-                        <a href="{{ route('umkm') }}" class="group px-6 md:px-8 py-3 md:py-4 bg-white text-[#1e3a8a] font-bold rounded-xl hover:bg-blue-50 transition-all shadow-2xl hover:shadow-blue-500/50 transform hover:-translate-y-1 hover:scale-105 relative overflow-hidden text-sm md:text-base">
+                        <a href="{{ route('umkm') }}" class="group px-6 md:px-8 py-3 md:py-4 bg-white text-[#1e3a8a] font-bold hover:bg-blue-50 transition-all shadow-2xl hover:shadow-blue-500/50 transform hover:-translate-y-1 hover:scale-105 relative overflow-hidden text-sm md:text-base">
                             <span class="relative z-10 flex items-center gap-2">
                                 <svg class="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
@@ -133,7 +133,7 @@
                             </span>
                             <div class="absolute inset-0 bg-gradient-to-r from-blue-50 to-white opacity-0 group-hover:opacity-100 transition-opacity"></div>
                         </a>
-                        <a href="{{ route('galeri') }}" class="px-6 md:px-8 py-3 md:py-4 bg-white/10 backdrop-blur-md text-white font-bold rounded-xl border-2 border-white/40 hover:bg-white/20 hover:border-white/60 transition-all shadow-xl hover:shadow-white/20 transform hover:-translate-y-1 hover:scale-105 flex items-center gap-2 text-sm md:text-base">
+                        <a href="{{ route('galeri') }}" class="px-6 md:px-8 py-3 md:py-4 bg-white/10 backdrop-blur-md text-white font-bold border-2 border-white/40 hover:bg-white/20 hover:border-white/60 transition-all shadow-xl hover:shadow-white/20 transform hover:-translate-y-1 hover:scale-105 flex items-center gap-2 text-sm md:text-base">
                             <svg class="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                             </svg>
@@ -162,7 +162,7 @@
             <!-- Skeleton Loading -->
             <div class="grid grid-cols-1 gap-4 md:gap-6 skeleton-wrapper" id="statistik-skeleton">
                 @for($i = 0; $i < 4; $i++)
-                <div class="skeleton-card bg-white rounded-xl border border-gray-200 p-6">
+                <div class="skeleton-card bg-white border border-gray-200 p-6">
                     <div class="skeleton skeleton-text" style="height: 2.5rem; width: 60%; margin: 0 auto 1rem;"></div>
             <div class="skeleton skeleton-text" style="height: 1rem; width: 80%; margin: 0 auto;"></div>
         </div>
@@ -170,8 +170,8 @@
             </div>
             <!-- Statistik Content -->
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 skeleton-content" id="statistik-content">
-                <div class="scroll-animate bg-gradient-to-br from-white to-blue-50 rounded-2xl border border-gray-200 p-6 md:p-8 text-center hover:border-[#1e3a8a] hover:shadow-xl transition-all duration-300 group">
-                    <div class="bg-[#1e3a8a] w-16 h-16 md:w-20 md:h-20 rounded-2xl flex items-center justify-center mx-auto mb-4 md:mb-5 group-hover:scale-110 transition-transform duration-300">
+                <div class="scroll-animate bg-gradient-to-br from-white to-blue-50 border border-gray-200 p-6 md:p-8 text-center hover:border-[#1e3a8a] hover:shadow-xl transition-all duration-300 group">
+                    <div class="bg-[#1e3a8a] w-16 h-16 md:w-20 md:h-20 flex items-center justify-center mx-auto mb-4 md:mb-5 group-hover:scale-110 transition-transform duration-300">
                         <svg class="w-8 h-8 md:w-10 md:h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
                         </svg>
@@ -179,8 +179,8 @@
                     <div class="text-4xl md:text-5xl lg:text-6xl font-bold text-[#1e3a8a] mb-3">{{ number_format($statistik['jumlah_penduduk'] ?? 0) }}</div>
                     <div class="text-base md:text-lg text-gray-600 font-medium">Jumlah Penduduk</div>
                 </div>
-                <div class="scroll-animate bg-gradient-to-br from-white to-blue-50 rounded-2xl border border-gray-200 p-6 md:p-8 text-center hover:border-[#1e3a8a] hover:shadow-xl transition-all duration-300 group">
-                    <div class="bg-[#1e3a8a] w-16 h-16 md:w-20 md:h-20 rounded-2xl flex items-center justify-center mx-auto mb-4 md:mb-5 group-hover:scale-110 transition-transform duration-300">
+                <div class="scroll-animate bg-gradient-to-br from-white to-blue-50 border border-gray-200 p-6 md:p-8 text-center hover:border-[#1e3a8a] hover:shadow-xl transition-all duration-300 group">
+                    <div class="bg-[#1e3a8a] w-16 h-16 md:w-20 md:h-20 flex items-center justify-center mx-auto mb-4 md:mb-5 group-hover:scale-110 transition-transform duration-300">
                         <svg class="w-8 h-8 md:w-10 md:h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
                         </svg>
@@ -188,8 +188,8 @@
                     <div class="text-4xl md:text-5xl lg:text-6xl font-bold text-[#1e3a8a] mb-3">{{ number_format($statistik['laki_laki'] ?? 0) }}</div>
                     <div class="text-base md:text-lg text-gray-600 font-medium">Laki-laki</div>
                 </div>
-                <div class="scroll-animate bg-gradient-to-br from-white to-blue-50 rounded-2xl border border-gray-200 p-6 md:p-8 text-center hover:border-[#1e3a8a] hover:shadow-xl transition-all duration-300 group">
-                    <div class="bg-[#1e3a8a] w-16 h-16 md:w-20 md:h-20 rounded-2xl flex items-center justify-center mx-auto mb-4 md:mb-5 group-hover:scale-110 transition-transform duration-300">
+                <div class="scroll-animate bg-gradient-to-br from-white to-blue-50 border border-gray-200 p-6 md:p-8 text-center hover:border-[#1e3a8a] hover:shadow-xl transition-all duration-300 group">
+                    <div class="bg-[#1e3a8a] w-16 h-16 md:w-20 md:h-20 flex items-center justify-center mx-auto mb-4 md:mb-5 group-hover:scale-110 transition-transform duration-300">
                         <svg class="w-8 h-8 md:w-10 md:h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
                         </svg>
@@ -197,8 +197,8 @@
                     <div class="text-4xl md:text-5xl lg:text-6xl font-bold text-[#1e3a8a] mb-3">{{ number_format($statistik['perempuan'] ?? 0) }}</div>
                     <div class="text-base md:text-lg text-gray-600 font-medium">Perempuan</div>
                 </div>
-                <div class="scroll-animate bg-gradient-to-br from-white to-blue-50 rounded-2xl border border-gray-200 p-6 md:p-8 text-center hover:border-[#1e3a8a] hover:shadow-xl transition-all duration-300 group">
-                    <div class="bg-[#1e3a8a] w-16 h-16 md:w-20 md:h-20 rounded-2xl flex items-center justify-center mx-auto mb-4 md:mb-5 group-hover:scale-110 transition-transform duration-300">
+                <div class="scroll-animate bg-gradient-to-br from-white to-blue-50 border border-gray-200 p-6 md:p-8 text-center hover:border-[#1e3a8a] hover:shadow-xl transition-all duration-300 group">
+                    <div class="bg-[#1e3a8a] w-16 h-16 md:w-20 md:h-20 flex items-center justify-center mx-auto mb-4 md:mb-5 group-hover:scale-110 transition-transform duration-300">
                         <svg class="w-8 h-8 md:w-10 md:h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
                         </svg>
@@ -212,16 +212,16 @@
 
     <!-- Sambutan Kepala Desa Modern -->
     <div class="mb-16 sm:mb-20 md:mb-24 w-full px-4 sm:px-6 lg:px-8">
-        <div class="scroll-animate bg-gradient-to-br from-white via-blue-50/30 to-white rounded-xl md:rounded-2xl border border-gray-200 p-4 sm:p-6 md:p-8 lg:p-12 shadow-lg">
+        <div class="scroll-animate bg-gradient-to-br from-white via-blue-50/30 to-white border border-gray-200 p-4 sm:p-6 md:p-8 lg:p-12 shadow-lg">
             <div class="w-full">
             <div class="flex items-center gap-2 sm:gap-3 mb-6 sm:mb-8">
-                <div class="h-1 w-12 sm:w-16 bg-[#1e3a8a] rounded-full"></div>
+                <div class="h-1 w-12 sm:w-16 bg-[#1e3a8a]"></div>
                 <h2 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900">{{ getContent('beranda', 'sambutan', 'title', 'Sambutan Kepala Desa') }}</h2>
             </div>
             <div class="flex flex-col md:flex-row gap-6 sm:gap-8 md:gap-10">
                 <!-- Foto Kepala Desa -->
                 <div class="flex-shrink-0">
-                    <div class="w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 mx-auto md:mx-0 rounded-xl md:rounded-2xl overflow-hidden shadow-xl border-4 border-white ring-4 ring-[#1e3a8a]/10 mb-4">
+                    <div class="w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 mx-auto md:mx-0 overflow-hidden shadow-xl border-4 border-white ring-4 ring-[#1e3a8a]/10 mb-4">
                         @php
                             $fotoKepala = getContent('beranda', 'sambutan', 'foto', 'images/kepala-desa.jpg');
                             if (!str_starts_with($fotoKepala, 'http') && !str_starts_with($fotoKepala, '/')) {
@@ -236,7 +236,7 @@
                 </div>
                 <!-- Teks Sambutan -->
                 <div class="flex-1">
-                    <div class="bg-white rounded-lg md:rounded-xl p-4 sm:p-6 md:p-8 shadow-md border border-gray-200">
+                    <div class="bg-white p-4 sm:p-6 md:p-8 shadow-md border border-gray-200">
                         <div class="text-gray-800 text-sm sm:text-base md:text-lg leading-relaxed">
                             @php
                                 $sambutanText = getContent('beranda', 'sambutan', 'content', "Assalamu'alaikum Warahmatullahi Wabarakatuh\n\nPuji syukur kehadirat Allah SWT, atas rahmat dan karunia-Nya, kami dapat menyampaikan sambutan melalui website resmi Pemerintah Desa ini.\n\nWebsite ini merupakan media komunikasi dan informasi antara Pemerintah Desa dengan seluruh masyarakat. Melalui website ini, kami berkomitmen untuk menyampaikan informasi yang transparan, akurat, dan dapat diakses oleh seluruh warga desa.\n\nKami mengajak seluruh masyarakat untuk berpartisipasi aktif dalam pembangunan desa. Semoga website ini dapat menjadi sarana yang bermanfaat bagi kita semua.\n\nWassalamu'alaikum Warahmatullahi Wabarakatuh");
@@ -269,12 +269,12 @@
         <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3 sm:gap-4 mb-6 sm:mb-8">
             <div>
                 <div class="flex items-center gap-2 sm:gap-3 mb-2">
-                    <div class="h-1 w-12 sm:w-16 bg-[#1e3a8a] rounded-full"></div>
+                    <div class="h-1 w-12 sm:w-16 bg-[#1e3a8a]"></div>
                     <h2 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900">{{ getContent('beranda', 'berita', 'title', 'Berita Terbaru') }}</h2>
                 </div>
                 <p class="text-gray-600 text-sm sm:text-base px-4 md:px-0">{{ getContent('beranda', 'berita', 'subtitle', 'Informasi dan pengumuman terkini dari Pemerintah Desa') }}</p>
             </div>
-            <a href="{{ route('berita') }}" class="inline-flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 bg-[#1e3a8a] text-white text-sm sm:text-base font-medium rounded-lg hover:bg-blue-800 transition-all shadow-md hover:shadow-lg mx-4 md:mx-0">
+            <a href="{{ route('berita') }}" class="inline-flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 bg-[#1e3a8a] text-white text-sm sm:text-base font-medium hover:bg-blue-800 transition-all shadow-md hover:shadow-lg mx-4 md:mx-0">
                 Lihat Semua
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
@@ -284,7 +284,7 @@
         <!-- Skeleton Loading Berita -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 skeleton-wrapper px-4 sm:px-0" id="berita-skeleton">
             @for($i = 0; $i < 2; $i++)
-            <div class="skeleton-card bg-white rounded-xl border border-gray-200 overflow-hidden">
+            <div class="skeleton-card bg-white border border-gray-200 overflow-hidden">
                 <div class="skeleton" style="height: 12rem; width: 100%;"></div>
                 <div class="p-6 md:p-8">
                     <div class="skeleton skeleton-text" style="height: 1.5rem; width: 30%; margin-bottom: 1rem;"></div>
@@ -298,7 +298,7 @@
         </div>
         <!-- Berita Content -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 skeleton-content px-4 sm:px-0" id="berita-content">
-            <article class="scroll-animate-left bg-white rounded-lg md:rounded-xl border border-gray-200 overflow-hidden hover:border-[#1e3a8a] hover:shadow-xl transition-all duration-300 group">
+            <article class="scroll-animate-left bg-white border border-gray-200 overflow-hidden hover:border-[#1e3a8a] hover:shadow-xl transition-all duration-300 group">
                 <!-- Gambar Berita -->
                 <div class="relative h-40 sm:h-48 md:h-56 overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200">
                     <img src="{{ asset('images/berita/berita-1.jpg') }}" alt="Pendaftaran Program Bantuan Sosial" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.onerror=null; this.style.display='none'; this.nextElementSibling.style.display='flex';">
@@ -310,7 +310,7 @@
                 </div>
                 <div class="p-4 sm:p-6 md:p-8">
                     <div class="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
-                        <span class="bg-[#1e3a8a] text-white px-3 sm:px-4 py-1 sm:py-1.5 text-xs font-semibold rounded-full">Pengumuman</span>
+                        <span class="bg-[#1e3a8a] text-white px-3 sm:px-4 py-1 sm:py-1.5 text-xs font-semibold">Pengumuman</span>
                         <time class="text-xs text-gray-500 font-medium">15 Januari 2024</time>
                     </div>
                     <h3 class="font-bold text-gray-900 mb-2 sm:mb-3 text-lg sm:text-xl md:text-2xl group-hover:text-[#1e3a8a] transition-colors leading-tight">
@@ -327,7 +327,7 @@
                     </a>
                 </div>
             </article>
-            <article class="scroll-animate-right bg-white rounded-lg md:rounded-xl border border-gray-200 overflow-hidden hover:border-[#1e3a8a] hover:shadow-xl transition-all duration-300 group">
+            <article class="scroll-animate-right bg-white border border-gray-200 overflow-hidden hover:border-[#1e3a8a] hover:shadow-xl transition-all duration-300 group">
                 <!-- Gambar Berita -->
                 <div class="relative h-40 sm:h-48 md:h-56 overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200">
                     <img src="{{ asset('images/berita/berita-2.jpg') }}" alt="Jadwal Pelayanan Administrasi Kependudukan" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.onerror=null; this.style.display='none'; this.nextElementSibling.style.display='flex';">
@@ -339,7 +339,7 @@
                 </div>
                 <div class="p-4 sm:p-6 md:p-8">
                     <div class="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
-                        <span class="bg-blue-100 text-[#1e3a8a] px-3 sm:px-4 py-1 sm:py-1.5 text-xs font-semibold rounded-full">Informasi</span>
+                        <span class="bg-blue-100 text-[#1e3a8a] px-3 sm:px-4 py-1 sm:py-1.5 text-xs font-semibold">Informasi</span>
                         <time class="text-xs text-gray-500 font-medium">10 Januari 2024</time>
                     </div>
                     <h3 class="font-bold text-gray-900 mb-2 sm:mb-3 text-lg sm:text-xl md:text-2xl group-hover:text-[#1e3a8a] transition-colors leading-tight">
@@ -366,12 +366,12 @@
         <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3 sm:gap-4 mb-6 sm:mb-8">
             <div>
                 <div class="flex items-center gap-2 sm:gap-3 mb-2">
-                    <div class="h-1 w-12 sm:w-16 bg-[#1e3a8a] rounded-full"></div>
+                    <div class="h-1 w-12 sm:w-16 bg-[#1e3a8a]"></div>
                     <h2 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900">{{ getContent('beranda', 'galeri', 'title', 'Galeri Kegiatan') }}</h2>
                 </div>
                 <p class="text-gray-600 text-sm sm:text-base px-4 md:px-0">{{ getContent('beranda', 'galeri', 'subtitle', 'Dokumentasi kegiatan dan program desa') }}</p>
             </div>
-            <a href="{{ route('galeri') }}" class="inline-flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 bg-[#1e3a8a] text-white text-sm sm:text-base font-medium rounded-lg hover:bg-blue-800 transition-all shadow-md hover:shadow-lg mx-4 md:mx-0">
+            <a href="{{ route('galeri') }}" class="inline-flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 bg-[#1e3a8a] text-white text-sm sm:text-base font-medium hover:bg-blue-800 transition-all shadow-md hover:shadow-lg mx-4 md:mx-0">
                 Lihat Semua
                 <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
@@ -380,7 +380,7 @@
         </div>
         <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-4 md:gap-6 px-4 sm:px-0">
             @for($i = 1; $i <= 8; $i++)
-            <div class="scroll-animate-gallery group relative bg-white rounded-xl border border-gray-200 overflow-hidden hover:border-[#1e3a8a] hover:shadow-xl transition-all duration-300 cursor-pointer">
+            <div class="scroll-animate-gallery group relative bg-white border border-gray-200 overflow-hidden hover:border-[#1e3a8a] hover:shadow-xl transition-all duration-300 cursor-pointer">
                 <div class="aspect-square bg-gradient-to-br from-gray-100 to-gray-200 overflow-hidden relative">
                     <img src="{{ asset('images/galeri/gotong-royong-' . $i . '.jpg') }}" alt="Galeri {{ $i }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                     <div class="w-full h-full hidden absolute inset-0 items-center justify-center bg-gradient-to-br from-[#1e3a8a]/10 to-blue-100">
@@ -404,15 +404,15 @@
     <div class="mb-16 sm:mb-20 md:mb-24 w-full px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-6 sm:mb-8 md:mb-10">
             <div class="flex items-center justify-center gap-2 sm:gap-3 mb-2 sm:mb-3">
-                <div class="h-1 w-12 sm:w-16 bg-[#1e3a8a] rounded-full"></div>
+                <div class="h-1 w-12 sm:w-16 bg-[#1e3a8a]"></div>
                 <h2 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900">{{ getContent('beranda', 'akses_cepat', 'title', 'Akses Cepat') }}</h2>
-                <div class="h-1 w-12 sm:w-16 bg-[#1e3a8a] rounded-full"></div>
+                <div class="h-1 w-12 sm:w-16 bg-[#1e3a8a]"></div>
             </div>
             <p class="text-gray-600 text-sm sm:text-base md:text-lg px-4">{{ getContent('beranda', 'akses_cepat', 'subtitle', 'Layanan dan informasi penting') }}</p>
         </div>
         <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 md:gap-6 px-4 sm:px-0">
-            <a href="{{ route('layanan') }}" class="scroll-animate bg-white rounded-lg md:rounded-xl border-2 border-gray-200 p-4 sm:p-5 md:p-6 text-center hover:border-[#1e3a8a] hover:shadow-lg transition-all duration-300 group">
-                <div class="bg-[#1e3a8a]/10 w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-lg md:rounded-xl flex items-center justify-center mx-auto mb-3 sm:mb-4 group-hover:bg-[#1e3a8a] group-hover:scale-110 transition-all duration-300">
+            <a href="{{ route('layanan') }}" class="scroll-animate bg-white border-2 border-gray-200 p-4 sm:p-5 md:p-6 text-center hover:border-[#1e3a8a] hover:shadow-lg transition-all duration-300 group">
+                <div class="bg-[#1e3a8a]/10 w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 flex items-center justify-center mx-auto mb-3 sm:mb-4 group-hover:bg-[#1e3a8a] group-hover:scale-110 transition-all duration-300">
                     <svg class="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 text-[#1e3a8a] group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                     </svg>
@@ -420,8 +420,8 @@
                 <h3 class="font-bold text-sm sm:text-base text-gray-900 mb-1 group-hover:text-[#1e3a8a] transition-colors">Layanan</h3>
                 <p class="text-xs sm:text-sm text-gray-600">Administrasi</p>
             </a>
-            <a href="{{ route('data') }}" class="scroll-animate bg-white rounded-lg md:rounded-xl border-2 border-gray-200 p-4 sm:p-5 md:p-6 text-center hover:border-[#1e3a8a] hover:shadow-lg transition-all duration-300 group">
-                <div class="bg-[#1e3a8a]/10 w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-lg md:rounded-xl flex items-center justify-center mx-auto mb-3 sm:mb-4 group-hover:bg-[#1e3a8a] group-hover:scale-110 transition-all duration-300">
+            <a href="{{ route('data') }}" class="scroll-animate bg-white border-2 border-gray-200 p-4 sm:p-5 md:p-6 text-center hover:border-[#1e3a8a] hover:shadow-lg transition-all duration-300 group">
+                <div class="bg-[#1e3a8a]/10 w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 flex items-center justify-center mx-auto mb-3 sm:mb-4 group-hover:bg-[#1e3a8a] group-hover:scale-110 transition-all duration-300">
                     <svg class="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 text-[#1e3a8a] group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
                     </svg>
@@ -429,8 +429,8 @@
                 <h3 class="font-bold text-sm sm:text-base text-gray-900 mb-1 group-hover:text-[#1e3a8a] transition-colors">Data Desa</h3>
                 <p class="text-xs sm:text-sm text-gray-600">Statistik</p>
             </a>
-            <a href="{{ route('umkm') }}" class="scroll-animate bg-white rounded-lg md:rounded-xl border-2 border-gray-200 p-4 sm:p-5 md:p-6 text-center hover:border-[#1e3a8a] hover:shadow-lg transition-all duration-300 group">
-                <div class="bg-[#1e3a8a]/10 w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-lg md:rounded-xl flex items-center justify-center mx-auto mb-3 sm:mb-4 group-hover:bg-[#1e3a8a] group-hover:scale-110 transition-all duration-300">
+            <a href="{{ route('umkm') }}" class="scroll-animate bg-white border-2 border-gray-200 p-4 sm:p-5 md:p-6 text-center hover:border-[#1e3a8a] hover:shadow-lg transition-all duration-300 group">
+                <div class="bg-[#1e3a8a]/10 w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 flex items-center justify-center mx-auto mb-3 sm:mb-4 group-hover:bg-[#1e3a8a] group-hover:scale-110 transition-all duration-300">
                     <svg class="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 text-[#1e3a8a] group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
                     </svg>
@@ -438,8 +438,8 @@
                 <h3 class="font-bold text-sm sm:text-base text-gray-900 mb-1 group-hover:text-[#1e3a8a] transition-colors">UMKM</h3>
                 <p class="text-xs sm:text-sm text-gray-600">Ekonomi</p>
             </a>
-            <a href="{{ route('kontak') }}" class="scroll-animate bg-white rounded-lg md:rounded-xl border-2 border-gray-200 p-4 sm:p-5 md:p-6 text-center hover:border-[#1e3a8a] hover:shadow-lg transition-all duration-300 group">
-                <div class="bg-[#1e3a8a]/10 w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-lg md:rounded-xl flex items-center justify-center mx-auto mb-3 sm:mb-4 group-hover:bg-[#1e3a8a] group-hover:scale-110 transition-all duration-300">
+            <a href="{{ route('kontak') }}" class="scroll-animate bg-white border-2 border-gray-200 p-4 sm:p-5 md:p-6 text-center hover:border-[#1e3a8a] hover:shadow-lg transition-all duration-300 group">
+                <div class="bg-[#1e3a8a]/10 w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 flex items-center justify-center mx-auto mb-3 sm:mb-4 group-hover:bg-[#1e3a8a] group-hover:scale-110 transition-all duration-300">
                     <svg class="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 text-[#1e3a8a] group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
                     </svg>
