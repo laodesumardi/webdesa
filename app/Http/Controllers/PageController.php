@@ -17,7 +17,20 @@ class PageController extends Controller
             'kepala_keluarga' => $penduduk->groupBy('rt')->count(), // Estimasi berdasarkan RT
         ];
         
-        return view('beranda', compact('statistik'));
+        // Ambil berita terbaru (4 berita)
+        $beritaTerbaru = \App\Models\Berita::published()
+            ->latest('published_at')
+            ->limit(4)
+            ->get();
+        
+        // Ambil galeri terbaru (8 galeri)
+        $galeriTerbaru = \App\Models\Galeri::published()
+            ->orderBy('urutan')
+            ->latest()
+            ->limit(8)
+            ->get();
+        
+        return view('beranda', compact('statistik', 'beritaTerbaru', 'galeriTerbaru'));
     }
 
     public function profil()

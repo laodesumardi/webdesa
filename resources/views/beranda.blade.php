@@ -298,11 +298,14 @@
         </div>
         <!-- Berita Content -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 skeleton-content px-4 sm:px-0" id="berita-content">
-            <article class="scroll-animate-left bg-white border border-gray-200 overflow-hidden hover:border-[#1e3a8a] hover:shadow-xl transition-all duration-300 group">
+            @forelse($beritaTerbaru as $index => $berita)
+            <article class="{{ $index % 2 == 0 ? 'scroll-animate-left' : 'scroll-animate-right' }} bg-white border border-gray-200 overflow-hidden hover:border-[#1e3a8a] hover:shadow-xl transition-all duration-300 group">
                 <!-- Gambar Berita -->
                 <div class="relative h-40 sm:h-48 md:h-56 overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200">
-                    <img src="{{ asset('images/berita/berita-1.jpg') }}" alt="Pendaftaran Program Bantuan Sosial" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.onerror=null; this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                    <div class="w-full h-full hidden absolute inset-0 items-center justify-center bg-gradient-to-br from-[#1e3a8a]/10 to-blue-100">
+                    @if($berita->gambar)
+                    <img src="{{ asset('images/berita/' . $berita->gambar) }}" alt="{{ $berita->judul }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.onerror=null; this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    @endif
+                    <div class="w-full h-full {{ $berita->gambar ? 'hidden' : 'flex' }} absolute inset-0 items-center justify-center bg-gradient-to-br from-[#1e3a8a]/10 to-blue-100">
                         <svg class="w-12 h-12 sm:w-16 sm:h-16 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path>
                         </svg>
@@ -310,16 +313,16 @@
                 </div>
                 <div class="p-4 sm:p-6 md:p-8">
                     <div class="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
-                        <span class="bg-[#1e3a8a] text-white px-3 sm:px-4 py-1 sm:py-1.5 text-xs font-semibold">Pengumuman</span>
-                        <time class="text-xs text-gray-500 font-medium">15 Januari 2024</time>
+                        <span class="bg-[#1e3a8a] text-white px-3 sm:px-4 py-1 sm:py-1.5 text-xs font-semibold">{{ $berita->kategori }}</span>
+                        <time class="text-xs text-gray-500 font-medium">{{ $berita->published_at ? $berita->published_at->format('d M Y') : $berita->created_at->format('d M Y') }}</time>
                     </div>
-                    <h3 class="font-bold text-gray-900 mb-2 sm:mb-3 text-lg sm:text-xl md:text-2xl group-hover:text-[#1e3a8a] transition-colors leading-tight">
-                        Pendaftaran Program Bantuan Sosial Tahun 2024
+                    <h3 class="font-bold text-gray-900 mb-2 sm:mb-3 text-lg sm:text-xl md:text-2xl group-hover:text-[#1e3a8a] transition-colors leading-tight line-clamp-2">
+                        {{ $berita->judul }}
                     </h3>
-                    <p class="text-gray-700 text-sm sm:text-base leading-relaxed mb-4 sm:mb-6">
-                        Pemerintah Desa membuka pendaftaran program bantuan sosial untuk warga yang memenuhi kriteria. Pendaftaran dibuka mulai tanggal 20 Januari 2024 hingga 5 Februari 2024.
+                    <p class="text-gray-700 text-sm sm:text-base leading-relaxed mb-4 sm:mb-6 line-clamp-3">
+                        {{ Str::limit(strip_tags($berita->isi), 150) }}
                     </p>
-                    <a href="{{ route('berita') }}" class="inline-flex items-center gap-2 text-[#1e3a8a] text-sm sm:text-base font-semibold hover:gap-3 transition-all group/link">
+                    <a href="{{ route('berita.show', $berita->slug) }}" class="inline-flex items-center gap-2 text-[#1e3a8a] text-sm sm:text-base font-semibold hover:gap-3 transition-all group/link">
                         Baca selengkapnya
                         <svg class="w-4 h-4 sm:w-5 sm:h-5 group-hover/link:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
@@ -327,35 +330,15 @@
                     </a>
                 </div>
             </article>
-            <article class="scroll-animate-right bg-white border border-gray-200 overflow-hidden hover:border-[#1e3a8a] hover:shadow-xl transition-all duration-300 group">
-                <!-- Gambar Berita -->
-                <div class="relative h-40 sm:h-48 md:h-56 overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200">
-                    <img src="{{ asset('images/berita/berita-2.jpg') }}" alt="Jadwal Pelayanan Administrasi Kependudukan" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.onerror=null; this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                    <div class="w-full h-full hidden absolute inset-0 items-center justify-center bg-gradient-to-br from-[#1e3a8a]/10 to-blue-100">
-                        <svg class="w-12 h-12 sm:w-16 sm:h-16 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path>
-                        </svg>
-                    </div>
-                </div>
-                <div class="p-4 sm:p-6 md:p-8">
-                    <div class="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
-                        <span class="bg-blue-100 text-[#1e3a8a] px-3 sm:px-4 py-1 sm:py-1.5 text-xs font-semibold">Informasi</span>
-                        <time class="text-xs text-gray-500 font-medium">10 Januari 2024</time>
-                    </div>
-                    <h3 class="font-bold text-gray-900 mb-2 sm:mb-3 text-lg sm:text-xl md:text-2xl group-hover:text-[#1e3a8a] transition-colors leading-tight">
-                        Jadwal Pelayanan Administrasi Kependudukan
-                    </h3>
-                    <p class="text-gray-700 text-sm sm:text-base leading-relaxed mb-4 sm:mb-6">
-                        Pelayanan administrasi kependudukan dilayani setiap hari kerja Senin hingga Jumat pukul 08:00 - 15:00 WIB. Untuk layanan khusus dapat menghubungi kantor desa terlebih dahulu.
-                    </p>
-                    <a href="{{ route('berita') }}" class="inline-flex items-center gap-2 text-[#1e3a8a] text-sm sm:text-base font-semibold hover:gap-3 transition-all group/link">
-                        Baca selengkapnya
-                        <svg class="w-4 h-4 sm:w-5 sm:h-5 group-hover/link:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                        </svg>
-                    </a>
-                </div>
-            </article>
+            @empty
+            <div class="col-span-2 text-center py-12">
+                <svg class="w-16 h-16 mx-auto text-gray-300 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path>
+                </svg>
+                <p class="text-gray-500 text-lg">Belum ada berita terbaru</p>
+                <p class="text-gray-400 text-sm mt-1">Berita akan ditampilkan di sini setelah dipublikasikan</p>
+            </div>
+            @endforelse
         </div>
         </div>
     </div>
@@ -379,10 +362,10 @@
             </a>
         </div>
         <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-4 md:gap-6 px-4 sm:px-0">
-            @for($i = 1; $i <= 8; $i++)
-            <div class="scroll-animate-gallery group relative bg-white border border-gray-200 overflow-hidden hover:border-[#1e3a8a] hover:shadow-xl transition-all duration-300 cursor-pointer">
+            @forelse($galeriTerbaru as $index => $galeri)
+            <div class="scroll-animate-gallery group relative bg-white border border-gray-200 overflow-hidden hover:border-[#1e3a8a] hover:shadow-xl transition-all duration-300 cursor-pointer" onclick="openLightbox('{{ asset('images/galeri/' . $galeri->gambar) }}', '{{ $galeri->judul }}')">
                 <div class="aspect-square bg-gradient-to-br from-gray-100 to-gray-200 overflow-hidden relative">
-                    <img src="{{ asset('images/galeri/gotong-royong-' . $i . '.jpg') }}" alt="Galeri {{ $i }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <img src="{{ asset('images/galeri/' . $galeri->gambar) }}" alt="{{ $galeri->judul }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                     <div class="w-full h-full hidden absolute inset-0 items-center justify-center bg-gradient-to-br from-[#1e3a8a]/10 to-blue-100">
                         <svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
@@ -391,11 +374,28 @@
                 </div>
                 <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 <div class="absolute bottom-0 left-0 right-0 p-4 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                    <p class="text-white text-sm font-bold mb-1 line-clamp-1">{{ $galeri->judul }}</p>
+                    <p class="text-white/90 text-xs">{{ $galeri->created_at->format('d F Y') }}</p>
+                </div>
+            </div>
+            @empty
+            @for($i = 1; $i <= 8; $i++)
+            <div class="scroll-animate-gallery group relative bg-white border border-gray-200 overflow-hidden hover:border-[#1e3a8a] hover:shadow-xl transition-all duration-300 cursor-pointer">
+                <div class="aspect-square bg-gradient-to-br from-gray-100 to-gray-200 overflow-hidden relative">
+                    <div class="w-full h-full flex absolute inset-0 items-center justify-center bg-gradient-to-br from-[#1e3a8a]/10 to-blue-100">
+                        <svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                        </svg>
+                    </div>
+                </div>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div class="absolute bottom-0 left-0 right-0 p-4 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
                     <p class="text-white text-sm font-bold mb-1">Kegiatan Desa</p>
-                    <p class="text-white/90 text-xs">{{ date('d F Y', strtotime('-' . $i . ' days')) }}</p>
+                    <p class="text-white/90 text-xs">Belum ada foto</p>
                 </div>
             </div>
             @endfor
+            @endforelse
         </div>
         </div>
     </div>
@@ -648,7 +648,39 @@
         .skeleton-wrapper.hide {
             display: none;
         }
+        /* Line Clamp */
+        .line-clamp-1 {
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .line-clamp-2 {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .line-clamp-3 {
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
     </style>
+    
+    <!-- Lightbox Modal -->
+    <div id="lightbox" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/90 p-4" onclick="closeLightbox()">
+        <button class="absolute top-4 right-4 text-white hover:text-gray-300 transition-colors" onclick="closeLightbox()">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+        </button>
+        <div class="max-w-5xl max-h-[90vh] relative" onclick="event.stopPropagation()">
+            <img id="lightbox-image" src="" alt="" class="max-w-full max-h-[85vh] object-contain">
+            <p id="lightbox-caption" class="text-white text-center mt-4 text-lg font-medium"></p>
+        </div>
+    </div>
     <script>
         let currentSlide = 0;
         const slides = document.querySelectorAll('#hero-slider > div');
@@ -724,6 +756,33 @@
                     beritaContent.classList.add('show');
                 }
             }, 1000);
+        });
+        
+        // Lightbox Functions
+        function openLightbox(imageSrc, caption) {
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImage = document.getElementById('lightbox-image');
+            const lightboxCaption = document.getElementById('lightbox-caption');
+            
+            lightboxImage.src = imageSrc;
+            lightboxCaption.textContent = caption;
+            lightbox.classList.remove('hidden');
+            lightbox.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeLightbox() {
+            const lightbox = document.getElementById('lightbox');
+            lightbox.classList.add('hidden');
+            lightbox.classList.remove('flex');
+            document.body.style.overflow = '';
+        }
+        
+        // Close lightbox with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeLightbox();
+            }
         });
     </script>
 @endsection
