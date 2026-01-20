@@ -107,132 +107,144 @@
         </div>
     </div>
 
-    <!-- Form Aspirasi Warga -->
-    <div class="scroll-animate bg-white border border-gray-200 p-6 md:p-8 mb-8" data-animation="fade-up">
-        <h2 class="text-xl md:text-2xl font-bold text-[#1e3a8a] mb-4 pb-3 border-b-2 border-[#1e3a8a]">Formulir Aspirasi Warga</h2>
+    <!-- Flash Message -->
+    @if(session('success'))
+    <div class="scroll-animate bg-green-50 border border-green-200 p-4 mb-8 rounded-lg flex items-start gap-3" data-animation="fade-up">
+        <svg class="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+        <div>
+            <p class="font-medium text-green-800">Berhasil!</p>
+            <p class="text-green-700 text-sm">{{ session('success') }}</p>
+        </div>
+    </div>
+    @endif
+
+    <!-- Form Pengaduan/Aspirasi Warga -->
+    <div class="scroll-animate bg-white border border-gray-200 p-6 md:p-8 mb-8 rounded-lg" data-animation="fade-up">
+        <h2 class="text-xl md:text-2xl font-bold text-[#1e3a8a] mb-4 pb-3 border-b-2 border-[#1e3a8a]">Formulir Pengaduan & Aspirasi</h2>
         <p class="text-gray-700 text-base mb-6">
-            Formulir ini digunakan untuk menyampaikan aspirasi, saran, atau masukan kepada Pemerintah Desa. 
+            Formulir ini digunakan untuk menyampaikan pengaduan, aspirasi, saran, atau masukan kepada Pemerintah Desa. 
             Kami menghargai setiap aspirasi yang disampaikan dan akan menindaklanjuti sesuai dengan mekanisme 
-            yang berlaku. Identitas pengirim akan dijaga kerahasiaannya.
+            yang berlaku.
         </p>
         
-        <form class="space-y-5">
+        <form action="{{ route('pengaduan.store') }}" method="POST" enctype="multipart/form-data" class="space-y-5">
+            @csrf
             <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <div>
-                    <label for="nama_aspirasi" class="block text-sm font-medium text-gray-700 mb-2">
+                    <label for="nama" class="block text-sm font-medium text-gray-700 mb-2">
                         Nama Lengkap <span class="text-red-600">*</span>
                     </label>
-                    <input type="text" id="nama_aspirasi" name="nama_aspirasi" required 
-                        class="w-full px-4 py-2.5 border border-gray-300 text-sm focus:outline-none focus:border-[#1e3a8a]"
-                        placeholder="Masukkan nama lengkap sesuai KTP">
+                    <input type="text" id="nama" name="nama" required value="{{ old('nama') }}"
+                        class="w-full px-4 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-[#1e3a8a] focus:ring-1 focus:ring-[#1e3a8a]"
+                        placeholder="Masukkan nama lengkap">
+                    @error('nama')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
                 </div>
 
                 <div>
-                    <label for="nik_aspirasi" class="block text-sm font-medium text-gray-700 mb-2">
-                        Nomor Induk Kependudukan (NIK) <span class="text-red-600">*</span>
+                    <label for="nik" class="block text-sm font-medium text-gray-700 mb-2">
+                        NIK (Opsional)
                     </label>
-                    <input type="text" id="nik_aspirasi" name="nik_aspirasi" required 
-                        class="w-full px-4 py-2.5 border border-gray-300 text-sm focus:outline-none focus:border-[#1e3a8a]"
-                        placeholder="Masukkan NIK (16 digit)"
-                        maxlength="16" pattern="[0-9]{16}">
-                    <p class="text-xs text-gray-500 mt-1">NIK terdiri dari 16 digit angka</p>
+                    <input type="text" id="nik" name="nik" value="{{ old('nik') }}"
+                        class="w-full px-4 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-[#1e3a8a] focus:ring-1 focus:ring-[#1e3a8a]"
+                        placeholder="16 digit NIK" maxlength="16">
+                    @error('nik')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
                 </div>
-            </div>
-
-            <div>
-                <label for="alamat_aspirasi" class="block text-sm font-medium text-gray-700 mb-2">
-                    Alamat Lengkap <span class="text-red-600">*</span>
-                </label>
-                <textarea id="alamat_aspirasi" name="alamat_aspirasi" rows="2" required 
-                    class="w-full px-4 py-2.5 border border-gray-300 text-sm focus:outline-none focus:border-[#1e3a8a]"
-                    placeholder="Masukkan alamat lengkap sesuai Kartu Keluarga"></textarea>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <div>
-                    <label for="rt_rw_aspirasi" class="block text-sm font-medium text-gray-700 mb-2">
-                        RT/RW <span class="text-red-600">*</span>
-                    </label>
-                    <input type="text" id="rt_rw_aspirasi" name="rt_rw_aspirasi" required 
-                        class="w-full px-4 py-2.5 border border-gray-300 text-sm focus:outline-none focus:border-[#1e3a8a]"
-                        placeholder="Contoh: 001/001">
-                </div>
-
-                <div>
-                    <label for="telepon_aspirasi" class="block text-sm font-medium text-gray-700 mb-2">
+                    <label for="telepon" class="block text-sm font-medium text-gray-700 mb-2">
                         Nomor Telepon <span class="text-red-600">*</span>
                     </label>
-                    <input type="tel" id="telepon_aspirasi" name="telepon_aspirasi" required 
-                        class="w-full px-4 py-2.5 border border-gray-300 text-sm focus:outline-none focus:border-[#1e3a8a]"
-                        placeholder="Masukkan nomor telepon yang dapat dihubungi">
+                    <input type="tel" id="telepon" name="telepon" required value="{{ old('telepon') }}"
+                        class="w-full px-4 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-[#1e3a8a] focus:ring-1 focus:ring-[#1e3a8a]"
+                        placeholder="Contoh: 08123456789">
+                    @error('telepon')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
+                </div>
+
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
+                        Email (Opsional)
+                    </label>
+                    <input type="email" id="email" name="email" value="{{ old('email') }}"
+                        class="w-full px-4 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-[#1e3a8a] focus:ring-1 focus:ring-[#1e3a8a]"
+                        placeholder="email@contoh.com">
+                    @error('email')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
                 </div>
             </div>
 
             <div>
-                <label for="email_aspirasi" class="block text-sm font-medium text-gray-700 mb-2">
-                    Alamat Email
+                <label for="alamat" class="block text-sm font-medium text-gray-700 mb-2">
+                    Alamat (Opsional)
                 </label>
-                <input type="email" id="email_aspirasi" name="email_aspirasi" 
-                    class="w-full px-4 py-2.5 border border-gray-300 text-sm focus:outline-none focus:border-[#1e3a8a]"
-                    placeholder="Masukkan alamat email (opsional)">
+                <textarea id="alamat" name="alamat" rows="2"
+                    class="w-full px-4 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-[#1e3a8a] focus:ring-1 focus:ring-[#1e3a8a]"
+                    placeholder="Alamat lengkap">{{ old('alamat') }}</textarea>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <div>
-                    <label for="kategori_aspirasi" class="block text-sm font-medium text-gray-700 mb-2">
-                        Kategori Aspirasi <span class="text-red-600">*</span>
+                    <label for="kategori" class="block text-sm font-medium text-gray-700 mb-2">
+                        Kategori <span class="text-red-600">*</span>
                     </label>
-                    <select id="kategori_aspirasi" name="kategori_aspirasi" required 
-                        class="w-full px-4 py-2.5 border border-gray-300 text-sm focus:outline-none focus:border-[#1e3a8a]">
-                        <option value="">Pilih kategori aspirasi</option>
-                        <option value="pembangunan">Pembangunan Infrastruktur</option>
-                        <option value="pelayanan">Pelayanan Publik</option>
-                        <option value="sosial">Program Sosial</option>
-                        <option value="ekonomi">Pengembangan Ekonomi</option>
-                        <option value="lingkungan">Lingkungan Hidup</option>
-                        <option value="lainnya">Lainnya</option>
+                    <select id="kategori" name="kategori" required
+                        class="w-full px-4 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-[#1e3a8a] focus:ring-1 focus:ring-[#1e3a8a]">
+                        <option value="">Pilih kategori</option>
+                        @foreach($kategoriList as $key => $label)
+                        <option value="{{ $key }}" {{ old('kategori') === $key ? 'selected' : '' }}>{{ $label }}</option>
+                        @endforeach
                     </select>
+                    @error('kategori')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
                 </div>
 
                 <div>
-                    <label for="subjek_aspirasi" class="block text-sm font-medium text-gray-700 mb-2">
-                        Subjek Aspirasi <span class="text-red-600">*</span>
+                    <label for="judul" class="block text-sm font-medium text-gray-700 mb-2">
+                        Judul/Subjek <span class="text-red-600">*</span>
                     </label>
-                    <input type="text" id="subjek_aspirasi" name="subjek_aspirasi" required 
-                        class="w-full px-4 py-2.5 border border-gray-300 text-sm focus:outline-none focus:border-[#1e3a8a]"
-                        placeholder="Masukkan subjek atau judul aspirasi">
+                    <input type="text" id="judul" name="judul" required value="{{ old('judul') }}"
+                        class="w-full px-4 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-[#1e3a8a] focus:ring-1 focus:ring-[#1e3a8a]"
+                        placeholder="Judul pengaduan/aspirasi">
+                    @error('judul')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
                 </div>
             </div>
 
             <div>
-                <label for="isi_aspirasi" class="block text-sm font-medium text-gray-700 mb-2">
-                    Isi Aspirasi <span class="text-red-600">*</span>
+                <label for="isi" class="block text-sm font-medium text-gray-700 mb-2">
+                    Isi Pengaduan/Aspirasi <span class="text-red-600">*</span>
                 </label>
-                <textarea id="isi_aspirasi" name="isi_aspirasi" rows="6" required 
-                    class="w-full px-4 py-2.5 border border-gray-300 text-sm focus:outline-none focus:border-[#1e3a8a]"
-                    placeholder="Tuliskan aspirasi, saran, atau masukan Anda secara lengkap dan jelas"></textarea>
-                <p class="text-xs text-gray-500 mt-1">
-                    Silakan sampaikan aspirasi Anda dengan bahasa yang sopan dan jelas. 
-                    Aspirasi yang disampaikan akan ditindaklanjuti sesuai dengan mekanisme yang berlaku.
-                </p>
+                <textarea id="isi" name="isi" rows="6" required
+                    class="w-full px-4 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-[#1e3a8a] focus:ring-1 focus:ring-[#1e3a8a]"
+                    placeholder="Tuliskan pengaduan atau aspirasi Anda secara lengkap dan jelas...">{{ old('isi') }}</textarea>
+                @error('isi')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
             </div>
 
-            <div class="bg-blue-50 border border-blue-200 p-4 text-sm text-gray-700">
-                <p class="font-semibold mb-2">Ketentuan Pengisian Formulir:</p>
+            <div>
+                <label for="lampiran" class="block text-sm font-medium text-gray-700 mb-2">
+                    Lampiran (Opsional)
+                </label>
+                <input type="file" id="lampiran" name="lampiran" accept=".pdf,.jpg,.jpeg,.png"
+                    class="w-full px-4 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-[#1e3a8a]">
+                <p class="text-xs text-gray-500 mt-1">Format: PDF, JPG, PNG. Maksimal 5MB</p>
+                @error('lampiran')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
+            </div>
+
+            <div class="bg-blue-50 border border-blue-200 p-4 rounded-lg text-sm text-gray-700">
+                <p class="font-semibold mb-2">Ketentuan:</p>
                 <ul class="list-disc list-inside space-y-1">
-                    <li>Pastikan semua data yang diisi sudah benar dan sesuai dengan dokumen resmi</li>
-                    <li>Identitas pengirim akan dijaga kerahasiaannya</li>
-                    <li>Aspirasi yang disampaikan harus sesuai dengan norma dan peraturan yang berlaku</li>
-                    <li>Pengisian formulir dengan data yang tidak benar dapat mengakibatkan aspirasi tidak dapat ditindaklanjuti</li>
+                    <li>Pastikan data yang diisi sudah benar</li>
+                    <li>Pengaduan akan ditindaklanjuti dalam 3-7 hari kerja</li>
+                    <li>Gunakan bahasa yang sopan dan jelas</li>
                 </ul>
             </div>
 
             <div class="flex gap-3">
-                <button type="submit" class="bg-[#1e3a8a] text-white px-6 py-2.5 text-sm font-medium hover:bg-blue-900 transition-colors">
-                    Kirim Aspirasi
+                <button type="submit" class="bg-[#1e3a8a] text-white px-6 py-2.5 text-sm font-medium hover:bg-blue-900 transition-colors rounded-lg">
+                    Kirim Pengaduan
                 </button>
-                <button type="reset" class="bg-gray-200 text-gray-700 px-6 py-2.5 text-sm font-medium hover:bg-gray-300 transition-colors">
-                    Reset Formulir
+                <button type="reset" class="bg-gray-200 text-gray-700 px-6 py-2.5 text-sm font-medium hover:bg-gray-300 transition-colors rounded-lg">
+                    Reset
                 </button>
             </div>
         </form>

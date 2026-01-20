@@ -6,6 +6,9 @@ use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\BeritaController;
 use App\Http\Controllers\Admin\GaleriController;
 use App\Http\Controllers\Admin\UmkmController;
+use App\Http\Controllers\Admin\PengaduanController;
+use App\Http\Controllers\Admin\AgendaController;
+use App\Http\Controllers\Admin\PengumumanController;
 
 // Public Routes
 Route::get('/', [PageController::class, 'beranda'])->name('beranda');
@@ -18,6 +21,7 @@ Route::get('/data', [PageController::class, 'data'])->name('data');
 Route::get('/galeri', [PageController::class, 'galeri'])->name('galeri');
 Route::get('/ekonomi-umkm', [PageController::class, 'umkm'])->name('umkm');
 Route::get('/kontak', [PageController::class, 'kontak'])->name('kontak');
+Route::post('/pengaduan', [PageController::class, 'storePengaduan'])->name('pengaduan.store');
 
 // Admin Login Routes (Guest)
 Route::middleware('guest')->group(function () {
@@ -55,4 +59,16 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     
     // UMKM Routes
     Route::resource('umkm', UmkmController::class);
+    
+    // Pengaduan Routes
+    Route::get('pengaduan', [PengaduanController::class, 'index'])->name('pengaduan.index');
+    Route::get('pengaduan/{pengaduan}', [PengaduanController::class, 'show'])->name('pengaduan.show');
+    Route::put('pengaduan/{pengaduan}/status', [PengaduanController::class, 'updateStatus'])->name('pengaduan.update-status');
+    Route::delete('pengaduan/{pengaduan}', [PengaduanController::class, 'destroy'])->name('pengaduan.destroy');
+    
+    // Agenda Routes
+    Route::resource('agenda', AgendaController::class)->except(['show']);
+    
+    // Pengumuman Routes
+    Route::resource('pengumuman', PengumumanController::class)->except(['show']);
 });

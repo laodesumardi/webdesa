@@ -147,6 +147,42 @@ class PageController extends Controller
 
     public function kontak()
     {
-        return view('kontak');
+        $kategoriList = \App\Models\Pengaduan::getKategori();
+        return view('kontak', compact('kategoriList'));
+    }
+
+    public function storePengaduan(\Illuminate\Http\Request $request)
+    {
+        $request->validate([
+            'nama' => 'required|string|max:255',
+            'nik' => 'nullable|string|size:16',
+            'email' => 'nullable|email|max:255',
+            'telepon' => 'required|string|max:20',
+            'alamat' => 'nullable|string|max:500',
+            'kategori' => 'required|string',
+            'judul' => 'required|string|max:255',
+            'isi' => 'required|string|max:5000',
+            'lampiran' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:5120',
+        ]);
+
+        $data = $request->only(['nama', 'nik', 'email', 'telepon', 'alamat', 'kategori', 'judul', 'isi']);
+
+        // Handle lampiran
+        if ($request->hasFile('lampiran')) {
+            $file = $request->file('lampiran');
+            $filename = 'lampiran-' . time() . '-' . \Illuminate\Support\Str::random(10) . '.' . $file->getClientOriginalExtension();
+            
+            $uploadPath = public_path('uploads/pengaduan');
+            if (!is_dir($uploadPath)) {
+                mkdir($uploadPath, 0755, true);
+            }
+            
+            $file->move($uploadPath, $filename);
+            $data['lampiran'] = $filename;
+        }
+
+        \App\Models\Pengaduan::create($data);
+
+        return redirect()->route('kontak')->with('success', 'Pengaduan Anda telah berhasil dikirim. Kami akan segera menindaklanjuti.');
     }
 }

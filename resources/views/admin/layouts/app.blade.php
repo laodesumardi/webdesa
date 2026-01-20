@@ -74,7 +74,31 @@
                         </svg>
                         <span class="text-sm font-medium">Penduduk</span>
                     </a>
-                    <a href="{{ route('beranda') }}" target="_blank" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg transition-colors text-blue-200 hover:bg-blue-800">
+                    
+                    <div class="pt-4 mt-4 border-t border-blue-800">
+                        <p class="px-4 text-xs font-semibold text-blue-300 uppercase tracking-wider mb-2">Layanan</p>
+                    </div>
+                    
+                    <a href="{{ route('admin.pengaduan.index') }}" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg transition-colors {{ request()->routeIs('admin.pengaduan.*') ? 'active' : 'text-blue-200 hover:bg-blue-800' }}">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path>
+                        </svg>
+                        <span class="text-sm font-medium">Pengaduan</span>
+                    </a>
+                    <a href="{{ route('admin.agenda.index') }}" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg transition-colors {{ request()->routeIs('admin.agenda.*') ? 'active' : 'text-blue-200 hover:bg-blue-800' }}">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                        </svg>
+                        <span class="text-sm font-medium">Agenda</span>
+                    </a>
+                    <a href="{{ route('admin.pengumuman.index') }}" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg transition-colors {{ request()->routeIs('admin.pengumuman.*') ? 'active' : 'text-blue-200 hover:bg-blue-800' }}">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"></path>
+                        </svg>
+                        <span class="text-sm font-medium">Pengumuman</span>
+                    </a>
+                    
+                    <a href="{{ route('beranda') }}" target="_blank" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg transition-colors text-blue-200 hover:bg-blue-800 mt-4">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
                         </svg>
