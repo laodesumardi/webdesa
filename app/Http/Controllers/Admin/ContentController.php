@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Content;
+use App\Helpers\ImageHelper;
 use Illuminate\Http\Request;
 
 class ContentController extends Controller
@@ -296,33 +297,8 @@ class ContentController extends Controller
     }
 
     /**
-     * Get the correct images path for both local and hosting environments
-     */
-    private function getImagesPath()
-    {
-        // Try public_path first (standard Laravel)
-        $path = public_path('images');
-        
-        // If public_path doesn't exist or we're in a hosting environment
-        // Try alternative paths
-        if (!is_dir(dirname($path))) {
-            // For Hostinger: public_html/images
-            $altPath = $_SERVER['DOCUMENT_ROOT'] . '/images';
-            if (is_dir($_SERVER['DOCUMENT_ROOT'])) {
-                $path = $altPath;
-            }
-        }
-        
-        // Create directory if it doesn't exist
-        if (!is_dir($path)) {
-            @mkdir($path, 0755, true);
-        }
-        
-        return $path;
-    }
-
-    /**
      * Upload foto kepala desa
+     * Saves to public/images/
      */
     public function uploadFoto(Request $request)
     {
@@ -334,14 +310,14 @@ class ContentController extends Controller
             $file = $request->file('foto');
             $filename = 'kepala-desa-' . time() . '.' . $file->getClientOriginalExtension();
             
-            // Get correct images path
-            $imagesPath = $this->getImagesPath();
+            // Get images path from helper
+            $imagesPath = ImageHelper::getImagesPath();
             
-            // Move file to images folder
+            // Move file to public/images/
             $file->move($imagesPath, $filename);
             
             // Verify file was uploaded
-            if (!file_exists($imagesPath . '/' . $filename)) {
+            if (!file_exists($imagesPath . DIRECTORY_SEPARATOR . $filename)) {
                 throw new \Exception('File gagal disimpan ke server');
             }
             
@@ -354,16 +330,13 @@ class ContentController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'Gagal upload gambar: ' . $e->getMessage(),
-                'debug' => [
-                    'public_path' => public_path('images'),
-                    'document_root' => $_SERVER['DOCUMENT_ROOT'] ?? 'N/A',
-                ]
             ], 500);
         }
     }
 
     /**
      * Upload gambar struktur organisasi
+     * Saves to public/images/
      */
     public function uploadStruktur(Request $request)
     {
@@ -375,22 +348,15 @@ class ContentController extends Controller
             $file = $request->file('struktur');
             $filename = 'struktur-organisasi.' . $file->getClientOriginalExtension();
             
-            // Get correct images path
-            $imagesPath = $this->getImagesPath();
+            // Delete old images with same basename
+            ImageHelper::deleteOldImages('struktur-organisasi');
             
-            // Hapus file lama jika ada
-            $oldFiles = glob($imagesPath . '/struktur-organisasi.*');
-            foreach ($oldFiles as $oldFile) {
-                if (is_file($oldFile)) {
-                    @unlink($oldFile);
-                }
-            }
-            
-            // Move file to images folder
+            // Get images path and move file
+            $imagesPath = ImageHelper::getImagesPath();
             $file->move($imagesPath, $filename);
             
             // Verify file was uploaded
-            if (!file_exists($imagesPath . '/' . $filename)) {
+            if (!file_exists($imagesPath . DIRECTORY_SEPARATOR . $filename)) {
                 throw new \Exception('File gagal disimpan ke server');
             }
             
@@ -409,6 +375,7 @@ class ContentController extends Controller
 
     /**
      * Upload gambar hero slider
+     * Saves to public/images/
      */
     public function uploadHero(Request $request)
     {
@@ -423,22 +390,15 @@ class ContentController extends Controller
             $extension = $file->getClientOriginalExtension();
             $filename = 'hero-' . $slide . '.' . $extension;
             
-            // Get correct images path
-            $imagesPath = $this->getImagesPath();
+            // Delete old images with same basename
+            ImageHelper::deleteOldImages('hero-' . $slide);
             
-            // Hapus file lama jika ada
-            $oldFiles = glob($imagesPath . '/hero-' . $slide . '.*');
-            foreach ($oldFiles as $oldFile) {
-                if (is_file($oldFile)) {
-                    @unlink($oldFile);
-                }
-            }
-            
-            // Move file to images folder
+            // Get images path and move file
+            $imagesPath = ImageHelper::getImagesPath();
             $file->move($imagesPath, $filename);
             
             // Verify file was uploaded
-            if (!file_exists($imagesPath . '/' . $filename)) {
+            if (!file_exists($imagesPath . DIRECTORY_SEPARATOR . $filename)) {
                 throw new \Exception('File gagal disimpan ke server');
             }
             
@@ -457,6 +417,7 @@ class ContentController extends Controller
 
     /**
      * Upload gambar header background
+     * Saves to public/images/
      */
     public function uploadHeaderBg(Request $request)
     {
@@ -469,22 +430,15 @@ class ContentController extends Controller
             $extension = $file->getClientOriginalExtension();
             $filename = 'header-bg.' . $extension;
             
-            // Get correct images path
-            $imagesPath = $this->getImagesPath();
+            // Delete old images with same basename
+            ImageHelper::deleteOldImages('header-bg');
             
-            // Hapus file lama jika ada
-            $oldFiles = glob($imagesPath . '/header-bg.*');
-            foreach ($oldFiles as $oldFile) {
-                if (is_file($oldFile)) {
-                    @unlink($oldFile);
-                }
-            }
-            
-            // Move file to images folder
+            // Get images path and move file
+            $imagesPath = ImageHelper::getImagesPath();
             $file->move($imagesPath, $filename);
             
             // Verify file was uploaded
-            if (!file_exists($imagesPath . '/' . $filename)) {
+            if (!file_exists($imagesPath . DIRECTORY_SEPARATOR . $filename)) {
                 throw new \Exception('File gagal disimpan ke server');
             }
             

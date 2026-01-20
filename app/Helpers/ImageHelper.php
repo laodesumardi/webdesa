@@ -7,28 +7,14 @@ class ImageHelper
     /**
      * Get the correct images directory path
      * Works for both local development and Hostinger hosting
+     * All images are stored in public/images/
      */
     public static function getImagesPath()
     {
-        // Method 1: Standard Laravel public_path
+        // Primary: Use Laravel's public_path
         $laravelPath = public_path('images');
-        if (is_dir($laravelPath) && is_writable($laravelPath)) {
-            return $laravelPath;
-        }
         
-        // Method 2: Document root + /images (for Hostinger where public is document root)
-        $docRootPath = $_SERVER['DOCUMENT_ROOT'] . '/images';
-        if (is_dir($docRootPath)) {
-            return $docRootPath;
-        }
-        
-        // Method 3: Document root + /public/images
-        $docRootPublicPath = $_SERVER['DOCUMENT_ROOT'] . '/public/images';
-        if (is_dir($docRootPublicPath)) {
-            return $docRootPublicPath;
-        }
-        
-        // Method 4: Try to create using Laravel path
+        // Create if doesn't exist
         if (!is_dir($laravelPath)) {
             @mkdir($laravelPath, 0755, true);
         }
@@ -37,31 +23,18 @@ class ImageHelper
     }
     
     /**
-     * Find an image file with various extensions
+     * Find an image file with various extensions in public/images/
      * Returns the asset URL if found, or fallback if not
      */
     public static function findImage($baseName, $fallback = null)
     {
-        $extensions = ['jpg', 'jpeg', 'png', 'webp', 'gif'];
+        $extensions = ['png', 'jpg', 'jpeg', 'webp', 'gif'];
+        $imagesPath = public_path('images');
         
-        // Try multiple possible paths
-        $possibleBasePaths = [
-            public_path('images'),
-            $_SERVER['DOCUMENT_ROOT'] . '/images',
-            $_SERVER['DOCUMENT_ROOT'] . '/public/images',
-        ];
-        
-        foreach ($possibleBasePaths as $basePath) {
-            if (!is_dir($basePath)) {
-                continue;
-            }
-            
-            foreach ($extensions as $ext) {
-                $filePath = $basePath . '/' . $baseName . '.' . $ext;
-                if (file_exists($filePath)) {
-                    // Return the correct URL
-                    return asset('images/' . $baseName . '.' . $ext);
-                }
+        foreach ($extensions as $ext) {
+            $filePath = $imagesPath . DIRECTORY_SEPARATOR . $baseName . '.' . $ext;
+            if (file_exists($filePath)) {
+                return asset('images/' . $baseName . '.' . $ext) . '?v=' . filemtime($filePath);
             }
         }
         
@@ -69,25 +42,72 @@ class ImageHelper
     }
     
     /**
-     * Check if an image exists
+     * Find image and return array with url, filename, and exists flag
+     * Used for admin preview
      */
-    public static function imageExists($baseName)
+    public static function findImageInfo($baseName, $fallback = null)
     {
-        return self::findImage($baseName) !== null;
+        $extensions = ['png', 'jpg', 'jpeg', 'webp', 'gif'];
+        $imagesPath = public_path('images');
+        
+        foreach ($extensions as $ext) {
+            $filePath = $imagesPath . DIRECTORY_SEPARATOR . $baseName . '.' . $ext;
+            if (file_exists($filePath)) {
+                return [
+                    'url' => asset('images/' . $baseName . '.' . $ext) . '?v=' . filemtime($filePath),
+                    'filename' => $baseName . '.' . $ext,
+                    'exists' => true,
+                    'path' => $filePath
+                ];
+            }
+        }
+        
+        return [
+            'url' => $fallback,
+            'filename' => $baseName . '.jpg',
+            'exists' => false,
+            'path' => null
+        ];
     }
     
     /**
-     * Get image URL with cache busting
+     * Check if an image exists in public/images/
      */
-    public static function getImageUrl($baseName, $fallback = null)
+    public static function imageExists($baseName)
     {
-        $url = self::findImage($baseName, $fallback);
+        $extensions = ['png', 'jpg', 'jpeg', 'webp', 'gif'];
+        $imagesPath = public_path('images');
         
-        if ($url && strpos($url, 'http') === 0 && strpos($url, 'unsplash') === false) {
-            // Add cache busting for local images
-            $url .= '?v=' . time();
+        foreach ($extensions as $ext) {
+            if (file_exists($imagesPath . DIRECTORY_SEPARATOR . $baseName . '.' . $ext)) {
+                return true;
+            }
         }
         
-        return $url;
+        return false;
+    }
+    
+    /**
+     * Get full image path for a given basename
+     */
+    public static function getFullPath($filename)
+    {
+        return public_path('images' . DIRECTORY_SEPARATOR . $filename);
+    }
+    
+    /**
+     * Delete old images with same basename but different extensions
+     */
+    public static function deleteOldImages($baseName)
+    {
+        $extensions = ['png', 'jpg', 'jpeg', 'webp', 'gif'];
+        $imagesPath = public_path('images');
+        
+        foreach ($extensions as $ext) {
+            $filePath = $imagesPath . DIRECTORY_SEPARATOR . $baseName . '.' . $ext;
+            if (file_exists($filePath)) {
+                @unlink($filePath);
+            }
+        }
     }
 }

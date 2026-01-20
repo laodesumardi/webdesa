@@ -45,40 +45,11 @@
                 return $item ? $item->content : $default;
             };
             
-            // Helper function untuk mencari gambar dengan berbagai ekstensi
-            // Support both local and hosting environments
+            // Use ImageHelper for finding images in public/images/
+            use App\Helpers\ImageHelper;
+            
             $findImage = function($baseName, $fallback = null) {
-                $extensions = ['jpg', 'jpeg', 'png', 'webp', 'gif'];
-                
-                // Try multiple possible paths for hosting compatibility
-                $possibleBasePaths = [
-                    public_path('images'),
-                    $_SERVER['DOCUMENT_ROOT'] . '/images',
-                    $_SERVER['DOCUMENT_ROOT'] . '/public/images',
-                ];
-                
-                foreach ($possibleBasePaths as $basePath) {
-                    if (!is_dir($basePath)) {
-                        continue;
-                    }
-                    
-                    foreach ($extensions as $ext) {
-                        $filePath = $basePath . '/' . $baseName . '.' . $ext;
-                        if (file_exists($filePath)) {
-                            return [
-                                'url' => asset('images/' . $baseName . '.' . $ext),
-                                'filename' => $baseName . '.' . $ext,
-                                'exists' => true
-                            ];
-                        }
-                    }
-                }
-                
-                return [
-                    'url' => $fallback,
-                    'filename' => $baseName . '.jpg',
-                    'exists' => false
-                ];
+                return \App\Helpers\ImageHelper::findImageInfo($baseName, $fallback);
             };
             
             // Get image paths
