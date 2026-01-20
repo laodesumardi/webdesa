@@ -5,6 +5,7 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\BeritaController;
 use App\Http\Controllers\Admin\GaleriController;
+use App\Http\Controllers\Admin\UmkmController;
 
 // Public Routes
 Route::get('/', [PageController::class, 'beranda'])->name('beranda');
@@ -53,4 +54,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     
     // Galeri Routes
     Route::resource('galeri', GaleriController::class);
+    
+    // UMKM Routes
+    Route::resource('umkm', UmkmController::class);
 });

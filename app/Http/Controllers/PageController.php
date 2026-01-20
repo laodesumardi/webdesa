@@ -135,7 +135,14 @@ class PageController extends Controller
 
     public function umkm()
     {
-        return view('umkm');
+        $umkm = \App\Models\Umkm::published()
+            ->orderBy('urutan')
+            ->latest()
+            ->paginate(12);
+        
+        $kategoriList = \App\Models\Umkm::getKategori();
+        
+        return view('umkm', compact('umkm', 'kategoriList'));
     }
 
     public function kontak()
