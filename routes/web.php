@@ -3,12 +3,14 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\Admin\AuthController;
+use App\Http\Controllers\Admin\BeritaController;
 
 // Public Routes
 Route::get('/', [PageController::class, 'beranda'])->name('beranda');
 Route::get('/profil', [PageController::class, 'profil'])->name('profil');
 Route::get('/pemerintahan', [PageController::class, 'pemerintahan'])->name('pemerintahan');
 Route::get('/berita', [PageController::class, 'berita'])->name('berita');
+Route::get('/berita/{slug}', [PageController::class, 'beritaShow'])->name('berita.show');
 Route::get('/layanan', [PageController::class, 'layanan'])->name('layanan');
 Route::get('/data', [PageController::class, 'data'])->name('data');
 Route::get('/galeri', [PageController::class, 'galeri'])->name('galeri');
@@ -44,4 +46,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     
     // Penduduk Routes
     Route::resource('penduduk', \App\Http\Controllers\Admin\PendudukController::class);
+    
+    // Berita Routes
+    Route::resource('berita', BeritaController::class);
 });

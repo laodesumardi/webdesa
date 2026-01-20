@@ -3,6 +3,7 @@
 @section('title', 'Berita & Pengumuman - Website Resmi Pemerintah Desa')
 
 @section('content')
+<div class="w-full">
     <div class="container mx-auto px-4 sm:px-6">
         <div class="mb-6 sm:mb-8 scroll-animate" data-animation="fade-up">
             <h1 class="text-xl sm:text-2xl md:text-3xl font-bold text-[#1e3a8a] mb-2">Berita & Pengumuman</h1>
@@ -11,550 +12,109 @@
 
         <!-- Filter Kategori -->
         <div class="mb-4 sm:mb-6 flex flex-wrap gap-2 scroll-animate" data-animation="fade-up" data-delay="100">
-            <button class="px-3 sm:px-4 py-1.5 sm:py-2 bg-[#1e3a8a] text-white text-xs sm:text-sm font-medium hover:bg-blue-900 transition-colors rounded-lg">Semua</button>
-            <button class="px-3 sm:px-4 py-1.5 sm:py-2 bg-gray-200 text-gray-700 text-xs sm:text-sm font-medium hover:bg-gray-300 transition-colors rounded-lg">Pengumuman</button>
-            <button class="px-3 sm:px-4 py-1.5 sm:py-2 bg-gray-200 text-gray-700 text-xs sm:text-sm font-medium hover:bg-gray-300 transition-colors rounded-lg">Informasi</button>
-            <button class="px-3 sm:px-4 py-1.5 sm:py-2 bg-gray-200 text-gray-700 text-xs sm:text-sm font-medium hover:bg-gray-300 transition-colors rounded-lg">Berita</button>
+            <a href="{{ route('berita') }}" class="px-3 sm:px-4 py-1.5 sm:py-2 {{ !request('kategori') ? 'bg-[#1e3a8a] text-white' : 'bg-gray-200 text-gray-700' }} text-xs sm:text-sm font-medium hover:bg-blue-900 hover:text-white transition-colors rounded-lg">Semua</a>
+            @foreach($kategoriList as $key => $label)
+            <a href="{{ route('berita', ['kategori' => $key]) }}" class="px-3 sm:px-4 py-1.5 sm:py-2 {{ request('kategori') === $key ? 'bg-[#1e3a8a] text-white' : 'bg-gray-200 text-gray-700' }} text-xs sm:text-sm font-medium hover:bg-blue-900 hover:text-white transition-colors rounded-lg">{{ $label }}</a>
+            @endforeach
         </div>
 
+        @if($berita->count() > 0)
         <!-- Daftar Berita -->
-        <div class="space-y-4 sm:space-y-6 skeleton-wrapper" id="berita-list-skeleton">
-        <!-- Skeleton Loading -->
-        <article class="skeleton-card">
-            <div class="flex flex-col md:flex-row gap-6">
-                <div class="flex-shrink-0 w-full md:w-64">
-                    <div class="skeleton skeleton-image"></div>
-                </div>
-                <div class="flex-1">
-                    <div class="skeleton skeleton-text" style="height: 1.5rem; width: 30%; margin-bottom: 1rem;"></div>
-                    <div class="skeleton skeleton-title"></div>
-                    <div class="skeleton skeleton-text"></div>
-                    <div class="skeleton skeleton-text"></div>
-                    <div class="skeleton skeleton-text" style="width: 80%;"></div>
-                </div>
-            </div>
-        </article>
-        <article class="skeleton-card">
-            <div class="flex flex-col md:flex-row gap-6">
-                <div class="flex-shrink-0 w-full md:w-64">
-                    <div class="skeleton skeleton-image"></div>
-                </div>
-                <div class="flex-1">
-                    <div class="skeleton skeleton-text" style="height: 1.5rem; width: 30%; margin-bottom: 1rem;"></div>
-                    <div class="skeleton skeleton-title"></div>
-                    <div class="skeleton skeleton-text"></div>
-                    <div class="skeleton skeleton-text"></div>
-                    <div class="skeleton skeleton-text" style="width: 80%;"></div>
-                </div>
-            </div>
-        </article>
-        <article class="skeleton-card">
-            <div class="flex flex-col md:flex-row gap-6">
-                <div class="flex-shrink-0 w-full md:w-64">
-                    <div class="skeleton skeleton-image"></div>
-                </div>
-                <div class="flex-1">
-                    <div class="skeleton skeleton-text" style="height: 1.5rem; width: 30%; margin-bottom: 1rem;"></div>
-                    <div class="skeleton skeleton-title"></div>
-                    <div class="skeleton skeleton-text"></div>
-                    <div class="skeleton skeleton-text"></div>
-                    <div class="skeleton skeleton-text" style="width: 80%;"></div>
-                </div>
-            </div>
-        </article>
-    </div>
-        <!-- Daftar Berita Content -->
-        <div class="space-y-4 sm:space-y-6 skeleton-content" id="berita-list-content">
-            <!-- Berita 1 -->
-            <article class="scroll-animate bg-white border border-gray-200 p-4 sm:p-6 md:p-8 hover:border-[#1e3a8a] transition-colors group rounded-lg" data-animation="fade-up" data-delay="200">
+        <div class="space-y-4 sm:space-y-6" id="berita-list-content">
+            @foreach($berita as $index => $item)
+            <article class="scroll-animate bg-white border border-gray-200 p-4 sm:p-6 md:p-8 hover:border-[#1e3a8a] transition-colors group rounded-lg" data-animation="fade-up" data-delay="{{ 200 + ($index * 100) }}">
                 <div class="flex flex-col md:flex-row gap-4 sm:gap-6">
                     <!-- Gambar -->
                     <div class="flex-shrink-0 w-full md:w-64">
                         <div class="aspect-video md:aspect-square bg-gray-100 overflow-hidden rounded-lg">
-                        @if (file_exists(public_path('images/berita/bantuan-sosial.jpg')))
-                            <img src="{{ asset('images/berita/bantuan-sosial.jpg') }}" alt="Bantuan Sosial" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
-                        @else
+                            @if($item->gambar)
+                            <img src="{{ asset('images/berita/' . $item->gambar) }}" alt="{{ $item->judul }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                            @else
                             <div class="w-full h-full flex items-center justify-center bg-gray-200">
                                 <svg class="w-16 h-16 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path>
                                 </svg>
                             </div>
-                        @endif
+                            @endif
+                        </div>
                     </div>
-                </div>
                     <!-- Konten -->
                     <div class="flex-1">
                         <div class="flex items-start gap-2 sm:gap-4 mb-3 sm:mb-4">
-                            <span class="bg-blue-100 text-[#1e3a8a] px-3 sm:px-4 py-1 sm:py-1.5 text-xs font-semibold rounded-full">Pengumuman</span>
-                            <time class="text-xs sm:text-sm text-gray-500">15 Januari 2024</time>
+                            <span class="bg-blue-100 text-[#1e3a8a] px-3 sm:px-4 py-1 sm:py-1.5 text-xs font-semibold rounded-full">{{ $kategoriList[$item->kategori] ?? $item->kategori }}</span>
+                            <time class="text-xs sm:text-sm text-gray-500">{{ $item->published_at ? $item->published_at->translatedFormat('d F Y') : $item->created_at->translatedFormat('d F Y') }}</time>
                         </div>
                         <h2 class="text-lg sm:text-xl md:text-2xl font-bold text-gray-900 mb-2 sm:mb-3 group-hover:text-[#1e3a8a] transition-colors">
-                            Pendaftaran Program Bantuan Sosial Tahun 2024
+                            {{ $item->judul }}
                         </h2>
                         <p class="text-gray-700 text-sm sm:text-base md:text-lg leading-relaxed mb-3 sm:mb-4">
-                            Pemerintah Desa membuka pendaftaran program bantuan sosial untuk warga yang memenuhi kriteria. 
-                            Pendaftaran dibuka mulai tanggal 20 Januari 2024 hingga 5 Februari 2024. Persyaratan meliputi 
-                            Kartu Keluarga, KTP, Surat Keterangan Tidak Mampu dari RT/RW, dan dokumen pendukung lainnya. 
-                            Formulir pendaftaran dapat diambil di kantor desa pada jam pelayanan atau diunduh melalui website ini.
+                            {{ Str::limit(strip_tags($item->ringkasan ?? $item->konten), 200) }}
                         </p>
-                        <a href="#" class="text-[#1e3a8a] text-xs sm:text-sm font-medium hover:underline inline-flex items-center gap-1">
-                            Baca selengkapnya
-                            <svg class="w-3 h-3 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                            </svg>
-                        </a>
+                        <div class="flex items-center justify-between">
+                            <a href="{{ route('berita.show', $item->slug) }}" class="text-[#1e3a8a] text-xs sm:text-sm font-medium hover:underline inline-flex items-center gap-1">
+                                Baca selengkapnya
+                                <svg class="w-3 h-3 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                </svg>
+                            </a>
+                            <span class="text-xs text-gray-400 flex items-center gap-1">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                </svg>
+                                {{ number_format($item->views) }}
+                            </span>
+                        </div>
                     </div>
                 </div>
             </article>
+            @endforeach
+        </div>
 
-        <!-- Berita 2 -->
-            <article class="scroll-animate bg-white border border-gray-200 p-4 sm:p-6 md:p-8 hover:border-[#1e3a8a] transition-colors group rounded-lg" data-animation="fade-up" data-delay="300">
-                <div class="flex flex-col md:flex-row gap-4 sm:gap-6">
-                <!-- Gambar -->
-                <div class="flex-shrink-0 w-full md:w-64">
-                        <div class="aspect-video md:aspect-square bg-gray-100 overflow-hidden rounded-lg">
-                        @if (file_exists(public_path('images/berita/pelayanan-administrasi.jpg')))
-                            <img src="{{ asset('images/berita/pelayanan-administrasi.jpg') }}" alt="Pelayanan Administrasi" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
-                        @else
-                            <div class="w-full h-full flex items-center justify-center bg-gray-200">
-                                <svg class="w-16 h-16 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                                </svg>
-                            </div>
-                        @endif
-                    </div>
-                </div>
-                <!-- Konten -->
-                <div class="flex-1">
-                    <div class="flex items-start gap-4 mb-4">
-                        <span class="bg-blue-100 text-blue-800 px-4 py-1.5 text-xs font-semibold">Informasi</span>
-                        <time class="text-sm text-gray-500">10 Januari 2024</time>
-                    </div>
-                    <h2 class="text-xl md:text-2xl font-bold text-gray-900 mb-3 group-hover:text-[#1e3a8a] transition-colors">
-                        Jadwal Pelayanan Administrasi Kependudukan
-                    </h2>
-                    <p class="text-gray-700 text-base md:text-lg leading-relaxed mb-4">
-                        Pelayanan administrasi kependudukan dilayani setiap hari kerja Senin hingga Jumat pukul 08:00 - 15:00 WIB. 
-                        Pelayanan meliputi pembuatan surat keterangan domisili, surat pengantar KTP, surat keterangan tidak mampu, 
-                        dan berbagai surat administrasi lainnya. Untuk layanan khusus atau di luar jam kerja, warga dapat 
-                        menghubungi kantor desa terlebih dahulu untuk koordinasi.
-                    </p>
-                    <a href="#" class="text-[#1e3a8a] text-sm font-medium hover:underline inline-flex items-center gap-1">
-                        Baca selengkapnya
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                        </svg>
-                    </a>
-                </div>
-            </div>
-        </article>
-
-        <!-- Berita 3 -->
-        <article class="bg-white border border-gray-200 p-6 md:p-8 hover:border-[#1e3a8a] transition-colors group">
-            <div class="flex flex-col md:flex-row gap-6">
-                <!-- Gambar -->
-                <div class="flex-shrink-0 w-full md:w-64">
-                        <div class="aspect-video md:aspect-square bg-gray-100 overflow-hidden rounded-lg">
-                        @if (file_exists(public_path('images/berita/gotong-royong.jpg')))
-                            <img src="{{ asset('images/berita/gotong-royong.jpg') }}" alt="Gotong Royong" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
-                        @else
-                            <div class="w-full h-full flex items-center justify-center bg-gray-200">
-                                <svg class="w-16 h-16 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                                </svg>
-                            </div>
-                        @endif
-                    </div>
-                </div>
-                <!-- Konten -->
-                <div class="flex-1">
-                    <div class="flex items-start gap-4 mb-4">
-                        <span class="bg-yellow-100 text-yellow-800 px-4 py-1.5 text-xs font-semibold">Berita</span>
-                        <time class="text-sm text-gray-500">5 Januari 2024</time>
-                    </div>
-                    <h2 class="text-xl md:text-2xl font-bold text-gray-900 mb-3 group-hover:text-[#1e3a8a] transition-colors">
-                        Kegiatan Gotong Royong Pembersihan Lingkungan
-                    </h2>
-                    <p class="text-gray-700 text-base md:text-lg leading-relaxed mb-4">
-                        Pemerintah Desa mengundang seluruh warga untuk berpartisipasi dalam kegiatan gotong royong pembersihan 
-                        lingkungan yang akan dilaksanakan pada hari Minggu, 14 Januari 2024 pukul 07:00 WIB. Kegiatan ini 
-                        meliputi pembersihan saluran air, penataan taman, dan pembersihan sampah di sepanjang jalan desa. 
-                        Peralatan kebersihan akan disediakan oleh pemerintah desa. Kegiatan ini merupakan bagian dari program 
-                        kebersihan lingkungan desa yang dilaksanakan secara rutin setiap bulan.
-                    </p>
-                    <a href="#" class="text-[#1e3a8a] text-sm font-medium hover:underline inline-flex items-center gap-1">
-                        Baca selengkapnya
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                        </svg>
-                    </a>
-                </div>
-            </div>
-        </article>
-
-        <!-- Berita 4 -->
-        <article class="bg-white border border-gray-200 p-6 md:p-8 hover:border-[#1e3a8a] transition-colors group">
-            <div class="flex flex-col md:flex-row gap-6">
-                <!-- Gambar -->
-                <div class="flex-shrink-0 w-full md:w-64">
-                        <div class="aspect-video md:aspect-square bg-gray-100 overflow-hidden rounded-lg">
-                        @if (file_exists(public_path('images/berita/musyawarah-desa.jpg')))
-                            <img src="{{ asset('images/berita/musyawarah-desa.jpg') }}" alt="Musyawarah Desa" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
-                        @else
-                            <div class="w-full h-full flex items-center justify-center bg-gray-200">
-                                <svg class="w-16 h-16 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                                </svg>
-                            </div>
-                        @endif
-                    </div>
-                </div>
-                <!-- Konten -->
-                <div class="flex-1">
-                    <div class="flex items-start gap-4 mb-4">
-                        <span class="bg-blue-100 text-[#1e3a8a] px-4 py-1.5 text-xs font-semibold">Pengumuman</span>
-                        <time class="text-sm text-gray-500">28 Desember 2023</time>
-                    </div>
-                    <h2 class="text-xl md:text-2xl font-bold text-gray-900 mb-3 group-hover:text-[#1e3a8a] transition-colors">
-                        Musyawarah Desa Perencanaan Pembangunan Tahun 2024
-                    </h2>
-                    <p class="text-gray-700 text-base md:text-lg leading-relaxed mb-4">
-                        Pemerintah Desa akan menyelenggarakan musyawarah desa untuk perencanaan pembangunan tahun 2024 pada 
-                        hari Sabtu, 6 Januari 2024 pukul 09:00 WIB di balai desa. Musyawarah ini membahas rencana kegiatan 
-                        pembangunan, alokasi anggaran, dan prioritas program yang akan dilaksanakan sepanjang tahun 2024. 
-                        Seluruh warga desa diundang untuk hadir dan menyampaikan aspirasi terkait pembangunan desa.
-                    </p>
-                    <a href="#" class="text-[#1e3a8a] text-sm font-medium hover:underline inline-flex items-center gap-1">
-                        Baca selengkapnya
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                        </svg>
-                    </a>
-                </div>
-            </div>
-        </article>
-
-        <!-- Berita 5 -->
-        <article class="bg-white border border-gray-200 p-6 md:p-8 hover:border-[#1e3a8a] transition-colors group">
-            <div class="flex flex-col md:flex-row gap-6">
-                <!-- Gambar -->
-                <div class="flex-shrink-0 w-full md:w-64">
-                        <div class="aspect-video md:aspect-square bg-gray-100 overflow-hidden rounded-lg">
-                        @if (file_exists(public_path('images/berita/posyandu.jpg')))
-                            <img src="{{ asset('images/berita/posyandu.jpg') }}" alt="Posyandu" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
-                        @else
-                            <div class="w-full h-full flex items-center justify-center bg-gray-200">
-                                <svg class="w-16 h-16 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                                </svg>
-                            </div>
-                        @endif
-                    </div>
-                </div>
-                <!-- Konten -->
-                <div class="flex-1">
-                    <div class="flex items-start gap-4 mb-4">
-                        <span class="bg-blue-100 text-blue-800 px-4 py-1.5 text-xs font-semibold">Informasi</span>
-                        <time class="text-sm text-gray-500">3 Januari 2024</time>
-                    </div>
-                    <h2 class="text-xl md:text-2xl font-bold text-gray-900 mb-3 group-hover:text-[#1e3a8a] transition-colors">
-                        Pelaksanaan Posyandu Bulan Januari 2024
-                    </h2>
-                    <p class="text-gray-700 text-base md:text-lg leading-relaxed mb-4">
-                        Pelaksanaan Posyandu untuk bulan Januari 2024 akan dilaksanakan di setiap RW sesuai jadwal yang telah 
-                        ditetapkan. Kegiatan Posyandu meliputi penimbangan balita, pemberian imunisasi, pemberian vitamin A, 
-                        dan penyuluhan kesehatan ibu dan anak. Jadwal lengkap dapat dilihat di papan pengumuman masing-masing RW 
-                        atau ditanyakan kepada ketua RW setempat. Pelayanan Posyandu dilaksanakan secara gratis untuk seluruh warga.
-                    </p>
-                    <a href="#" class="text-[#1e3a8a] text-sm font-medium hover:underline inline-flex items-center gap-1">
-                        Baca selengkapnya
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                        </svg>
-                    </a>
-                </div>
-            </div>
-        </article>
-
-        <!-- Berita 6 -->
-        <article class="bg-white border border-gray-200 p-6 md:p-8 hover:border-[#1e3a8a] transition-colors group">
-            <div class="flex flex-col md:flex-row gap-6">
-                <!-- Gambar -->
-                <div class="flex-shrink-0 w-full md:w-64">
-                        <div class="aspect-video md:aspect-square bg-gray-100 overflow-hidden rounded-lg">
-                        @if (file_exists(public_path('images/berita/pembangunan-jalan.jpg')))
-                            <img src="{{ asset('images/berita/pembangunan-jalan.jpg') }}" alt="Pembangunan Jalan" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
-                        @else
-                            <div class="w-full h-full flex items-center justify-center bg-gray-200">
-                                <svg class="w-16 h-16 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                                </svg>
-                            </div>
-                        @endif
-                    </div>
-                </div>
-                <!-- Konten -->
-                <div class="flex-1">
-                    <div class="flex items-start gap-4 mb-4">
-                        <span class="bg-yellow-100 text-yellow-800 px-4 py-1.5 text-xs font-semibold">Berita</span>
-                        <time class="text-sm text-gray-500">20 Desember 2023</time>
-                    </div>
-                    <h2 class="text-xl md:text-2xl font-bold text-gray-900 mb-3 group-hover:text-[#1e3a8a] transition-colors">
-                        Pembangunan Jalan Lingkungan di RT 05 dan RT 06
-                    </h2>
-                    <p class="text-gray-700 text-base md:text-lg leading-relaxed mb-4">
-                        Pemerintah Desa telah memulai pembangunan jalan lingkungan di RT 05 dan RT 06. Pembangunan ini merupakan 
-                        bagian dari program peningkatan infrastruktur desa tahun 2023. Pekerjaan meliputi pengerasan jalan dengan 
-                        beton dan perbaikan saluran drainase. Pembangunan diperkirakan selesai dalam waktu 2 bulan. Selama masa 
-                        pembangunan, warga diimbau untuk berhati-hati saat melintasi area pekerjaan dan mengikuti arahan petugas 
-                        yang bertugas di lokasi.
-                    </p>
-                    <a href="#" class="text-[#1e3a8a] text-sm font-medium hover:underline inline-flex items-center gap-1">
-                        Baca selengkapnya
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                        </svg>
-                    </a>
-                </div>
-            </div>
-        </article>
-
-        <!-- Berita 7 -->
-        <article class="bg-white border border-gray-200 p-6 md:p-8 hover:border-[#1e3a8a] transition-colors group">
-            <div class="flex flex-col md:flex-row gap-6">
-                <!-- Gambar -->
-                <div class="flex-shrink-0 w-full md:w-64">
-                        <div class="aspect-video md:aspect-square bg-gray-100 overflow-hidden rounded-lg">
-                        @if (file_exists(public_path('images/berita/sensus-penduduk.jpg')))
-                            <img src="{{ asset('images/berita/sensus-penduduk.jpg') }}" alt="Sensus Penduduk" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
-                        @else
-                            <div class="w-full h-full flex items-center justify-center bg-gray-200">
-                                <svg class="w-16 h-16 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                                </svg>
-                            </div>
-                        @endif
-                    </div>
-                </div>
-                <!-- Konten -->
-                <div class="flex-1">
-                    <div class="flex items-start gap-4 mb-4">
-                        <span class="bg-blue-100 text-[#1e3a8a] px-4 py-1.5 text-xs font-semibold">Pengumuman</span>
-                        <time class="text-sm text-gray-500">15 Desember 2023</time>
-                    </div>
-                    <h2 class="text-xl md:text-2xl font-bold text-gray-900 mb-3 group-hover:text-[#1e3a8a] transition-colors">
-                        Pendataan Penduduk untuk Sensus Penduduk 2024
-                    </h2>
-                    <p class="text-gray-700 text-base md:text-lg leading-relaxed mb-4">
-                        Pemerintah Desa akan melaksanakan pendataan penduduk untuk keperluan sensus penduduk tahun 2024. Pendataan 
-                        akan dilakukan oleh petugas sensus yang akan mendatangi setiap rumah tangga. Warga diharapkan dapat 
-                        memberikan data yang akurat dan lengkap kepada petugas sensus. Pendataan dimulai pada bulan Februari 2024 
-                        dan diperkirakan selesai dalam waktu 1 bulan. Informasi lebih lanjut dapat ditanyakan di kantor desa.
-                    </p>
-                    <a href="#" class="text-[#1e3a8a] text-sm font-medium hover:underline inline-flex items-center gap-1">
-                        Baca selengkapnya
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                        </svg>
-                    </a>
-                </div>
-            </div>
-        </article>
-
-        <!-- Berita 8 -->
-        <article class="bg-white border border-gray-200 p-6 md:p-8 hover:border-[#1e3a8a] transition-colors group">
-            <div class="flex flex-col md:flex-row gap-6">
-                <!-- Gambar -->
-                <div class="flex-shrink-0 w-full md:w-64">
-                        <div class="aspect-video md:aspect-square bg-gray-100 overflow-hidden rounded-lg">
-                        @if (file_exists(public_path('images/berita/pembagian-sembako.jpg')))
-                            <img src="{{ asset('images/berita/pembagian-sembako.jpg') }}" alt="Pembagian Sembako" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
-                        @else
-                            <div class="w-full h-full flex items-center justify-center bg-gray-200">
-                                <svg class="w-16 h-16 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                                </svg>
-                            </div>
-                        @endif
-                    </div>
-                </div>
-                <!-- Konten -->
-                <div class="flex-1">
-                    <div class="flex items-start gap-4 mb-4">
-                        <span class="bg-blue-100 text-blue-800 px-4 py-1.5 text-xs font-semibold">Informasi</span>
-                        <time class="text-sm text-gray-500">12 Desember 2023</time>
-                    </div>
-                    <h2 class="text-xl md:text-2xl font-bold text-gray-900 mb-3 group-hover:text-[#1e3a8a] transition-colors">
-                        Pembagian Sembako untuk Keluarga Miskin
-                    </h2>
-                    <p class="text-gray-700 text-base md:text-lg leading-relaxed mb-4">
-                        Pemerintah Desa akan melaksanakan pembagian sembako untuk keluarga miskin pada hari Sabtu, 20 Januari 2024 
-                        pukul 09:00 WIB di balai desa. Pembagian dilakukan berdasarkan data keluarga miskin yang telah terverifikasi. 
-                        Setiap keluarga penerima akan mendapatkan paket sembako yang terdiri dari beras, minyak goreng, gula, dan 
-                        bahan pokok lainnya. Penerima diharapkan hadir tepat waktu dan membawa Kartu Keluarga untuk verifikasi.
-                    </p>
-                    <a href="#" class="text-[#1e3a8a] text-sm font-medium hover:underline inline-flex items-center gap-1">
-                        Baca selengkapnya
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                        </svg>
-                    </a>
-                </div>
-            </div>
-        </article>
-
-        <!-- Berita 9 -->
-        <article class="bg-white border border-gray-200 p-6 md:p-8 hover:border-[#1e3a8a] transition-colors group">
-            <div class="flex flex-col md:flex-row gap-6">
-                <!-- Gambar -->
-                <div class="flex-shrink-0 w-full md:w-64">
-                        <div class="aspect-video md:aspect-square bg-gray-100 overflow-hidden rounded-lg">
-                        @if (file_exists(public_path('images/berita/peresmian-balai-desa.jpg')))
-                            <img src="{{ asset('images/berita/peresmian-balai-desa.jpg') }}" alt="Peresmian Balai Desa" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
-                        @else
-                            <div class="w-full h-full flex items-center justify-center bg-gray-200">
-                                <svg class="w-16 h-16 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                                </svg>
-                            </div>
-                        @endif
-                    </div>
-                </div>
-                <!-- Konten -->
-                <div class="flex-1">
-                    <div class="flex items-start gap-4 mb-4">
-                        <span class="bg-yellow-100 text-yellow-800 px-4 py-1.5 text-xs font-semibold">Berita</span>
-                        <time class="text-sm text-gray-500">8 Desember 2023</time>
-                    </div>
-                    <h2 class="text-xl md:text-2xl font-bold text-gray-900 mb-3 group-hover:text-[#1e3a8a] transition-colors">
-                        Peresmian Balai Desa Baru
-                    </h2>
-                    <p class="text-gray-700 text-base md:text-lg leading-relaxed mb-4">
-                        Pemerintah Desa meresmikan balai desa baru yang telah selesai dibangun pada hari Sabtu, 2 Desember 2023. 
-                        Balai desa baru ini dilengkapi dengan ruang rapat, ruang pelayanan, dan fasilitas pendukung lainnya. 
-                        Peresmian dihadiri oleh Bupati, Camat, dan seluruh perangkat desa. Balai desa baru ini diharapkan dapat 
-                        meningkatkan kualitas pelayanan kepada masyarakat dan menjadi pusat kegiatan pemerintahan desa.
-                    </p>
-                    <a href="#" class="text-[#1e3a8a] text-sm font-medium hover:underline inline-flex items-center gap-1">
-                        Baca selengkapnya
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                        </svg>
-                    </a>
-                </div>
-            </div>
-        </article>
-
-        <!-- Berita 10 -->
-        <article class="bg-white border border-gray-200 p-6 md:p-8 hover:border-[#1e3a8a] transition-colors group">
-            <div class="flex flex-col md:flex-row gap-6">
-                <!-- Gambar -->
-                <div class="flex-shrink-0 w-full md:w-64">
-                        <div class="aspect-video md:aspect-square bg-gray-100 overflow-hidden rounded-lg">
-                        @if (file_exists(public_path('images/berita/pelatihan-kewirausahaan.jpg')))
-                            <img src="{{ asset('images/berita/pelatihan-kewirausahaan.jpg') }}" alt="Pelatihan Kewirausahaan" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
-                        @else
-                            <div class="w-full h-full flex items-center justify-center bg-gray-200">
-                                <svg class="w-16 h-16 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                                </svg>
-                            </div>
-                        @endif
-                    </div>
-                </div>
-                <!-- Konten -->
-                <div class="flex-1">
-                    <div class="flex items-start gap-4 mb-4">
-                        <span class="bg-blue-100 text-[#1e3a8a] px-4 py-1.5 text-xs font-semibold">Pengumuman</span>
-                        <time class="text-sm text-gray-500">1 Desember 2023</time>
-                    </div>
-                    <h2 class="text-xl md:text-2xl font-bold text-gray-900 mb-3 group-hover:text-[#1e3a8a] transition-colors">
-                        Program Pelatihan Kewirausahaan untuk Pemuda
-                    </h2>
-                    <p class="text-gray-700 text-base md:text-lg leading-relaxed mb-4">
-                        Pemerintah Desa bekerja sama dengan Dinas Koperasi dan UKM Kabupaten menyelenggarakan program pelatihan 
-                        kewirausahaan untuk pemuda desa. Pelatihan akan dilaksanakan selama 3 hari mulai tanggal 15 Desember 2023. 
-                        Program ini bertujuan untuk meningkatkan kemampuan wirausaha pemuda dan mendorong tumbuhnya usaha kecil 
-                        menengah di desa. Pendaftaran dibuka mulai tanggal 5 Desember 2023 di kantor desa.
-                    </p>
-                    <a href="#" class="text-[#1e3a8a] text-sm font-medium hover:underline inline-flex items-center gap-1">
-                        Baca selengkapnya
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                        </svg>
-                    </a>
-                </div>
-            </div>
-        </article>
+        <!-- Pagination -->
+        <div class="scroll-animate mt-8" data-animation="fade-up">
+            {{ $berita->links() }}
+        </div>
+        @else
+        <!-- Empty State -->
+        <div class="bg-white border border-gray-200 rounded-lg p-12 text-center">
+            <svg class="w-16 h-16 mx-auto text-gray-300 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path>
+            </svg>
+            <h3 class="text-lg font-medium text-gray-900 mb-2">Belum Ada Berita</h3>
+            <p class="text-gray-500">Berita dan pengumuman akan segera tersedia.</p>
+        </div>
+        @endif
     </div>
+</div>
 
-    <!-- Pagination -->
-    <div class="scroll-animate mt-8 flex justify-center gap-2" data-animation="fade-up">
-        <button class="px-4 py-2 bg-gray-200 text-gray-700 text-sm font-medium hover:bg-gray-300 transition-colors">Sebelumnya</button>
-        <button class="px-4 py-2 bg-[#1e3a8a] text-white text-sm font-medium hover:bg-blue-900 transition-colors">1</button>
-        <button class="px-4 py-2 bg-gray-200 text-gray-700 text-sm font-medium hover:bg-gray-300 transition-colors">2</button>
-        <button class="px-4 py-2 bg-gray-200 text-gray-700 text-sm font-medium hover:bg-gray-300 transition-colors">3</button>
-        <button class="px-4 py-2 bg-gray-200 text-gray-700 text-sm font-medium hover:bg-gray-300 transition-colors">Selanjutnya</button>
-    </div>
+<style>
+    .scroll-animate {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+    .scroll-animate.animate-active {
+        opacity: 1;
+        transform: translateY(0);
+    }
+</style>
 
-    <style>
-        .scroll-animate {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-        }
-        .scroll-animate.animate-active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        .scroll-animate[data-animation="fade-up"] {
-            opacity: 0;
-            transform: translateY(20px);
-        }
-        .scroll-animate[data-animation="fade-up"].animate-active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    </style>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const element = entry.target;
-                        const delay = parseInt(element.dataset.delay) || 0;
-                        setTimeout(() => {
-                            element.classList.add('animate-active');
-                        }, delay);
-                        observer.unobserve(element);
-                    }
-                });
-            }, { root: null, rootMargin: '0px', threshold: 0.1 });
-            document.querySelectorAll('.scroll-animate').forEach(el => observer.observe(el));
-        });
-
-        // Skeleton Loading Management
-        document.addEventListener('DOMContentLoaded', function() {
-            setTimeout(function() {
-                const beritaSkeleton = document.getElementById('berita-list-skeleton');
-                const beritaContent = document.getElementById('berita-list-content');
-                if (beritaSkeleton && beritaContent) {
-                    beritaSkeleton.classList.add('hide');
-                    beritaContent.classList.add('show');
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const element = entry.target;
+                    const delay = parseInt(element.dataset.delay) || 0;
+                    setTimeout(() => {
+                        element.classList.add('animate-active');
+                    }, delay);
+                    observer.unobserve(element);
                 }
-            }, 800);
-        });
-    </script>
-    <style>
-        .skeleton-content {
-            display: none;
-        }
-        .skeleton-content.show {
-            display: block;
-        }
-        .skeleton-wrapper.hide {
-            display: none;
-        }
-    </style>
-    </div>
+            });
+        }, { root: null, rootMargin: '0px', threshold: 0.1 });
+        document.querySelectorAll('.scroll-animate').forEach(el => observer.observe(el));
+    });
+</script>
 @endsection

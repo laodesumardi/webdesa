@@ -33,7 +33,33 @@ class PageController extends Controller
 
     public function berita()
     {
-        return view('berita');
+        $berita = \App\Models\Berita::published()
+            ->latest('published_at')
+            ->paginate(10);
+        
+        $kategoriList = \App\Models\Berita::getKategori();
+        
+        return view('berita', compact('berita', 'kategoriList'));
+    }
+
+    public function beritaShow($slug)
+    {
+        $berita = \App\Models\Berita::where('slug', $slug)->firstOrFail();
+        
+        // Increment views
+        $berita->incrementViews();
+        
+        // Get related berita
+        $relatedBerita = \App\Models\Berita::published()
+            ->where('id', '!=', $berita->id)
+            ->where('kategori', $berita->kategori)
+            ->latest('published_at')
+            ->limit(3)
+            ->get();
+        
+        $kategoriList = \App\Models\Berita::getKategori();
+        
+        return view('berita-detail', compact('berita', 'relatedBerita', 'kategoriList'));
     }
 
     public function layanan()
