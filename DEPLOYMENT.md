@@ -1,5 +1,50 @@
 # Panduan Deployment ke Hosting
 
+## Quick Setup untuk Hostinger
+
+### Langkah Cepat:
+1. Upload semua file ke `public_html`
+2. Akses `https://yourdomain.com/hostinger-setup.php`
+3. Ikuti instruksi di halaman tersebut
+4. Hapus file `hostinger-setup.php` setelah selesai
+
+---
+
+## Cara Mengatasi Gambar Tidak Muncul di Hosting
+
+### Masalah Umum:
+- Gambar tidak muncul setelah upload dari admin panel
+- Gambar default tidak tampil
+
+### Solusi:
+
+#### 1. Pastikan Folder Images Ada dan Writable
+```bash
+# Via SSH
+mkdir -p public/images
+mkdir -p public/images/umkm
+chmod -R 755 public/images
+```
+
+#### 2. Upload Gambar Manual (Jika Upload Admin Gagal)
+Upload gambar langsung via File Manager Hostinger ke folder `public/images/`:
+- `header-bg.jpg` atau `.png`
+- `hero-1.jpg`, `hero-2.jpg`, `hero-3.jpg`
+- `struktur-organisasi.png`
+- `kepala-desa-*.png` (foto kepala desa)
+
+#### 3. Cek Permission Folder
+Di Hostinger File Manager:
+1. Klik kanan folder `public/images`
+2. Pilih "Permissions"
+3. Set ke `755` (rwxr-xr-x)
+4. Centang "Apply to all files and folders"
+
+#### 4. Gunakan Script Checker
+Akses `https://yourdomain.com/check-images.php` untuk diagnosa masalah gambar.
+
+---
+
 ## Konfigurasi Database di Server Hosting
 
 ### 1. Update File .env di Server
