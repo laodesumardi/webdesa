@@ -11,7 +11,6 @@ Route::get('/pemerintahan', [PageController::class, 'pemerintahan'])->name('peme
 Route::get('/berita', [PageController::class, 'berita'])->name('berita');
 Route::get('/layanan', [PageController::class, 'layanan'])->name('layanan');
 Route::get('/data', [PageController::class, 'data'])->name('data');
-Route::get('/darurat', [PageController::class, 'darurat'])->name('darurat');
 Route::get('/galeri', [PageController::class, 'galeri'])->name('galeri');
 Route::get('/ekonomi-umkm', [PageController::class, 'umkm'])->name('umkm');
 Route::get('/kontak', [PageController::class, 'kontak'])->name('kontak');
@@ -35,6 +34,8 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::put('/contents/{page}', [\App\Http\Controllers\Admin\ContentController::class, 'update'])->name('contents.update');
     Route::post('/contents/upload-foto', [\App\Http\Controllers\Admin\ContentController::class, 'uploadFoto'])->name('contents.upload-foto');
     Route::post('/contents/upload-struktur', [\App\Http\Controllers\Admin\ContentController::class, 'uploadStruktur'])->name('contents.upload-struktur');
+    Route::post('/contents/upload-hero', [\App\Http\Controllers\Admin\ContentController::class, 'uploadHero'])->name('contents.upload-hero');
+    Route::post('/contents/upload-header-bg', [\App\Http\Controllers\Admin\ContentController::class, 'uploadHeaderBg'])->name('contents.upload-header-bg');
     
     // Perangkat Desa Routes
     Route::post('/perangkat-desa', [\App\Http\Controllers\Admin\PerangkatDesaController::class, 'store'])->name('perangkat-desa.store');

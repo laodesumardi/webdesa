@@ -8,6 +8,24 @@
     
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
+@php
+    use App\Models\Content;
+    $headerNamaDesa = Content::getContent('beranda', 'header_website', 'nama_desa', 'Pemerintah Desa');
+    $headerSubtitle = Content::getContent('beranda', 'header_website', 'subtitle', 'Website Resmi Informasi Desa');
+    
+    // Find header background image with any extension
+    $headerBgImage = null;
+    $extensions = ['jpg', 'jpeg', 'png', 'webp', 'gif'];
+    foreach ($extensions as $ext) {
+        if (file_exists(public_path('images/header-bg.' . $ext))) {
+            $headerBgImage = asset('images/header-bg.' . $ext);
+            break;
+        }
+    }
+    if (!$headerBgImage) {
+        $headerBgImage = 'https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=1920&q=80';
+    }
+@endphp
 <body class="bg-gray-50">
     <!-- Header -->
     <header class="relative bg-[#1e3a8a] text-white header-animate overflow-hidden">
@@ -23,8 +41,8 @@
                 </div>
                 <!-- Nama Desa -->
                 <div class="header-text-animate flex-1">
-                    <h1 class="text-2xl md:text-3xl lg:text-4xl font-bold mb-1 drop-shadow-lg">Pemerintah Desa</h1>
-                    <p class="text-sm md:text-base text-blue-100 drop-shadow-md">Website Resmi Informasi Desa</p>
+                    <h1 class="text-2xl md:text-3xl lg:text-4xl font-bold mb-1 drop-shadow-lg">{{ $headerNamaDesa }}</h1>
+                    <p class="text-sm md:text-base text-blue-100 drop-shadow-md">{{ $headerSubtitle }}</p>
                 </div>
             </div>
         </div>
@@ -42,7 +60,6 @@
                     <a href="{{ route('berita') }}" class="menu-item-animate px-4 py-3 text-sm font-medium hover:bg-[#1e3a8a] transition-colors {{ request()->routeIs('berita') ? 'bg-[#1e3a8a] border-b-2 border-white' : '' }}">Berita</a>
                     <a href="{{ route('layanan') }}" class="menu-item-animate px-4 py-3 text-sm font-medium hover:bg-[#1e3a8a] transition-colors {{ request()->routeIs('layanan') ? 'bg-[#1e3a8a] border-b-2 border-white' : '' }}">Layanan</a>
                     <a href="{{ route('data') }}" class="menu-item-animate px-4 py-3 text-sm font-medium hover:bg-[#1e3a8a] transition-colors {{ request()->routeIs('data') ? 'bg-[#1e3a8a] border-b-2 border-white' : '' }}">Statistik</a>
-                    <a href="{{ route('darurat') }}" class="menu-item-animate px-4 py-3 text-sm font-medium hover:bg-[#1e3a8a] transition-colors {{ request()->routeIs('darurat') ? 'bg-[#1e3a8a] border-b-2 border-white' : '' }}">Darurat</a>
                     <a href="{{ route('galeri') }}" class="menu-item-animate px-4 py-3 text-sm font-medium hover:bg-[#1e3a8a] transition-colors {{ request()->routeIs('galeri') ? 'bg-[#1e3a8a] border-b-2 border-white' : '' }}">Galeri</a>
                     <a href="{{ route('umkm') }}" class="menu-item-animate px-4 py-3 text-sm font-medium hover:bg-[#1e3a8a] transition-colors {{ request()->routeIs('umkm') ? 'bg-[#1e3a8a] border-b-2 border-white' : '' }}">Ekonomi & UMKM</a>
                     <a href="{{ route('kontak') }}" class="menu-item-animate px-4 py-3 text-sm font-medium hover:bg-[#1e3a8a] transition-colors {{ request()->routeIs('kontak') ? 'bg-[#1e3a8a] border-b-2 border-white' : '' }}">Kontak</a>
@@ -64,7 +81,6 @@
                     <a href="{{ route('berita') }}" class="mobile-menu-item block px-5 py-3.5 text-base font-medium text-gray-800 hover:bg-[#1e3a8a] hover:text-white transition-colors border-b border-gray-100 {{ request()->routeIs('berita') ? 'bg-[#1e3a8a] text-white' : '' }}">Berita & Pengumuman</a>
                     <a href="{{ route('layanan') }}" class="mobile-menu-item block px-5 py-3.5 text-base font-medium text-gray-800 hover:bg-[#1e3a8a] hover:text-white transition-colors border-b border-gray-100 {{ request()->routeIs('layanan') ? 'bg-[#1e3a8a] text-white' : '' }}">Layanan Desa</a>
                     <a href="{{ route('data') }}" class="mobile-menu-item block px-5 py-3.5 text-base font-medium text-gray-800 hover:bg-[#1e3a8a] hover:text-white transition-colors border-b border-gray-100 {{ request()->routeIs('data') ? 'bg-[#1e3a8a] text-white' : '' }}">Statistik</a>
-                    <a href="{{ route('darurat') }}" class="mobile-menu-item block px-5 py-3.5 text-base font-medium text-gray-800 hover:bg-[#1e3a8a] hover:text-white transition-colors border-b border-gray-100 {{ request()->routeIs('darurat') ? 'bg-[#1e3a8a] text-white' : '' }}">Darurat & Keamanan</a>
                     <a href="{{ route('galeri') }}" class="mobile-menu-item block px-5 py-3.5 text-base font-medium text-gray-800 hover:bg-[#1e3a8a] hover:text-white transition-colors border-b border-gray-100 {{ request()->routeIs('galeri') ? 'bg-[#1e3a8a] text-white' : '' }}">Galeri</a>
                     <a href="{{ route('umkm') }}" class="mobile-menu-item block px-5 py-3.5 text-base font-medium text-gray-800 hover:bg-[#1e3a8a] hover:text-white transition-colors border-b border-gray-100 {{ request()->routeIs('umkm') ? 'bg-[#1e3a8a] text-white' : '' }}">Ekonomi & UMKM</a>
                     <a href="{{ route('kontak') }}" class="mobile-menu-item block px-5 py-3.5 text-base font-medium text-gray-800 hover:bg-[#1e3a8a] hover:text-white transition-colors border-b border-gray-100 {{ request()->routeIs('kontak') ? 'bg-[#1e3a8a] text-white' : '' }}">Kontak & Aspirasi</a>
@@ -104,18 +120,10 @@
                 <div>
                     <h3 class="text-lg font-bold text-white mb-4 pb-2 border-b border-gray-700">Informasi Penting</h3>
                     <ul class="space-y-2 text-sm">
-                        <li><a href="{{ route('darurat') }}" class="text-gray-300 hover:text-white transition-colors">Darurat & Keamanan</a></li>
                         <li><a href="{{ route('kontak') }}" class="text-gray-300 hover:text-white transition-colors">Formulir Aspirasi</a></li>
                         <li><a href="{{ route('layanan') }}" class="text-gray-300 hover:text-white transition-colors">Pengajuan Layanan</a></li>
+                        <li><a href="{{ route('galeri') }}" class="text-gray-300 hover:text-white transition-colors">Galeri Kegiatan</a></li>
                     </ul>
-                    <div class="mt-4 pt-4 border-t border-gray-700">
-                        <p class="text-xs text-gray-400">
-                            <strong>Kontak Darurat:</strong><br>
-                            Polisi: <a href="tel:110" class="hover:text-white">110</a> | 
-                            Pemadam: <a href="tel:113" class="hover:text-white">113</a> | 
-                            Ambulans: <a href="tel:119" class="hover:text-white">119</a>
-                        </p>
-                    </div>
                 </div>
             </div>
 
@@ -173,7 +181,7 @@
 
         /* Header Background Image */
         .header-bg {
-            background-image: url('{{ asset('images/header-bg.jpg') }}'), url('https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=1920&q=80');
+            background-image: url('{{ $headerBgImage }}');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;

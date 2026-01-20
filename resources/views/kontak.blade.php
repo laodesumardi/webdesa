@@ -2,11 +2,54 @@
 
 @section('title', 'Kontak & Aspirasi - Website Resmi Pemerintah Desa')
 
+@php
+    use App\Models\Content;
+    
+    // Helper function untuk mendapatkan konten
+    $getContent = function($section, $key, $default = '') {
+        $content = Content::where('page', 'kontak')
+            ->where('section', $section)
+            ->where('key', $key)
+            ->first();
+        return $content ? $content->content : $default;
+    };
+    
+    // Header
+    $headerTitle = $getContent('header', 'title', 'Kontak & Aspirasi');
+    $headerSubtitle = $getContent('header', 'subtitle', 'Hubungi kami atau sampaikan aspirasi Anda');
+    
+    // Alamat
+    $namaKantor = $getContent('alamat', 'nama_kantor', 'Kantor Pemerintah Desa');
+    $alamatLengkap = $getContent('alamat', 'alamat_lengkap', "Jalan Raya Desa No. 123\nKecamatan, Kabupaten\nProvinsi\nKode Pos 12345");
+    
+    // Telepon
+    $telepon = $getContent('telepon', 'telepon', '(021) 1234-5678');
+    $fax = $getContent('telepon', 'fax', '(021) 1234-5679');
+    $email = $getContent('telepon', 'email', 'info@desa.go.id');
+    
+    // Jam
+    $hariKerja = $getContent('jam', 'hari_kerja', 'Senin - Jumat');
+    $waktu = $getContent('jam', 'waktu', '08:00 - 15:00 WIB');
+    $istirahat = $getContent('jam', 'istirahat', '12:00 - 13:00 WIB');
+    $hariLibur = $getContent('jam', 'hari_libur', 'Sabtu, Minggu, dan Hari Libur Nasional');
+    
+    // Perangkat
+    $jabatan1 = $getContent('perangkat', 'jabatan_1', 'Kepala Desa');
+    $telepon1 = $getContent('perangkat', 'telepon_1', '(021) 1234-5680');
+    $jabatan2 = $getContent('perangkat', 'jabatan_2', 'Sekretaris');
+    $telepon2 = $getContent('perangkat', 'telepon_2', '(021) 1234-5681');
+    $jabatan3 = $getContent('perangkat', 'jabatan_3', 'Kaur Kesra');
+    $telepon3 = $getContent('perangkat', 'telepon_3', '(021) 1234-5682');
+    
+    // Peta
+    $petaEmbedUrl = $getContent('peta', 'embed_url', '');
+@endphp
+
 @section('content')
     <div class="container mx-auto px-4 sm:px-6">
         <div class="mb-6 sm:mb-8 scroll-animate" data-animation="fade-up">
-            <h1 class="text-xl sm:text-2xl md:text-3xl font-bold text-[#1e3a8a] mb-2">Kontak & Aspirasi</h1>
-            <p class="text-gray-600 text-sm sm:text-base md:text-lg">Hubungi kami atau sampaikan aspirasi Anda</p>
+            <h1 class="text-xl sm:text-2xl md:text-3xl font-bold text-[#1e3a8a] mb-2">{{ $headerTitle }}</h1>
+            <p class="text-gray-600 text-sm sm:text-base md:text-lg">{{ $headerSubtitle }}</p>
         </div>
 
     <!-- Informasi Kontak Resmi -->
@@ -16,42 +59,49 @@
             <div class="bg-gray-50 border border-gray-200 p-5">
                 <h3 class="font-semibold text-gray-900 mb-3">Alamat Kantor</h3>
                 <p class="text-gray-700 text-sm leading-relaxed">
-                    Kantor Pemerintah Desa<br>
-                    Jalan Raya Desa No. 123<br>
-                    Kecamatan, Kabupaten<br>
-                    Provinsi<br>
-                    Kode Pos 12345
+                    {{ $namaKantor }}<br>
+                    {!! nl2br(e($alamatLengkap)) !!}
                 </p>
             </div>
             <div class="bg-gray-50 border border-gray-200 p-5">
                 <h3 class="font-semibold text-gray-900 mb-3">Kontak Telepon</h3>
                 <p class="text-gray-700 text-sm space-y-1">
                     <strong>Telepon:</strong><br>
-                    <a href="tel:02112345678" class="text-[#1e3a8a] hover:underline font-medium">(021) 1234-5678</a><br><br>
+                    <a href="tel:{{ preg_replace('/[^0-9+]/', '', $telepon) }}" class="text-[#1e3a8a] hover:underline font-medium">{{ $telepon }}</a><br><br>
+                    @if($fax)
                     <strong>Faksimili:</strong><br>
-                    (021) 1234-5679<br><br>
+                    {{ $fax }}<br><br>
+                    @endif
                     <strong>Email:</strong><br>
-                    <a href="mailto:info@desa.go.id" class="text-[#1e3a8a] hover:underline font-medium">info@desa.go.id</a>
+                    <a href="mailto:{{ $email }}" class="text-[#1e3a8a] hover:underline font-medium">{{ $email }}</a>
                 </p>
             </div>
             <div class="bg-gray-50 border border-gray-200 p-5">
                 <h3 class="font-semibold text-gray-900 mb-3">Jam Pelayanan</h3>
                 <p class="text-gray-700 text-sm">
-                    <strong>Hari Kerja:</strong> Senin - Jumat<br>
-                    <strong>Waktu:</strong> 08:00 - 15:00 WIB<br>
-                    <strong>Istirahat:</strong> 12:00 - 13:00 WIB<br>
-                    <strong>Hari Libur:</strong> Sabtu, Minggu, dan Hari Libur Nasional
+                    <strong>Hari Kerja:</strong> {{ $hariKerja }}<br>
+                    <strong>Waktu:</strong> {{ $waktu }}<br>
+                    @if($istirahat)
+                    <strong>Istirahat:</strong> {{ $istirahat }}<br>
+                    @endif
+                    <strong>Hari Libur:</strong> {{ $hariLibur }}
                 </p>
             </div>
             <div class="bg-gray-50 border border-gray-200 p-5">
                 <h3 class="font-semibold text-gray-900 mb-3">Kontak Perangkat</h3>
                 <p class="text-gray-700 text-sm space-y-1">
-                    <strong>Kepala Desa:</strong><br>
-                    <a href="tel:02112345680" class="text-[#1e3a8a] hover:underline font-medium">(021) 1234-5680</a><br><br>
-                    <strong>Sekretaris:</strong><br>
-                    <a href="tel:02112345681" class="text-[#1e3a8a] hover:underline font-medium">(021) 1234-5681</a><br><br>
-                    <strong>Kaur Kesra:</strong><br>
-                    <a href="tel:02112345682" class="text-[#1e3a8a] hover:underline font-medium">(021) 1234-5682</a>
+                    @if($jabatan1 && $telepon1)
+                    <strong>{{ $jabatan1 }}:</strong><br>
+                    <a href="tel:{{ preg_replace('/[^0-9+]/', '', $telepon1) }}" class="text-[#1e3a8a] hover:underline font-medium">{{ $telepon1 }}</a><br><br>
+                    @endif
+                    @if($jabatan2 && $telepon2)
+                    <strong>{{ $jabatan2 }}:</strong><br>
+                    <a href="tel:{{ preg_replace('/[^0-9+]/', '', $telepon2) }}" class="text-[#1e3a8a] hover:underline font-medium">{{ $telepon2 }}</a><br><br>
+                    @endif
+                    @if($jabatan3 && $telepon3)
+                    <strong>{{ $jabatan3 }}:</strong><br>
+                    <a href="tel:{{ preg_replace('/[^0-9+]/', '', $telepon3) }}" class="text-[#1e3a8a] hover:underline font-medium">{{ $telepon3 }}</a>
+                    @endif
                 </p>
             </div>
         </div>
@@ -191,6 +241,19 @@
     <!-- Peta Lokasi -->
     <div class="scroll-animate bg-white border border-gray-200 p-6 md:p-8" data-animation="fade-up" data-delay="100">
         <h2 class="text-xl md:text-2xl font-bold text-[#1e3a8a] mb-4 pb-3 border-b-2 border-[#1e3a8a]">Peta Lokasi Kantor Desa</h2>
+        @if($petaEmbedUrl)
+        <div class="w-full h-64 md:h-80">
+            <iframe 
+                src="{{ $petaEmbedUrl }}" 
+                width="100%" 
+                height="100%" 
+                style="border:0;" 
+                allowfullscreen="" 
+                loading="lazy" 
+                referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </div>
+        @else
         <div class="bg-gray-100 border border-gray-200 h-64 md:h-80 flex items-center justify-center">
             <div class="text-center">
                 <svg class="w-20 h-20 mx-auto mb-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -200,6 +263,7 @@
                 <p class="text-gray-500 text-sm md:text-base">Peta lokasi kantor desa akan ditampilkan di sini</p>
             </div>
         </div>
+        @endif
         <p class="text-sm text-gray-600 mt-4">
             Untuk informasi lebih lanjut mengenai lokasi kantor desa, silakan hubungi nomor telepon yang tertera di atas.
         </p>

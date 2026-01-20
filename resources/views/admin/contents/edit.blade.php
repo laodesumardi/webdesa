@@ -37,15 +37,640 @@
         @method('PUT')
         
         @if($page === 'beranda')
+        @php
+            // Helper function untuk mengambil content dengan aman
+            $getVal = function($section, $key, $default = '') use ($contents) {
+                if (!isset($contents[$section])) return $default;
+                $item = $contents[$section]->firstWhere('key', $key);
+                return $item ? $item->content : $default;
+            };
+            
+            // Helper function untuk mencari gambar dengan berbagai ekstensi
+            $findImage = function($baseName, $fallback = null) {
+                $extensions = ['jpg', 'jpeg', 'png', 'webp', 'gif'];
+                $imagesPath = public_path('images');
+                
+                foreach ($extensions as $ext) {
+                    $filePath = $imagesPath . '/' . $baseName . '.' . $ext;
+                    if (file_exists($filePath)) {
+                        return [
+                            'url' => asset('images/' . $baseName . '.' . $ext),
+                            'filename' => $baseName . '.' . $ext,
+                            'exists' => true
+                        ];
+                    }
+                }
+                
+                return [
+                    'url' => $fallback,
+                    'filename' => $baseName . '.jpg',
+                    'exists' => false
+                ];
+            };
+            
+            // Get image paths
+            $headerBgImg = $findImage('header-bg');
+            $heroImg1 = $findImage('hero-1');
+            $heroImg2 = $findImage('hero-2');
+            $heroImg3 = $findImage('hero-3');
+            
+            // Header website section
+            $headerNamaDesa = $getVal('header_website', 'nama_desa', 'Pemerintah Desa');
+            $headerSubtitle = $getVal('header_website', 'subtitle', 'Website Resmi Informasi Desa');
+            
+            // Hero section contents
+            $heroSlide1Badge = $getVal('hero', 'slide1_badge', 'Selamat Datang');
+            $heroSlide1Title = $getVal('hero', 'slide1_title', "Website Resmi\nPemerintah Desa");
+            $heroSlide1Subtitle = $getVal('hero', 'slide1_subtitle', 'Media resmi untuk menyampaikan informasi, kebijakan, dan layanan publik yang transparan dan akuntabel');
+            
+            $heroSlide2Badge = $getVal('hero', 'slide2_badge', 'Pelayanan Publik');
+            $heroSlide2Title = $getVal('hero', 'slide2_title', "Transparansi &\nAkuntabilitas");
+            $heroSlide2Subtitle = $getVal('hero', 'slide2_subtitle', 'Informasi layanan administrasi dan program desa tersedia untuk seluruh masyarakat dengan mudah dan cepat');
+            
+            $heroSlide3Badge = $getVal('hero', 'slide3_badge', 'Pembangunan Desa');
+            $heroSlide3Title = $getVal('hero', 'slide3_title', "Partisipasi\nMasyarakat");
+            $heroSlide3Subtitle = $getVal('hero', 'slide3_subtitle', 'Bersama membangun desa yang mandiri, sejahtera, dan berbudaya melalui partisipasi aktif seluruh warga');
+            
+            // Statistik section
+            $statistikTitle = $getVal('statistik', 'title', 'Data & Statistik Desa');
+            $statistikSubtitle = $getVal('statistik', 'subtitle', 'Informasi terkini tentang kondisi desa kami');
+            
+            // Berita section
+            $beritaTitle = $getVal('berita', 'title', 'Berita Terbaru');
+            $beritaSubtitle = $getVal('berita', 'subtitle', 'Informasi dan pengumuman terkini dari Pemerintah Desa');
+            
+            // Galeri section
+            $galeriTitle = $getVal('galeri', 'title', 'Galeri Kegiatan');
+            $galeriSubtitle = $getVal('galeri', 'subtitle', 'Dokumentasi kegiatan dan program desa');
+            
+            // Akses cepat section
+            $aksesCepatTitle = $getVal('akses_cepat', 'title', 'Akses Cepat');
+            $aksesCepatSubtitle = $getVal('akses_cepat', 'subtitle', 'Layanan dan informasi penting');
+        @endphp
+        
+        <!-- Script untuk upload gambar - HARUS di atas form elements yang menggunakannya -->
+        <script>
+            function handleHeaderBgUpload(event) {
+                const file = event.target.files[0];
+                if (file) {
+                    // Show filename
+                    document.getElementById('header-bg-filename').textContent = file.name;
+                    
+                    // Preview image
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        const preview = document.getElementById('header-bg-preview');
+                        if (preview) {
+                            preview.src = e.target.result;
+                            preview.style.display = 'block';
+                            if (preview.nextElementSibling) {
+                                preview.nextElementSibling.style.display = 'none';
+                            }
+                        }
+                    };
+                    reader.readAsDataURL(file);
+                    
+                    // Upload file via AJAX
+                    const formData = new FormData();
+                    formData.append('header_bg', file);
+                    formData.append('_token', '{{ csrf_token() }}');
+                    
+                    // Hide status
+                    document.getElementById('header-bg-status').classList.add('hidden');
+                    
+                    fetch('{{ route("admin.contents.upload-header-bg") }}', {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            document.getElementById('header-bg-filename').textContent = data.filename;
+                            document.getElementById('header-bg-status').classList.remove('hidden');
+                            
+                            // Update preview with uploaded image (add timestamp to prevent cache)
+                            const preview = document.getElementById('header-bg-preview');
+                            if (preview) {
+                                preview.src = '{{ asset("") }}' + data.path + '?t=' + new Date().getTime();
+                            }
+                            
+                            setTimeout(() => {
+                                document.getElementById('header-bg-status').classList.add('hidden');
+                            }, 3000);
+                        } else {
+                            alert('Gagal upload gambar: ' + (data.message || 'Error'));
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('Terjadi kesalahan saat upload gambar header');
+                    });
+                }
+            }
+            
+            function handleHeroUpload(event, slideNumber) {
+                const file = event.target.files[0];
+                if (file) {
+                    // Show filename
+                    document.getElementById(`hero-${slideNumber}-filename`).textContent = file.name;
+                    
+                    // Preview image
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        const preview = document.getElementById(`hero-${slideNumber}-preview`);
+                        if (preview) {
+                            preview.src = e.target.result;
+                            preview.style.display = 'block';
+                            if (preview.nextElementSibling) {
+                                preview.nextElementSibling.style.display = 'none';
+                            }
+                        }
+                    };
+                    reader.readAsDataURL(file);
+                    
+                    // Upload file via AJAX
+                    const formData = new FormData();
+                    formData.append('hero', file);
+                    formData.append('slide', slideNumber);
+                    formData.append('_token', '{{ csrf_token() }}');
+                    
+                    // Hide status
+                    document.getElementById(`hero-${slideNumber}-status`).classList.add('hidden');
+                    
+                    fetch('{{ route("admin.contents.upload-hero") }}', {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            document.getElementById(`hero-${slideNumber}-filename`).textContent = data.filename;
+                            document.getElementById(`hero-${slideNumber}-status`).classList.remove('hidden');
+                            
+                            // Update preview with uploaded image (add timestamp to prevent cache)
+                            const preview = document.getElementById(`hero-${slideNumber}-preview`);
+                            if (preview) {
+                                preview.src = '{{ asset("") }}' + data.path + '?t=' + new Date().getTime();
+                            }
+                            
+                            setTimeout(() => {
+                                document.getElementById(`hero-${slideNumber}-status`).classList.add('hidden');
+                            }, 3000);
+                        } else {
+                            alert('Gagal upload gambar: ' + (data.message || 'Error'));
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('Terjadi kesalahan saat upload gambar hero');
+                    });
+                }
+            }
+            
+            function handleFotoUpload(event) {
+                const file = event.target.files[0];
+                if (file) {
+                    // Show filename
+                    document.getElementById('foto-filename').textContent = file.name;
+                    
+                    // Preview image
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        const previewDiv = document.getElementById('foto-preview-container');
+                        if (previewDiv) {
+                            previewDiv.innerHTML = `<img src="${e.target.result}" alt="Preview" id="foto-preview" class="w-full h-full object-cover">`;
+                        }
+                    };
+                    reader.readAsDataURL(file);
+                    
+                    // Upload file via AJAX
+                    const formData = new FormData();
+                    formData.append('foto', file);
+                    formData.append('_token', '{{ csrf_token() }}');
+                    
+                    fetch('{{ route("admin.contents.upload-foto") }}', {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            document.getElementById('foto-path').value = data.path;
+                            document.getElementById('foto-filename').textContent = data.filename;
+                            
+                            // Update preview with uploaded image
+                            const previewDiv = document.getElementById('foto-preview-container');
+                            if (previewDiv) {
+                                previewDiv.innerHTML = `<img src="{{ asset('') }}${data.path}" alt="Preview" id="foto-preview" class="w-full h-full object-cover">`;
+                            }
+                        } else {
+                            alert('Gagal upload gambar: ' + (data.message || 'Error'));
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('Terjadi kesalahan saat upload gambar');
+                    });
+                }
+            }
+        </script>
+        
+        <!-- Header Website Section -->
+        <div class="bg-white rounded-lg shadow-md p-6 md:p-8 border border-gray-200 mb-6">
+            <h2 class="text-xl font-bold text-gray-900 mb-2">Edit Header Website</h2>
+            <p class="text-gray-600 text-sm mb-6">Header yang tampil di bagian paling atas setiap halaman website</p>
+            
+            <!-- Gambar Background Header -->
+            <div class="mb-6 pb-6 border-b border-gray-200">
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Gambar Background Header</label>
+                <div class="flex items-start gap-4">
+                    <div class="flex-1">
+                        <div class="flex items-center gap-3">
+                            <label class="cursor-pointer">
+                                <input type="file" id="header-bg-upload" accept="image/*" class="hidden" onchange="handleHeaderBgUpload(event)">
+                                <span class="inline-flex items-center gap-2 px-4 py-2.5 bg-[#1e3a8a] text-white rounded-lg hover:bg-blue-800 transition-colors text-sm font-medium shadow-md hover:shadow-lg">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                    </svg>
+                                    Upload Gambar
+                                </span>
+                            </label>
+                            <span id="header-bg-filename" class="text-sm text-gray-600">{{ $headerBgImg['filename'] }}</span>
+                            <span id="header-bg-status" class="text-sm text-green-600 hidden">Berhasil diupload!</span>
+                        </div>
+                        <p class="text-xs text-gray-500 mt-2">Ukuran optimal: 1920x400 pixel. Maksimal 5MB. Format: JPG, PNG, WebP</p>
+                    </div>
+                    <div class="w-48 h-20 rounded-lg overflow-hidden border-2 border-gray-200 shadow-md bg-gray-100">
+                        @if($headerBgImg['exists'])
+                        <img src="{{ $headerBgImg['url'] }}?t={{ time() }}" alt="Preview Header" id="header-bg-preview" class="w-full h-full object-cover" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="w-full h-full hidden items-center justify-center bg-gradient-to-br from-[#1e3a8a] to-blue-900 text-white text-xs text-center p-2">
+                            Gambar belum ada
+                        </div>
+                        @else
+                        <img src="" alt="Preview Header" id="header-bg-preview" class="w-full h-full object-cover hidden">
+                        <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-[#1e3a8a] to-blue-900 text-white text-xs text-center p-2">
+                            Gambar belum ada
+                        </div>
+                        @endif
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Nama Desa dan Subtitle -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Nama Desa / Instansi</label>
+                    <input type="hidden" name="contents[200][section]" value="header_website">
+                    <input type="hidden" name="contents[200][key]" value="nama_desa">
+                    <input type="text" name="contents[200][content]" value="{{ $headerNamaDesa }}"
+                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1e3a8a] focus:border-[#1e3a8a] text-base text-gray-900 bg-white"
+                        placeholder="Pemerintah Desa">
+                    <p class="text-xs text-gray-500 mt-1">Contoh: Pemerintah Desa Sukamaju</p>
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Subtitle Header</label>
+                    <input type="hidden" name="contents[201][section]" value="header_website">
+                    <input type="hidden" name="contents[201][key]" value="subtitle">
+                    <input type="text" name="contents[201][content]" value="{{ $headerSubtitle }}"
+                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1e3a8a] focus:border-[#1e3a8a] text-base text-gray-900 bg-white"
+                        placeholder="Website Resmi Informasi Desa">
+                    <p class="text-xs text-gray-500 mt-1">Contoh: Kecamatan Cililin, Kabupaten Bandung Barat</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Hero Slider Section -->
+        <div class="bg-white rounded-lg shadow-md p-6 md:p-8 border border-gray-200 mb-6">
+            <h2 class="text-xl font-bold text-gray-900 mb-6">Edit Hero Slider</h2>
+            <p class="text-gray-600 text-sm mb-6">Gambar background dan teks untuk slider di bagian paling atas halaman beranda</p>
+            
+            <!-- Slide 1 -->
+            <div class="mb-8 pb-6 border-b border-gray-200">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
+                    <span class="bg-[#1e3a8a] text-white w-6 h-6 rounded-full flex items-center justify-center text-sm">1</span>
+                    Slide 1
+                </h3>
+                
+                <!-- Background Image Slide 1 -->
+                <div class="mb-4">
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Gambar Background Slide 1</label>
+                    <div class="flex items-start gap-4">
+                        <div class="flex-1">
+                            <div class="flex items-center gap-3">
+                                <label class="cursor-pointer">
+                                    <input type="file" id="hero-1-upload" accept="image/*" class="hidden" onchange="handleHeroUpload(event, 1)">
+                                    <span class="inline-flex items-center gap-2 px-4 py-2.5 bg-[#1e3a8a] text-white rounded-lg hover:bg-blue-800 transition-colors text-sm font-medium shadow-md hover:shadow-lg">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                        </svg>
+                                        Upload Gambar
+                                    </span>
+                                </label>
+                                <span id="hero-1-filename" class="text-sm text-gray-600">{{ $heroImg1['filename'] }}</span>
+                                <span id="hero-1-status" class="text-sm text-green-600 hidden">Berhasil diupload!</span>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-2">Ukuran optimal: 1920x1080 pixel. Maksimal 5MB. Format: JPG, PNG, WebP</p>
+                        </div>
+                        <div class="w-40 h-24 rounded-lg overflow-hidden border-2 border-gray-200 shadow-md bg-gray-100">
+                            @if($heroImg1['exists'])
+                            <img src="{{ $heroImg1['url'] }}?t={{ time() }}" alt="Preview Slide 1" id="hero-1-preview" class="w-full h-full object-cover" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div class="w-full h-full hidden items-center justify-center bg-gradient-to-br from-[#1e3a8a] to-blue-900 text-white text-xs text-center p-2">
+                                Gambar belum ada
+                            </div>
+                            @else
+                            <img src="" alt="Preview Slide 1" id="hero-1-preview" class="w-full h-full object-cover hidden">
+                            <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-[#1e3a8a] to-blue-900 text-white text-xs text-center p-2">
+                                Gambar belum ada
+                            </div>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Badge Text</label>
+                        <input type="hidden" name="contents[100][section]" value="hero">
+                        <input type="hidden" name="contents[100][key]" value="slide1_badge">
+                        <input type="text" name="contents[100][content]" value="{{ $heroSlide1Badge }}"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1e3a8a] focus:border-[#1e3a8a] text-base text-gray-900 bg-white"
+                            placeholder="Selamat Datang">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Judul Slide 1</label>
+                        <input type="hidden" name="contents[101][section]" value="hero">
+                        <input type="hidden" name="contents[101][key]" value="slide1_title">
+                        <textarea name="contents[101][content]" rows="2"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1e3a8a] focus:border-[#1e3a8a] text-base text-gray-900 bg-white"
+                            placeholder="Website Resmi&#10;Pemerintah Desa">{{ $heroSlide1Title }}</textarea>
+                        <p class="text-xs text-gray-500 mt-1">Gunakan enter untuk baris baru</p>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Subtitle Slide 1</label>
+                    <input type="hidden" name="contents[102][section]" value="hero">
+                    <input type="hidden" name="contents[102][key]" value="slide1_subtitle">
+                    <textarea name="contents[102][content]" rows="2"
+                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1e3a8a] focus:border-[#1e3a8a] text-base text-gray-900 bg-white"
+                        placeholder="Media resmi untuk menyampaikan informasi...">{{ $heroSlide1Subtitle }}</textarea>
+                </div>
+            </div>
+            
+            <!-- Slide 2 -->
+            <div class="mb-8 pb-6 border-b border-gray-200">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
+                    <span class="bg-[#1e3a8a] text-white w-6 h-6 rounded-full flex items-center justify-center text-sm">2</span>
+                    Slide 2
+                </h3>
+                
+                <!-- Background Image Slide 2 -->
+                <div class="mb-4">
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Gambar Background Slide 2</label>
+                    <div class="flex items-start gap-4">
+                        <div class="flex-1">
+                            <div class="flex items-center gap-3">
+                                <label class="cursor-pointer">
+                                    <input type="file" id="hero-2-upload" accept="image/*" class="hidden" onchange="handleHeroUpload(event, 2)">
+                                    <span class="inline-flex items-center gap-2 px-4 py-2.5 bg-[#1e3a8a] text-white rounded-lg hover:bg-blue-800 transition-colors text-sm font-medium shadow-md hover:shadow-lg">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                        </svg>
+                                        Upload Gambar
+                                    </span>
+                                </label>
+                                <span id="hero-2-filename" class="text-sm text-gray-600">{{ $heroImg2['filename'] }}</span>
+                                <span id="hero-2-status" class="text-sm text-green-600 hidden">Berhasil diupload!</span>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-2">Ukuran optimal: 1920x1080 pixel. Maksimal 5MB. Format: JPG, PNG, WebP</p>
+                        </div>
+                        <div class="w-40 h-24 rounded-lg overflow-hidden border-2 border-gray-200 shadow-md bg-gray-100">
+                            @if($heroImg2['exists'])
+                            <img src="{{ $heroImg2['url'] }}?t={{ time() }}" alt="Preview Slide 2" id="hero-2-preview" class="w-full h-full object-cover" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div class="w-full h-full hidden items-center justify-center bg-gradient-to-br from-[#1e3a8a] to-blue-900 text-white text-xs text-center p-2">
+                                Gambar belum ada
+                            </div>
+                            @else
+                            <img src="" alt="Preview Slide 2" id="hero-2-preview" class="w-full h-full object-cover hidden">
+                            <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-[#1e3a8a] to-blue-900 text-white text-xs text-center p-2">
+                                Gambar belum ada
+                            </div>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Badge Text</label>
+                        <input type="hidden" name="contents[103][section]" value="hero">
+                        <input type="hidden" name="contents[103][key]" value="slide2_badge">
+                        <input type="text" name="contents[103][content]" value="{{ $heroSlide2Badge }}"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1e3a8a] focus:border-[#1e3a8a] text-base text-gray-900 bg-white"
+                            placeholder="Pelayanan Publik">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Judul Slide 2</label>
+                        <input type="hidden" name="contents[104][section]" value="hero">
+                        <input type="hidden" name="contents[104][key]" value="slide2_title">
+                        <textarea name="contents[104][content]" rows="2"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1e3a8a] focus:border-[#1e3a8a] text-base text-gray-900 bg-white"
+                            placeholder="Transparansi &&#10;Akuntabilitas">{{ $heroSlide2Title }}</textarea>
+                        <p class="text-xs text-gray-500 mt-1">Gunakan enter untuk baris baru</p>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Subtitle Slide 2</label>
+                    <input type="hidden" name="contents[105][section]" value="hero">
+                    <input type="hidden" name="contents[105][key]" value="slide2_subtitle">
+                    <textarea name="contents[105][content]" rows="2"
+                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1e3a8a] focus:border-[#1e3a8a] text-base text-gray-900 bg-white"
+                        placeholder="Informasi layanan administrasi dan program desa...">{{ $heroSlide2Subtitle }}</textarea>
+                </div>
+            </div>
+            
+            <!-- Slide 3 -->
+            <div class="mb-4">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
+                    <span class="bg-[#1e3a8a] text-white w-6 h-6 rounded-full flex items-center justify-center text-sm">3</span>
+                    Slide 3
+                </h3>
+                
+                <!-- Background Image Slide 3 -->
+                <div class="mb-4">
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Gambar Background Slide 3</label>
+                    <div class="flex items-start gap-4">
+                        <div class="flex-1">
+                            <div class="flex items-center gap-3">
+                                <label class="cursor-pointer">
+                                    <input type="file" id="hero-3-upload" accept="image/*" class="hidden" onchange="handleHeroUpload(event, 3)">
+                                    <span class="inline-flex items-center gap-2 px-4 py-2.5 bg-[#1e3a8a] text-white rounded-lg hover:bg-blue-800 transition-colors text-sm font-medium shadow-md hover:shadow-lg">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                        </svg>
+                                        Upload Gambar
+                                    </span>
+                                </label>
+                                <span id="hero-3-filename" class="text-sm text-gray-600">{{ $heroImg3['filename'] }}</span>
+                                <span id="hero-3-status" class="text-sm text-green-600 hidden">Berhasil diupload!</span>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-2">Ukuran optimal: 1920x1080 pixel. Maksimal 5MB. Format: JPG, PNG, WebP</p>
+                        </div>
+                        <div class="w-40 h-24 rounded-lg overflow-hidden border-2 border-gray-200 shadow-md bg-gray-100">
+                            @if($heroImg3['exists'])
+                            <img src="{{ $heroImg3['url'] }}?t={{ time() }}" alt="Preview Slide 3" id="hero-3-preview" class="w-full h-full object-cover" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div class="w-full h-full hidden items-center justify-center bg-gradient-to-br from-[#1e3a8a] to-blue-900 text-white text-xs text-center p-2">
+                                Gambar belum ada
+                            </div>
+                            @else
+                            <img src="" alt="Preview Slide 3" id="hero-3-preview" class="w-full h-full object-cover hidden">
+                            <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-[#1e3a8a] to-blue-900 text-white text-xs text-center p-2">
+                                Gambar belum ada
+                            </div>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Badge Text</label>
+                        <input type="hidden" name="contents[106][section]" value="hero">
+                        <input type="hidden" name="contents[106][key]" value="slide3_badge">
+                        <input type="text" name="contents[106][content]" value="{{ $heroSlide3Badge }}"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1e3a8a] focus:border-[#1e3a8a] text-base text-gray-900 bg-white"
+                            placeholder="Pembangunan Desa">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Judul Slide 3</label>
+                        <input type="hidden" name="contents[107][section]" value="hero">
+                        <input type="hidden" name="contents[107][key]" value="slide3_title">
+                        <textarea name="contents[107][content]" rows="2"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1e3a8a] focus:border-[#1e3a8a] text-base text-gray-900 bg-white"
+                            placeholder="Partisipasi&#10;Masyarakat">{{ $heroSlide3Title }}</textarea>
+                        <p class="text-xs text-gray-500 mt-1">Gunakan enter untuk baris baru</p>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Subtitle Slide 3</label>
+                    <input type="hidden" name="contents[108][section]" value="hero">
+                    <input type="hidden" name="contents[108][key]" value="slide3_subtitle">
+                    <textarea name="contents[108][content]" rows="2"
+                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1e3a8a] focus:border-[#1e3a8a] text-base text-gray-900 bg-white"
+                        placeholder="Bersama membangun desa yang mandiri...">{{ $heroSlide3Subtitle }}</textarea>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Section Titles -->
+        <div class="bg-white rounded-lg shadow-md p-6 md:p-8 border border-gray-200 mb-6">
+            <h2 class="text-xl font-bold text-gray-900 mb-6">Edit Judul Section</h2>
+            <p class="text-gray-600 text-sm mb-6">Ubah judul dan subtitle untuk setiap section di halaman beranda</p>
+            
+            <!-- Statistik Section -->
+            <div class="mb-6 pb-4 border-b border-gray-200">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4">Section Statistik</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Judul</label>
+                        <input type="hidden" name="contents[109][section]" value="statistik">
+                        <input type="hidden" name="contents[109][key]" value="title">
+                        <input type="text" name="contents[109][content]" value="{{ $statistikTitle }}"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1e3a8a] focus:border-[#1e3a8a] text-base text-gray-900 bg-white"
+                            placeholder="Data & Statistik Desa">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Subtitle</label>
+                        <input type="hidden" name="contents[110][section]" value="statistik">
+                        <input type="hidden" name="contents[110][key]" value="subtitle">
+                        <input type="text" name="contents[110][content]" value="{{ $statistikSubtitle }}"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1e3a8a] focus:border-[#1e3a8a] text-base text-gray-900 bg-white"
+                            placeholder="Informasi terkini tentang kondisi desa kami">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Berita Section -->
+            <div class="mb-6 pb-4 border-b border-gray-200">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4">Section Berita</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Judul</label>
+                        <input type="hidden" name="contents[111][section]" value="berita">
+                        <input type="hidden" name="contents[111][key]" value="title">
+                        <input type="text" name="contents[111][content]" value="{{ $beritaTitle }}"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1e3a8a] focus:border-[#1e3a8a] text-base text-gray-900 bg-white"
+                            placeholder="Berita Terbaru">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Subtitle</label>
+                        <input type="hidden" name="contents[112][section]" value="berita">
+                        <input type="hidden" name="contents[112][key]" value="subtitle">
+                        <input type="text" name="contents[112][content]" value="{{ $beritaSubtitle }}"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1e3a8a] focus:border-[#1e3a8a] text-base text-gray-900 bg-white"
+                            placeholder="Informasi dan pengumuman terkini dari Pemerintah Desa">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Galeri Section -->
+            <div class="mb-6 pb-4 border-b border-gray-200">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4">Section Galeri</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Judul</label>
+                        <input type="hidden" name="contents[113][section]" value="galeri">
+                        <input type="hidden" name="contents[113][key]" value="title">
+                        <input type="text" name="contents[113][content]" value="{{ $galeriTitle }}"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1e3a8a] focus:border-[#1e3a8a] text-base text-gray-900 bg-white"
+                            placeholder="Galeri Kegiatan">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Subtitle</label>
+                        <input type="hidden" name="contents[114][section]" value="galeri">
+                        <input type="hidden" name="contents[114][key]" value="subtitle">
+                        <input type="text" name="contents[114][content]" value="{{ $galeriSubtitle }}"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1e3a8a] focus:border-[#1e3a8a] text-base text-gray-900 bg-white"
+                            placeholder="Dokumentasi kegiatan dan program desa">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Akses Cepat Section -->
+            <div class="mb-6 pb-4 border-b border-gray-200">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4">Section Akses Cepat</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Judul</label>
+                        <input type="hidden" name="contents[115][section]" value="akses_cepat">
+                        <input type="hidden" name="contents[115][key]" value="title">
+                        <input type="text" name="contents[115][content]" value="{{ $aksesCepatTitle }}"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1e3a8a] focus:border-[#1e3a8a] text-base text-gray-900 bg-white"
+                            placeholder="Akses Cepat">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Subtitle</label>
+                        <input type="hidden" name="contents[116][section]" value="akses_cepat">
+                        <input type="hidden" name="contents[116][key]" value="subtitle">
+                        <input type="text" name="contents[116][content]" value="{{ $aksesCepatSubtitle }}"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1e3a8a] focus:border-[#1e3a8a] text-base text-gray-900 bg-white"
+                            placeholder="Layanan dan informasi penting">
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        
         <!-- Simple Form for Sambutan -->
         <div class="bg-white rounded-lg shadow-md p-6 md:p-8 border border-gray-200 mb-6">
             <h2 class="text-xl font-bold text-gray-900 mb-6">Edit Sambutan Kepala Desa</h2>
             
             @php
-                $sambutanTitle = $contents['sambutan']->firstWhere('key', 'title')->content ?? 'Sambutan Kepala Desa';
-                $sambutanFoto = $contents['sambutan']->firstWhere('key', 'foto')->content ?? 'images/kepala-desa.jpg';
-                $sambutanNamaKepala = $contents['sambutan']->firstWhere('key', 'nama_kepala')->content ?? 'Kepala Desa';
-                $sambutanContent = $contents['sambutan']->firstWhere('key', 'content')->content ?? "Assalamu'alaikum Warahmatullahi Wabarakatuh\n\nPuji syukur kehadirat Allah SWT, atas rahmat dan karunia-Nya, kami dapat menyampaikan sambutan melalui website resmi Pemerintah Desa ini.\n\nWebsite ini merupakan media komunikasi dan informasi antara Pemerintah Desa dengan seluruh masyarakat. Melalui website ini, kami berkomitmen untuk menyampaikan informasi yang transparan, akurat, dan dapat diakses oleh seluruh warga desa.\n\nKami mengajak seluruh masyarakat untuk berpartisipasi aktif dalam pembangunan desa. Semoga website ini dapat menjadi sarana yang bermanfaat bagi kita semua.\n\nWassalamu'alaikum Warahmatullahi Wabarakatuh";
+                $defaultSambutan = "Assalamu'alaikum Warahmatullahi Wabarakatuh\n\nPuji syukur kehadirat Allah SWT, atas rahmat dan karunia-Nya, kami dapat menyampaikan sambutan melalui website resmi Pemerintah Desa ini.\n\nWebsite ini merupakan media komunikasi dan informasi antara Pemerintah Desa dengan seluruh masyarakat. Melalui website ini, kami berkomitmen untuk menyampaikan informasi yang transparan, akurat, dan dapat diakses oleh seluruh warga desa.\n\nKami mengajak seluruh masyarakat untuk berpartisipasi aktif dalam pembangunan desa. Semoga website ini dapat menjadi sarana yang bermanfaat bagi kita semua.\n\nWassalamu'alaikum Warahmatullahi Wabarakatuh";
+                
+                $sambutanTitle = $getVal('sambutan', 'title', 'Sambutan Kepala Desa');
+                $sambutanFoto = $getVal('sambutan', 'foto', 'images/kepala-desa.jpg');
+                $sambutanNamaKepala = $getVal('sambutan', 'nama_kepala', 'Kepala Desa');
+                $sambutanContent = $getVal('sambutan', 'content', $defaultSambutan);
             @endphp
             
             <!-- Judul Sambutan -->
@@ -80,7 +705,7 @@
                         </div>
                         <p class="text-xs text-gray-500 mt-2">Klik tombol untuk memilih dan upload gambar kepala desa</p>
                     </div>
-                    <div class="w-24 h-24 rounded-lg overflow-hidden border-2 border-gray-200 shadow-md">
+                    <div id="foto-preview-container" class="w-24 h-24 rounded-lg overflow-hidden border-2 border-gray-200 shadow-md">
                         @if($sambutanFoto)
                         <img src="{{ asset($sambutanFoto) }}" alt="Preview" id="foto-preview" class="w-full h-full object-cover" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'w-full h-full bg-gray-100 flex items-center justify-center\'><svg class=\'w-12 h-12 text-gray-400\' fill=\'none\' stroke=\'currentColor\' viewBox=\'0 0 24 24\'><path stroke-linecap=\'round\' stroke-linejoin=\'round\' stroke-width=\'2\' d=\'M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z\'></path></svg></div>'">
                         @else
@@ -104,55 +729,6 @@
                     placeholder="Kepala Desa">
                 <p class="text-xs text-gray-500 mt-2">Nama akan ditampilkan di bawah foto kepala desa</p>
             </div>
-            
-            <script>
-                function handleFotoUpload(event) {
-                    const file = event.target.files[0];
-                    if (file) {
-                        // Show filename
-                        document.getElementById('foto-filename').textContent = file.name;
-                        
-                        // Preview image
-                        const reader = new FileReader();
-                        reader.onload = function(e) {
-                            const previewDiv = document.querySelector('.w-24.h-24');
-                            if (previewDiv) {
-                                previewDiv.innerHTML = `<img src="${e.target.result}" alt="Preview" id="foto-preview" class="w-full h-full object-cover">`;
-                            }
-                        };
-                        reader.readAsDataURL(file);
-                        
-                        // Upload file via AJAX
-                        const formData = new FormData();
-                        formData.append('foto', file);
-                        formData.append('_token', '{{ csrf_token() }}');
-                        
-                        fetch('{{ route("admin.contents.upload-foto") }}', {
-                            method: 'POST',
-                            body: formData
-                        })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.success) {
-                                document.getElementById('foto-path').value = data.path;
-                                document.getElementById('foto-filename').textContent = data.filename;
-                                
-                                // Update preview with uploaded image
-                                const previewDiv = document.querySelector('.w-24.h-24');
-                                if (previewDiv) {
-                                    previewDiv.innerHTML = `<img src="{{ asset('') }}${data.path}" alt="Preview" id="foto-preview" class="w-full h-full object-cover">`;
-                                }
-                            } else {
-                                alert('Gagal upload gambar: ' + (data.message || 'Error'));
-                            }
-                        })
-                        .catch(error => {
-                            console.error('Error:', error);
-                            alert('Terjadi kesalahan saat upload gambar');
-                        });
-                    }
-                }
-            </script>
             
             <!-- Teks Sambutan Lengkap -->
             <div class="mb-6">
@@ -951,24 +1527,24 @@
                 <h3 class="text-lg font-bold text-gray-900 mb-4">Data Penduduk Terbaru (10 Data)</h3>
                 <div class="bg-gray-50 border border-gray-200 rounded-lg overflow-hidden">
                     <div class="overflow-x-auto">
-                        <table class="w-full text-sm">
-                            <thead class="bg-gray-100">
+                        <table class="w-full text-sm text-gray-800">
+                            <thead class="bg-[#1e3a8a]">
                                 <tr>
-                                    <th class="px-4 py-3 text-left font-semibold text-gray-900">NIK</th>
-                                    <th class="px-4 py-3 text-left font-semibold text-gray-900">Nama</th>
-                                    <th class="px-4 py-3 text-left font-semibold text-gray-900">Jenis Kelamin</th>
-                                    <th class="px-4 py-3 text-left font-semibold text-gray-900">Pendidikan</th>
-                                    <th class="px-4 py-3 text-left font-semibold text-gray-900">RT/RW</th>
+                                    <th class="px-4 py-3 text-left font-semibold text-white">NIK</th>
+                                    <th class="px-4 py-3 text-left font-semibold text-white">Nama</th>
+                                    <th class="px-4 py-3 text-left font-semibold text-white">Jenis Kelamin</th>
+                                    <th class="px-4 py-3 text-left font-semibold text-white">Pendidikan</th>
+                                    <th class="px-4 py-3 text-left font-semibold text-white">RT/RW</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody class="bg-white">
                                 @foreach($penduduk as $p)
-                                    <tr class="border-b border-gray-200 hover:bg-white">
-                                        <td class="px-4 py-3">{{ $p->nik }}</td>
-                                        <td class="px-4 py-3 font-medium">{{ $p->nama }}</td>
-                                        <td class="px-4 py-3">{{ $p->jenis_kelamin }}</td>
-                                        <td class="px-4 py-3">{{ $p->pendidikan ?? '-' }}</td>
-                                        <td class="px-4 py-3">{{ $p->rt }}/{{ $p->rw }}</td>
+                                    <tr class="border-b border-gray-200 hover:bg-gray-50">
+                                        <td class="px-4 py-3 text-gray-800">{{ $p->nik }}</td>
+                                        <td class="px-4 py-3 font-medium text-gray-900">{{ $p->nama }}</td>
+                                        <td class="px-4 py-3 text-gray-800">{{ $p->jenis_kelamin }}</td>
+                                        <td class="px-4 py-3 text-gray-800">{{ $p->pendidikan ?? '-' }}</td>
+                                        <td class="px-4 py-3 text-gray-800">{{ $p->rt }}/{{ $p->rw }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -983,14 +1559,17 @@
             </div>
             @endif
         </div>
-        @elseif($page === 'darurat')
-        <!-- Form for Darurat -->
+        @elseif($page === 'kontak')
+        <!-- Form for Kontak -->
         <div class="bg-white rounded-lg shadow-md p-6 md:p-8 border border-gray-200 mb-6">
-            <h2 class="text-xl font-bold text-gray-900 mb-6">Edit Konten Darurat & Keamanan</h2>
+            <h2 class="text-xl font-bold text-gray-900 mb-6">Edit Konten Kontak</h2>
             
             @php
-                $headerTitle = isset($contents['header']) ? ($contents['header']->firstWhere('key', 'title')->content ?? 'Darurat & Keamanan') : 'Darurat & Keamanan';
-                $headerSubtitle = isset($contents['header']) ? ($contents['header']->firstWhere('key', 'subtitle')->content ?? 'Informasi darurat, keamanan, dan penanggulangan bencana') : 'Informasi darurat, keamanan, dan penanggulangan bencana';
+                $getVal = function($section, $key, $default = '') use ($contents) {
+                    if (!isset($contents[$section])) return $default;
+                    $item = $contents[$section]->firstWhere('key', $key);
+                    return $item ? $item->content : $default;
+                };
             @endphp
 
             <!-- Header -->
@@ -1001,391 +1580,203 @@
                         <label class="block text-sm font-semibold text-gray-700 mb-2">Judul Halaman</label>
                         <input type="hidden" name="contents[0][section]" value="header">
                         <input type="hidden" name="contents[0][key]" value="title">
-                        <input type="text" name="contents[0][content]" value="{{ $headerTitle }}" required
+                        <input type="text" name="contents[0][content]" value="{{ $getVal('header', 'title', 'Kontak & Aspirasi') }}" required
                             class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1e3a8a] focus:border-[#1e3a8a] text-base text-gray-900 bg-white"
-                            placeholder="Darurat & Keamanan">
+                            placeholder="Kontak & Aspirasi">
                     </div>
                     <div>
                         <label class="block text-sm font-semibold text-gray-700 mb-2">Subtitle</label>
                         <input type="hidden" name="contents[1][section]" value="header">
                         <input type="hidden" name="contents[1][key]" value="subtitle">
-                        <input type="text" name="contents[1][content]" value="{{ $headerSubtitle }}" required
+                        <input type="text" name="contents[1][content]" value="{{ $getVal('header', 'subtitle', 'Hubungi kami atau sampaikan aspirasi Anda') }}" required
                             class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1e3a8a] focus:border-[#1e3a8a] text-base text-gray-900 bg-white"
-                            placeholder="Informasi darurat, keamanan, dan penanggulangan bencana">
+                            placeholder="Hubungi kami atau sampaikan aspirasi Anda">
                     </div>
                 </div>
             </div>
 
-            <!-- Kontak Darurat -->
+            <!-- Alamat Kantor -->
             <div class="mb-8 pb-6 border-b border-gray-200">
-                <h3 class="text-lg font-bold text-gray-900 mb-4">Kontak Darurat</h3>
-                <div class="space-y-6">
-                    @for($i = 1; $i <= 6; $i++)
-                        @php
-                            $kontakNama = isset($contents['kontak_' . $i]) ? ($contents['kontak_' . $i]->firstWhere('key', 'nama')->content ?? '') : '';
-                            $kontakDeskripsi = isset($contents['kontak_' . $i]) ? ($contents['kontak_' . $i]->firstWhere('key', 'deskripsi')->content ?? '') : '';
-                            $kontakNomorDarurat = isset($contents['kontak_' . $i]) ? ($contents['kontak_' . $i]->firstWhere('key', 'nomor_darurat')->content ?? '') : '';
-                            $kontakNomorAlternatif = isset($contents['kontak_' . $i]) ? ($contents['kontak_' . $i]->firstWhere('key', 'nomor_alternatif')->content ?? '') : '';
-                            $kontakKeterangan = isset($contents['kontak_' . $i]) ? ($contents['kontak_' . $i]->firstWhere('key', 'keterangan')->content ?? '') : '';
-                            
-                            // Default values
-                            if ($i == 1 && empty($kontakNama)) {
-                                $kontakNama = 'Polisi';
-                                $kontakDeskripsi = 'Polsek Kecamatan';
-                                $kontakNomorDarurat = '110';
-                                $kontakNomorAlternatif = '(021) 1234-5678';
-                            } elseif ($i == 2 && empty($kontakNama)) {
-                                $kontakNama = 'Pemadam Kebakaran';
-                                $kontakDeskripsi = 'Damkar Kecamatan';
-                                $kontakNomorDarurat = '113';
-                                $kontakNomorAlternatif = '(021) 1234-5679';
-                            } elseif ($i == 3 && empty($kontakNama)) {
-                                $kontakNama = 'Ambulans';
-                                $kontakDeskripsi = 'Rumah Sakit Terdekat';
-                                $kontakNomorDarurat = '119';
-                                $kontakNomorAlternatif = '(021) 1234-5680';
-                            } elseif ($i == 4 && empty($kontakNama)) {
-                                $kontakNama = 'Pos Keamanan Desa';
-                                $kontakDeskripsi = 'Poskamling';
-                                $kontakNomorDarurat = '(021) 1234-5681';
-                                $kontakKeterangan = 'Tersedia 24 jam';
-                            } elseif ($i == 5 && empty($kontakNama)) {
-                                $kontakNama = 'Kantor Desa';
-                                $kontakDeskripsi = 'Pemerintah Desa';
-                                $kontakNomorDarurat = '(021) 1234-5682';
-                                $kontakKeterangan = 'Senin - Jumat, 08:00 - 15:00 WIB';
-                            } elseif ($i == 6 && empty($kontakNama)) {
-                                $kontakNama = 'Ketua RT/RW';
-                                $kontakDeskripsi = 'Koordinasi Lokal';
-                                $kontakNomorDarurat = '(021) 1234-5683';
-                                $kontakKeterangan = 'Hubungi ketua RT/RW setempat';
-                            }
-                        @endphp
-                        <div class="bg-gray-50 border border-gray-200 rounded-lg p-4">
-                            <h4 class="font-semibold text-gray-800 mb-3">Kontak {{ $i }}</h4>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div>
-                                    <label class="block text-sm font-semibold text-gray-700 mb-2">Nama</label>
-                                    <input type="hidden" name="contents[{{ 1 + ($i-1)*5 + 1 }}][section]" value="kontak_{{ $i }}">
-                                    <input type="hidden" name="contents[{{ 1 + ($i-1)*5 + 1 }}][key]" value="nama">
-                                    <input type="text" name="contents[{{ 1 + ($i-1)*5 + 1 }}][content]" value="{{ $kontakNama }}" required
-                                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1e3a8a] focus:border-[#1e3a8a] text-base text-gray-900 bg-white"
-                                        placeholder="Contoh: Polisi">
-                                </div>
-                                <div>
-                                    <label class="block text-sm font-semibold text-gray-700 mb-2">Deskripsi</label>
-                                    <input type="hidden" name="contents[{{ 1 + ($i-1)*5 + 2 }}][section]" value="kontak_{{ $i }}">
-                                    <input type="hidden" name="contents[{{ 1 + ($i-1)*5 + 2 }}][key]" value="deskripsi">
-                                    <input type="text" name="contents[{{ 1 + ($i-1)*5 + 2 }}][content]" value="{{ $kontakDeskripsi }}"
-                                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1e3a8a] focus:border-[#1e3a8a] text-base text-gray-900 bg-white"
-                                        placeholder="Contoh: Polsek Kecamatan">
-                                </div>
-                                <div>
-                                    <label class="block text-sm font-semibold text-gray-700 mb-2">Nomor Darurat</label>
-                                    <input type="hidden" name="contents[{{ 1 + ($i-1)*5 + 3 }}][section]" value="kontak_{{ $i }}">
-                                    <input type="hidden" name="contents[{{ 1 + ($i-1)*5 + 3 }}][key]" value="nomor_darurat">
-                                    <input type="text" name="contents[{{ 1 + ($i-1)*5 + 3 }}][content]" value="{{ $kontakNomorDarurat }}" required
-                                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1e3a8a] focus:border-[#1e3a8a] text-base text-gray-900 bg-white"
-                                        placeholder="Contoh: 110">
-                                </div>
-                                <div>
-                                    <label class="block text-sm font-semibold text-gray-700 mb-2">Nomor Alternatif (Opsional)</label>
-                                    <input type="hidden" name="contents[{{ 1 + ($i-1)*5 + 4 }}][section]" value="kontak_{{ $i }}">
-                                    <input type="hidden" name="contents[{{ 1 + ($i-1)*5 + 4 }}][key]" value="nomor_alternatif">
-                                    <input type="text" name="contents[{{ 1 + ($i-1)*5 + 4 }}][content]" value="{{ $kontakNomorAlternatif }}"
-                                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1e3a8a] focus:border-[#1e3a8a] text-base text-gray-900 bg-white"
-                                        placeholder="Contoh: (021) 1234-5678">
-                                </div>
-                                <div class="md:col-span-2">
-                                    <label class="block text-sm font-semibold text-gray-700 mb-2">Keterangan (Opsional)</label>
-                                    <input type="hidden" name="contents[{{ 1 + ($i-1)*5 + 5 }}][section]" value="kontak_{{ $i }}">
-                                    <input type="hidden" name="contents[{{ 1 + ($i-1)*5 + 5 }}][key]" value="keterangan">
-                                    <input type="text" name="contents[{{ 1 + ($i-1)*5 + 5 }}][content]" value="{{ $kontakKeterangan }}"
-                                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1e3a8a] focus:border-[#1e3a8a] text-base text-gray-900 bg-white"
-                                        placeholder="Contoh: Tersedia 24 jam">
-                                </div>
-                            </div>
-                        </div>
-                    @endfor
-                </div>
-            </div>
-
-            <!-- Informasi Potensi Bencana -->
-            <div class="mb-8 pb-6 border-b border-gray-200">
-                <h3 class="text-lg font-bold text-gray-900 mb-4">Informasi Potensi Bencana</h3>
+                <h3 class="text-lg font-bold text-gray-900 mb-4">Alamat Kantor</h3>
                 <div class="space-y-4">
-                    @php
-                        $bencanaTitle = isset($contents['bencana']) ? ($contents['bencana']->firstWhere('key', 'title')->content ?? 'Informasi Potensi Bencana') : 'Informasi Potensi Bencana';
-                    @endphp
-                    <div class="mb-4">
-                        <label class="block text-sm font-semibold text-gray-700 mb-2">Judul Section</label>
-                        <input type="hidden" name="contents[31][section]" value="bencana">
-                        <input type="hidden" name="contents[31][key]" value="title">
-                        <input type="text" name="contents[31][content]" value="{{ $bencanaTitle }}" required
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Nama Kantor</label>
+                        <input type="hidden" name="contents[2][section]" value="alamat">
+                        <input type="hidden" name="contents[2][key]" value="nama_kantor">
+                        <input type="text" name="contents[2][content]" value="{{ $getVal('alamat', 'nama_kantor', 'Kantor Pemerintah Desa') }}" required
                             class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1e3a8a] focus:border-[#1e3a8a] text-base text-gray-900 bg-white"
-                            placeholder="Informasi Potensi Bencana">
+                            placeholder="Kantor Pemerintah Desa">
                     </div>
-                    @for($i = 1; $i <= 4; $i++)
-                        @php
-                            $bencanaNama = isset($contents['bencana_' . $i]) ? ($contents['bencana_' . $i]->firstWhere('key', 'nama')->content ?? '') : '';
-                            $bencanaDeskripsi = isset($contents['bencana_' . $i]) ? ($contents['bencana_' . $i]->firstWhere('key', 'deskripsi')->content ?? '') : '';
-                            
-                            // Default values
-                            if ($i == 1 && empty($bencanaNama)) {
-                                $bencanaNama = 'Banjir';
-                                $bencanaDeskripsi = 'Potensi banjir pada musim hujan, terutama di daerah dekat aliran sungai. Warga diimbau memantau informasi cuaca dan ketinggian air sungai. Apabila terjadi banjir, segera evakuasi ke titik kumpul.';
-                            } elseif ($i == 2 && empty($bencanaNama)) {
-                                $bencanaNama = 'Kebakaran';
-                                $bencanaDeskripsi = 'Potensi kebakaran terutama pada musim kemarau. Warga diimbau berhati-hati dalam penggunaan api dan listrik. Pastikan instalasi listrik dalam kondisi baik.';
-                            } elseif ($i == 3 && empty($bencanaNama)) {
-                                $bencanaNama = 'Angin Kencang';
-                                $bencanaDeskripsi = 'Potensi angin kencang dan puting beliung pada musim hujan. Warga diimbau mengamankan benda-benda di luar rumah dan hindari berteduh di bawah pohon besar saat angin kencang.';
-                            } elseif ($i == 4 && empty($bencanaNama)) {
-                                $bencanaNama = 'Gempa Bumi';
-                                $bencanaDeskripsi = 'Meskipun jarang terjadi, desa ini berada di wilayah berpotensi gempa bumi. Warga diimbau mengetahui prosedur evakuasi dan titik kumpul yang aman. Pastikan perabotan rumah diikat dengan baik.';
-                            }
-                        @endphp
-                        <div class="bg-gray-50 border border-gray-200 rounded-lg p-4">
-                            <h4 class="font-semibold text-gray-800 mb-3">Bencana {{ $i }}</h4>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div>
-                                    <label class="block text-sm font-semibold text-gray-700 mb-2">Nama Bencana</label>
-                                    <input type="hidden" name="contents[{{ 31 + ($i-1)*2 + 1 }}][section]" value="bencana_{{ $i }}">
-                                    <input type="hidden" name="contents[{{ 31 + ($i-1)*2 + 1 }}][key]" value="nama">
-                                    <input type="text" name="contents[{{ 31 + ($i-1)*2 + 1 }}][content]" value="{{ $bencanaNama }}" required
-                                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1e3a8a] focus:border-[#1e3a8a] text-base text-gray-900 bg-white"
-                                        placeholder="Contoh: Banjir">
-                                </div>
-                                <div>
-                                    <label class="block text-sm font-semibold text-gray-700 mb-2">Deskripsi</label>
-                                    <input type="hidden" name="contents[{{ 31 + ($i-1)*2 + 2 }}][section]" value="bencana_{{ $i }}">
-                                    <input type="hidden" name="contents[{{ 31 + ($i-1)*2 + 2 }}][key]" value="deskripsi">
-                                    <textarea name="contents[{{ 31 + ($i-1)*2 + 2 }}][content]" rows="3" required
-                                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1e3a8a] focus:border-[#1e3a8a] text-base text-gray-900 bg-white"
-                                        placeholder="Deskripsi potensi bencana">{{ $bencanaDeskripsi }}</textarea>
-                                </div>
-                            </div>
-                        </div>
-                    @endfor
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Alamat Lengkap</label>
+                        <input type="hidden" name="contents[3][section]" value="alamat">
+                        <input type="hidden" name="contents[3][key]" value="alamat_lengkap">
+                        <textarea name="contents[3][content]" rows="3" required
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1e3a8a] focus:border-[#1e3a8a] text-base text-gray-900 bg-white"
+                            placeholder="Jalan Raya Desa No. 123&#10;Kecamatan, Kabupaten&#10;Provinsi&#10;Kode Pos 12345">{{ $getVal('alamat', 'alamat_lengkap', "Jalan Raya Desa No. 123\nKecamatan, Kabupaten\nProvinsi\nKode Pos 12345") }}</textarea>
+                    </div>
                 </div>
             </div>
 
-            <!-- Jalur Evakuasi -->
+            <!-- Kontak Telepon -->
             <div class="mb-8 pb-6 border-b border-gray-200">
-                <h3 class="text-lg font-bold text-gray-900 mb-4">Jalur Evakuasi</h3>
-                <div class="space-y-4">
-                    @php
-                        $evakuasiTitle = isset($contents['evakuasi']) ? ($contents['evakuasi']->firstWhere('key', 'title')->content ?? 'Jalur Evakuasi') : 'Jalur Evakuasi';
-                    @endphp
-                    <div class="mb-4">
-                        <label class="block text-sm font-semibold text-gray-700 mb-2">Judul Section</label>
-                        <input type="hidden" name="contents[40][section]" value="evakuasi">
-                        <input type="hidden" name="contents[40][key]" value="title">
-                        <input type="text" name="contents[40][content]" value="{{ $evakuasiTitle }}" required
+                <h3 class="text-lg font-bold text-gray-900 mb-4">Kontak Telepon</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Telepon</label>
+                        <input type="hidden" name="contents[4][section]" value="telepon">
+                        <input type="hidden" name="contents[4][key]" value="telepon">
+                        <input type="text" name="contents[4][content]" value="{{ $getVal('telepon', 'telepon', '(021) 1234-5678') }}" required
                             class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1e3a8a] focus:border-[#1e3a8a] text-base text-gray-900 bg-white"
-                            placeholder="Jalur Evakuasi">
+                            placeholder="(021) 1234-5678">
                     </div>
-                    @for($i = 1; $i <= 3; $i++)
-                        @php
-                            $evakuasiJenis = isset($contents['evakuasi_' . $i]) ? ($contents['evakuasi_' . $i]->firstWhere('key', 'jenis')->content ?? '') : '';
-                            $evakuasiRute = isset($contents['evakuasi_' . $i]) ? ($contents['evakuasi_' . $i]->firstWhere('key', 'rute')->content ?? '') : '';
-                            
-                            // Default values
-                            if ($i == 1 && empty($evakuasiJenis)) {
-                                $evakuasiJenis = 'Banjir';
-                                $evakuasiRute = 'RT 01-03: Menuju Balai Desa' . "\n" . 'RT 04-06: Menuju Sekolah Dasar' . "\n" . 'RT 07-09: Menuju Masjid' . "\n" . 'RT 10-12: Menuju Puskesmas';
-                            } elseif ($i == 2 && empty($evakuasiJenis)) {
-                                $evakuasiJenis = 'Kebakaran';
-                                $evakuasiRute = 'Segera keluar melalui pintu/jendela terdekat' . "\n" . 'Jangan gunakan lift, gunakan tangga' . "\n" . 'Berlari menjauhi sumber api' . "\n" . 'Ikuti arahan petugas pemadam';
-                            } elseif ($i == 3 && empty($evakuasiJenis)) {
-                                $evakuasiJenis = 'Gempa Bumi';
-                                $evakuasiRute = 'Berlindung di bawah meja kokoh' . "\n" . 'Jauhi jendela dan kaca' . "\n" . 'Setelah gempa, segera keluar' . "\n" . 'Berlari menuju titik kumpul';
-                            }
-                        @endphp
-                        <div class="bg-gray-50 border border-gray-200 rounded-lg p-4">
-                            <h4 class="font-semibold text-gray-800 mb-3">Jalur Evakuasi {{ $i }}</h4>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div>
-                                    <label class="block text-sm font-semibold text-gray-700 mb-2">Jenis Bencana</label>
-                                    <input type="hidden" name="contents[{{ 40 + ($i-1)*2 + 1 }}][section]" value="evakuasi_{{ $i }}">
-                                    <input type="hidden" name="contents[{{ 40 + ($i-1)*2 + 1 }}][key]" value="jenis">
-                                    <input type="text" name="contents[{{ 40 + ($i-1)*2 + 1 }}][content]" value="{{ $evakuasiJenis }}" required
-                                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1e3a8a] focus:border-[#1e3a8a] text-base text-gray-900 bg-white"
-                                        placeholder="Contoh: Banjir">
-                                </div>
-                                <div>
-                                    <label class="block text-sm font-semibold text-gray-700 mb-2">Rute Evakuasi</label>
-                                    <input type="hidden" name="contents[{{ 40 + ($i-1)*2 + 2 }}][section]" value="evakuasi_{{ $i }}">
-                                    <input type="hidden" name="contents[{{ 40 + ($i-1)*2 + 2 }}][key]" value="rute">
-                                    <textarea name="contents[{{ 40 + ($i-1)*2 + 2 }}][content]" rows="4" required
-                                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1e3a8a] focus:border-[#1e3a8a] text-base text-gray-900 bg-white"
-                                        placeholder="Masukkan rute evakuasi (satu per baris)">{{ $evakuasiRute }}</textarea>
-                                </div>
-                            </div>
-                        </div>
-                    @endfor
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Faksimili</label>
+                        <input type="hidden" name="contents[5][section]" value="telepon">
+                        <input type="hidden" name="contents[5][key]" value="fax">
+                        <input type="text" name="contents[5][content]" value="{{ $getVal('telepon', 'fax', '(021) 1234-5679') }}"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1e3a8a] focus:border-[#1e3a8a] text-base text-gray-900 bg-white"
+                            placeholder="(021) 1234-5679">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Email</label>
+                        <input type="hidden" name="contents[6][section]" value="telepon">
+                        <input type="hidden" name="contents[6][key]" value="email">
+                        <input type="email" name="contents[6][content]" value="{{ $getVal('telepon', 'email', 'info@desa.go.id') }}" required
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1e3a8a] focus:border-[#1e3a8a] text-base text-gray-900 bg-white"
+                            placeholder="info@desa.go.id">
+                    </div>
                 </div>
             </div>
 
-            <!-- Titik Kumpul -->
+            <!-- Jam Pelayanan -->
             <div class="mb-8 pb-6 border-b border-gray-200">
-                <h3 class="text-lg font-bold text-gray-900 mb-4">Titik Kumpul Evakuasi</h3>
-                <div class="space-y-4">
-                    @php
-                        $titikTitle = isset($contents['titik_kumpul']) ? ($contents['titik_kumpul']->firstWhere('key', 'title')->content ?? 'Titik Kumpul Evakuasi') : 'Titik Kumpul Evakuasi';
-                    @endphp
-                    <div class="mb-4">
-                        <label class="block text-sm font-semibold text-gray-700 mb-2">Judul Section</label>
-                        <input type="hidden" name="contents[47][section]" value="titik_kumpul">
-                        <input type="hidden" name="contents[47][key]" value="title">
-                        <input type="text" name="contents[47][content]" value="{{ $titikTitle }}" required
+                <h3 class="text-lg font-bold text-gray-900 mb-4">Jam Pelayanan</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Hari Kerja</label>
+                        <input type="hidden" name="contents[7][section]" value="jam">
+                        <input type="hidden" name="contents[7][key]" value="hari_kerja">
+                        <input type="text" name="contents[7][content]" value="{{ $getVal('jam', 'hari_kerja', 'Senin - Jumat') }}" required
                             class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1e3a8a] focus:border-[#1e3a8a] text-base text-gray-900 bg-white"
-                            placeholder="Titik Kumpul Evakuasi">
+                            placeholder="Senin - Jumat">
                     </div>
-                    @for($i = 1; $i <= 4; $i++)
-                        @php
-                            $titikNama = isset($contents['titik_' . $i]) ? ($contents['titik_' . $i]->firstWhere('key', 'nama')->content ?? '') : '';
-                            $titikAlamat = isset($contents['titik_' . $i]) ? ($contents['titik_' . $i]->firstWhere('key', 'alamat')->content ?? '') : '';
-                            $titikKapasitas = isset($contents['titik_' . $i]) ? ($contents['titik_' . $i]->firstWhere('key', 'kapasitas')->content ?? '') : '';
-                            
-                            // Default values
-                            if ($i == 1 && empty($titikNama)) {
-                                $titikNama = 'Balai Desa';
-                                $titikAlamat = 'Jalan Raya Desa No. 123';
-                                $titikKapasitas = '500 orang';
-                            } elseif ($i == 2 && empty($titikNama)) {
-                                $titikNama = 'Sekolah Dasar';
-                                $titikAlamat = 'Jalan Pendidikan No. 45';
-                                $titikKapasitas = '300 orang';
-                            } elseif ($i == 3 && empty($titikNama)) {
-                                $titikNama = 'Masjid';
-                                $titikAlamat = 'Jalan Keagamaan No. 78';
-                                $titikKapasitas = '400 orang';
-                            } elseif ($i == 4 && empty($titikNama)) {
-                                $titikNama = 'Puskesmas';
-                                $titikAlamat = 'Jalan Kesehatan No. 12';
-                                $titikKapasitas = '200 orang';
-                            }
-                        @endphp
-                        <div class="bg-gray-50 border border-gray-200 rounded-lg p-4">
-                            <h4 class="font-semibold text-gray-800 mb-3">Titik Kumpul {{ $i }}</h4>
-                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                <div>
-                                    <label class="block text-sm font-semibold text-gray-700 mb-2">Nama</label>
-                                    <input type="hidden" name="contents[{{ 47 + ($i-1)*3 + 1 }}][section]" value="titik_{{ $i }}">
-                                    <input type="hidden" name="contents[{{ 47 + ($i-1)*3 + 1 }}][key]" value="nama">
-                                    <input type="text" name="contents[{{ 47 + ($i-1)*3 + 1 }}][content]" value="{{ $titikNama }}" required
-                                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1e3a8a] focus:border-[#1e3a8a] text-base text-gray-900 bg-white"
-                                        placeholder="Contoh: Balai Desa">
-                                </div>
-                                <div>
-                                    <label class="block text-sm font-semibold text-gray-700 mb-2">Alamat</label>
-                                    <input type="hidden" name="contents[{{ 47 + ($i-1)*3 + 2 }}][section]" value="titik_{{ $i }}">
-                                    <input type="hidden" name="contents[{{ 47 + ($i-1)*3 + 2 }}][key]" value="alamat">
-                                    <input type="text" name="contents[{{ 47 + ($i-1)*3 + 2 }}][content]" value="{{ $titikAlamat }}" required
-                                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1e3a8a] focus:border-[#1e3a8a] text-base text-gray-900 bg-white"
-                                        placeholder="Contoh: Jalan Raya Desa No. 123">
-                                </div>
-                                <div>
-                                    <label class="block text-sm font-semibold text-gray-700 mb-2">Kapasitas</label>
-                                    <input type="hidden" name="contents[{{ 47 + ($i-1)*3 + 3 }}][section]" value="titik_{{ $i }}">
-                                    <input type="hidden" name="contents[{{ 47 + ($i-1)*3 + 3 }}][key]" value="kapasitas">
-                                    <input type="text" name="contents[{{ 47 + ($i-1)*3 + 3 }}][content]" value="{{ $titikKapasitas }}" required
-                                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1e3a8a] focus:border-[#1e3a8a] text-base text-gray-900 bg-white"
-                                        placeholder="Contoh: 500 orang">
-                                </div>
-                            </div>
-                        </div>
-                    @endfor
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Waktu Pelayanan</label>
+                        <input type="hidden" name="contents[8][section]" value="jam">
+                        <input type="hidden" name="contents[8][key]" value="waktu">
+                        <input type="text" name="contents[8][content]" value="{{ $getVal('jam', 'waktu', '08:00 - 15:00 WIB') }}" required
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1e3a8a] focus:border-[#1e3a8a] text-base text-gray-900 bg-white"
+                            placeholder="08:00 - 15:00 WIB">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Waktu Istirahat</label>
+                        <input type="hidden" name="contents[9][section]" value="jam">
+                        <input type="hidden" name="contents[9][key]" value="istirahat">
+                        <input type="text" name="contents[9][content]" value="{{ $getVal('jam', 'istirahat', '12:00 - 13:00 WIB') }}"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1e3a8a] focus:border-[#1e3a8a] text-base text-gray-900 bg-white"
+                            placeholder="12:00 - 13:00 WIB">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Hari Libur</label>
+                        <input type="hidden" name="contents[10][section]" value="jam">
+                        <input type="hidden" name="contents[10][key]" value="hari_libur">
+                        <input type="text" name="contents[10][content]" value="{{ $getVal('jam', 'hari_libur', 'Sabtu, Minggu, dan Hari Libur Nasional') }}"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1e3a8a] focus:border-[#1e3a8a] text-base text-gray-900 bg-white"
+                            placeholder="Sabtu, Minggu, dan Hari Libur Nasional">
+                    </div>
                 </div>
             </div>
 
-            <!-- Prosedur Darurat -->
+            <!-- Kontak Perangkat -->
             <div class="mb-8 pb-6 border-b border-gray-200">
-                <h3 class="text-lg font-bold text-gray-900 mb-4">Prosedur Darurat</h3>
-                <div class="space-y-4">
-                    @php
-                        $prosedurTitle = isset($contents['prosedur']) ? ($contents['prosedur']->firstWhere('key', 'title')->content ?? 'Prosedur Darurat') : 'Prosedur Darurat';
-                        $prosedurSubtitle1 = isset($contents['prosedur']) ? ($contents['prosedur']->firstWhere('key', 'subtitle_1')->content ?? 'Langkah Saat Terjadi Bencana') : 'Langkah Saat Terjadi Bencana';
-                        $prosedurSubtitle2 = isset($contents['prosedur']) ? ($contents['prosedur']->firstWhere('key', 'subtitle_2')->content ?? 'Persiapan Sebelum Bencana') : 'Persiapan Sebelum Bencana';
-                        $prosedurLangkah = isset($contents['prosedur']) ? ($contents['prosedur']->firstWhere('key', 'langkah')->content ?? '1. Tetap tenang dan jangan panik' . "\n" . '2. Segera hubungi nomor darurat' . "\n" . '3. Ikuti jalur evakuasi menuju titik kumpul' . "\n" . '4. Bawa dokumen penting jika memungkinkan' . "\n" . '5. Jangan kembali sebelum dinyatakan aman' . "\n" . '6. Ikuti arahan petugas berwenang') : '1. Tetap tenang dan jangan panik' . "\n" . '2. Segera hubungi nomor darurat' . "\n" . '3. Ikuti jalur evakuasi menuju titik kumpul' . "\n" . '4. Bawa dokumen penting jika memungkinkan' . "\n" . '5. Jangan kembali sebelum dinyatakan aman' . "\n" . '6. Ikuti arahan petugas berwenang';
-                        $prosedurPersiapan = isset($contents['prosedur']) ? ($contents['prosedur']->firstWhere('key', 'persiapan')->content ?? '• Simpan nomor kontak darurat di tempat mudah dijangkau' . "\n" . '• Siapkan tas darurat berisi dokumen penting' . "\n" . '• Ketahui jalur evakuasi dan titik kumpul terdekat' . "\n" . '• Pastikan semua anggota keluarga tahu prosedur evakuasi' . "\n" . '• Periksa kondisi rumah secara berkala') : '• Simpan nomor kontak darurat di tempat mudah dijangkau' . "\n" . '• Siapkan tas darurat berisi dokumen penting' . "\n" . '• Ketahui jalur evakuasi dan titik kumpul terdekat' . "\n" . '• Pastikan semua anggota keluarga tahu prosedur evakuasi' . "\n" . '• Periksa kondisi rumah secara berkala';
-                    @endphp
-                    <div class="mb-4">
-                        <label class="block text-sm font-semibold text-gray-700 mb-2">Judul Section</label>
-                        <input type="hidden" name="contents[60][section]" value="prosedur">
-                        <input type="hidden" name="contents[60][key]" value="title">
-                        <input type="text" name="contents[60][content]" value="{{ $prosedurTitle }}" required
-                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1e3a8a] focus:border-[#1e3a8a] text-base text-gray-900 bg-white"
-                            placeholder="Prosedur Darurat">
-                    </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <h3 class="text-lg font-bold text-gray-900 mb-4">Kontak Perangkat Desa</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="space-y-3">
                         <div>
-                            <label class="block text-sm font-semibold text-gray-700 mb-2">Subtitle Kolom 1</label>
-                            <input type="hidden" name="contents[61][section]" value="prosedur">
-                            <input type="hidden" name="contents[61][key]" value="subtitle_1">
-                            <input type="text" name="contents[61][content]" value="{{ $prosedurSubtitle1 }}" required
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Jabatan 1</label>
+                            <input type="hidden" name="contents[11][section]" value="perangkat">
+                            <input type="hidden" name="contents[11][key]" value="jabatan_1">
+                            <input type="text" name="contents[11][content]" value="{{ $getVal('perangkat', 'jabatan_1', 'Kepala Desa') }}"
                                 class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1e3a8a] focus:border-[#1e3a8a] text-base text-gray-900 bg-white"
-                                placeholder="Langkah Saat Terjadi Bencana">
+                                placeholder="Kepala Desa">
                         </div>
                         <div>
-                            <label class="block text-sm font-semibold text-gray-700 mb-2">Subtitle Kolom 2</label>
-                            <input type="hidden" name="contents[62][section]" value="prosedur">
-                            <input type="hidden" name="contents[62][key]" value="subtitle_2">
-                            <input type="text" name="contents[62][content]" value="{{ $prosedurSubtitle2 }}" required
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Telepon 1</label>
+                            <input type="hidden" name="contents[12][section]" value="perangkat">
+                            <input type="hidden" name="contents[12][key]" value="telepon_1">
+                            <input type="text" name="contents[12][content]" value="{{ $getVal('perangkat', 'telepon_1', '(021) 1234-5680') }}"
                                 class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1e3a8a] focus:border-[#1e3a8a] text-base text-gray-900 bg-white"
-                                placeholder="Persiapan Sebelum Bencana">
+                                placeholder="(021) 1234-5680">
+                        </div>
+                    </div>
+                    <div class="space-y-3">
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Jabatan 2</label>
+                            <input type="hidden" name="contents[13][section]" value="perangkat">
+                            <input type="hidden" name="contents[13][key]" value="jabatan_2">
+                            <input type="text" name="contents[13][content]" value="{{ $getVal('perangkat', 'jabatan_2', 'Sekretaris') }}"
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1e3a8a] focus:border-[#1e3a8a] text-base text-gray-900 bg-white"
+                                placeholder="Sekretaris">
                         </div>
                         <div>
-                            <label class="block text-sm font-semibold text-gray-700 mb-2">Langkah-langkah</label>
-                            <input type="hidden" name="contents[63][section]" value="prosedur">
-                            <input type="hidden" name="contents[63][key]" value="langkah">
-                            <textarea name="contents[63][content]" rows="6" required
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Telepon 2</label>
+                            <input type="hidden" name="contents[14][section]" value="perangkat">
+                            <input type="hidden" name="contents[14][key]" value="telepon_2">
+                            <input type="text" name="contents[14][content]" value="{{ $getVal('perangkat', 'telepon_2', '(021) 1234-5681') }}"
                                 class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1e3a8a] focus:border-[#1e3a8a] text-base text-gray-900 bg-white"
-                                placeholder="Masukkan langkah-langkah (satu per baris)">{{ $prosedurLangkah }}</textarea>
+                                placeholder="(021) 1234-5681">
+                        </div>
+                    </div>
+                    <div class="space-y-3">
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Jabatan 3</label>
+                            <input type="hidden" name="contents[15][section]" value="perangkat">
+                            <input type="hidden" name="contents[15][key]" value="jabatan_3">
+                            <input type="text" name="contents[15][content]" value="{{ $getVal('perangkat', 'jabatan_3', 'Kaur Kesra') }}"
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1e3a8a] focus:border-[#1e3a8a] text-base text-gray-900 bg-white"
+                                placeholder="Kaur Kesra">
                         </div>
                         <div>
-                            <label class="block text-sm font-semibold text-gray-700 mb-2">Persiapan</label>
-                            <input type="hidden" name="contents[64][section]" value="prosedur">
-                            <input type="hidden" name="contents[64][key]" value="persiapan">
-                            <textarea name="contents[64][content]" rows="6" required
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Telepon 3</label>
+                            <input type="hidden" name="contents[16][section]" value="perangkat">
+                            <input type="hidden" name="contents[16][key]" value="telepon_3">
+                            <input type="text" name="contents[16][content]" value="{{ $getVal('perangkat', 'telepon_3', '(021) 1234-5682') }}"
                                 class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1e3a8a] focus:border-[#1e3a8a] text-base text-gray-900 bg-white"
-                                placeholder="Masukkan persiapan (satu per baris)">{{ $prosedurPersiapan }}</textarea>
+                                placeholder="(021) 1234-5682">
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Informasi Keamanan -->
+            <!-- Peta / Google Maps -->
             <div class="mb-6">
-                <h3 class="text-lg font-bold text-gray-900 mb-4">Informasi Keamanan</h3>
-                <div class="space-y-4">
-                    @php
-                        $keamananTitle = isset($contents['keamanan']) ? ($contents['keamanan']->firstWhere('key', 'title')->content ?? 'Informasi Keamanan') : 'Informasi Keamanan';
-                        $keamananDeskripsi = isset($contents['keamanan']) ? ($contents['keamanan']->firstWhere('key', 'deskripsi')->content ?? 'Untuk menjaga keamanan dan ketertiban di lingkungan desa, Pemerintah Desa bekerja sama dengan masyarakat dalam program sistem keamanan lingkungan (siskamling). Setiap Rukun Tetangga (RT) memiliki jadwal ronda malam yang diatur secara bergiliran.' . "\n\n" . 'Apabila terjadi kejadian darurat atau kejahatan, segera hubungi nomor kontak darurat di atas atau laporkan ke kantor desa terdekat. Jangan ragu untuk melaporkan aktivitas mencurigakan kepada ketua RT/RW atau petugas keamanan setempat.') : 'Untuk menjaga keamanan dan ketertiban di lingkungan desa, Pemerintah Desa bekerja sama dengan masyarakat dalam program sistem keamanan lingkungan (siskamling). Setiap Rukun Tetangga (RT) memiliki jadwal ronda malam yang diatur secara bergiliran.' . "\n\n" . 'Apabila terjadi kejadian darurat atau kejahatan, segera hubungi nomor kontak darurat di atas atau laporkan ke kantor desa terdekat. Jangan ragu untuk melaporkan aktivitas mencurigakan kepada ketua RT/RW atau petugas keamanan setempat.';
-                    @endphp
-                    <div>
-                        <label class="block text-sm font-semibold text-gray-700 mb-2">Judul Section</label>
-                        <input type="hidden" name="contents[65][section]" value="keamanan">
-                        <input type="hidden" name="contents[65][key]" value="title">
-                        <input type="text" name="contents[65][content]" value="{{ $keamananTitle }}" required
-                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1e3a8a] focus:border-[#1e3a8a] text-base text-gray-900 bg-white"
-                            placeholder="Informasi Keamanan">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-semibold text-gray-700 mb-2">Deskripsi</label>
-                        <input type="hidden" name="contents[66][section]" value="keamanan">
-                        <input type="hidden" name="contents[66][key]" value="deskripsi">
-                        <textarea name="contents[66][content]" rows="5" required
-                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1e3a8a] focus:border-[#1e3a8a] text-base text-gray-900 bg-white"
-                            placeholder="Masukkan informasi keamanan">{{ $keamananDeskripsi }}</textarea>
+                <h3 class="text-lg font-bold text-gray-900 mb-4">Peta Lokasi</h3>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Google Maps Embed URL</label>
+                    <input type="hidden" name="contents[17][section]" value="peta">
+                    <input type="hidden" name="contents[17][key]" value="embed_url">
+                    <input type="text" name="contents[17][content]" value="{{ $getVal('peta', 'embed_url', '') }}"
+                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1e3a8a] focus:border-[#1e3a8a] text-base text-gray-900 bg-white"
+                        placeholder="https://www.google.com/maps/embed?pb=...">
+                    <div class="mt-2 p-3 bg-blue-50 border border-blue-200 rounded-lg">
+                        <p class="text-xs text-blue-800 font-semibold mb-2">Cara mendapatkan URL Embed:</p>
+                        <ol class="text-xs text-blue-700 list-decimal list-inside space-y-1">
+                            <li>Buka <a href="https://www.google.com/maps" target="_blank" class="underline font-medium">Google Maps</a></li>
+                            <li>Cari lokasi kantor desa</li>
+                            <li>Klik tombol <strong>Share</strong> (ikon panah)</li>
+                            <li>Pilih tab <strong>"Embed a map"</strong></li>
+                            <li>Klik <strong>"COPY HTML"</strong></li>
+                            <li>Paste di sini, ambil hanya bagian URL dari <code class="bg-blue-100 px-1">src="..."</code></li>
+                        </ol>
+                        <p class="text-xs text-red-600 mt-2"><strong>Penting:</strong> Jangan gunakan link pendek seperti <code class="bg-red-100 px-1">maps.app.goo.gl/...</code>. Harus menggunakan format <code class="bg-green-100 px-1">https://www.google.com/maps/embed?pb=...</code></p>
                     </div>
                 </div>
             </div>
         </div>
         @endif
         
-        @if($page !== 'beranda' && $page !== 'profil' && $page !== 'pemerintahan' && $page !== 'layanan' && $page !== 'data' && $page !== 'darurat')
+        @if($page !== 'beranda' && $page !== 'profil' && $page !== 'pemerintahan' && $page !== 'layanan' && $page !== 'data' && $page !== 'kontak')
         <div id="contents-container" class="space-y-6">
             <!-- Other contents will be added here dynamically -->
         </div>

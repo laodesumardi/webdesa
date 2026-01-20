@@ -9,11 +9,31 @@
     function getContent($page, $section, $key, $default = '') {
         return Content::getContent($page, $section, $key, $default);
     }
+    
+    // Helper function untuk mencari gambar dengan berbagai ekstensi
+    function findImage($baseName, $fallback = null) {
+        $extensions = ['jpg', 'jpeg', 'png', 'webp', 'gif'];
+        $imagesPath = public_path('images');
+        
+        foreach ($extensions as $ext) {
+            $filePath = $imagesPath . '/' . $baseName . '.' . $ext;
+            if (file_exists($filePath)) {
+                return asset('images/' . $baseName . '.' . $ext);
+            }
+        }
+        
+        return $fallback;
+    }
+    
+    // Get hero images
+    $heroImage1 = findImage('hero-1', 'https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=1920&q=80');
+    $heroImage2 = findImage('hero-2', 'https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=1920&q=80');
+    $heroImage3 = findImage('hero-3', 'https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=1920&q=80');
 @endphp
 
 @section('content')
     <!-- Hero Section Modern -->
-    <div class="container mx-auto px-4 sm:px-6 mb-16 sm:mb-20 md:mb-24">
+    <div class="w-full px-4 sm:px-6 lg:px-8 mb-16 sm:mb-20 md:mb-24">
         <div class="relative bg-gradient-to-br from-[#1e3a8a] via-blue-900 to-[#1e3a8a] text-white overflow-hidden rounded-xl md:rounded-2xl shadow-2xl">
         <!-- Floating Shapes -->
         <div class="absolute inset-0 overflow-hidden pointer-events-none">
@@ -147,12 +167,12 @@
     </div>
 
     <!-- Statistik Desa Modern -->
-    <div class="mb-16 sm:mb-20 md:mb-24 container mx-auto px-4 sm:px-6">
+    <div class="mb-16 sm:mb-20 md:mb-24 w-full px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-6 sm:mb-8 md:mb-10">
             <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-2 sm:mb-3">{{ getContent('beranda', 'statistik', 'title', 'Data & Statistik Desa') }}</h2>
             <p class="text-gray-600 text-sm sm:text-base md:text-lg">{{ getContent('beranda', 'statistik', 'subtitle', 'Informasi terkini tentang kondisi desa kami') }}</p>
         </div>
-        <div class="max-w-4xl mx-auto">
+        <div class="w-full">
             <!-- Skeleton Loading -->
             <div class="grid grid-cols-1 gap-4 md:gap-6 skeleton-wrapper" id="statistik-skeleton">
                 @for($i = 0; $i < 4; $i++)
@@ -205,9 +225,9 @@
     </div>
 
     <!-- Sambutan Kepala Desa Modern -->
-    <div class="mb-16 sm:mb-20 md:mb-24 container mx-auto px-4 sm:px-6">
+    <div class="mb-16 sm:mb-20 md:mb-24 w-full px-4 sm:px-6 lg:px-8">
         <div class="scroll-animate bg-gradient-to-br from-white via-blue-50/30 to-white rounded-xl md:rounded-2xl border border-gray-200 p-4 sm:p-6 md:p-8 lg:p-12 shadow-lg">
-            <div class="max-w-5xl mx-auto">
+            <div class="w-full">
             <div class="flex items-center gap-2 sm:gap-3 mb-6 sm:mb-8">
                 <div class="h-1 w-12 sm:w-16 bg-[#1e3a8a] rounded-full"></div>
                 <h2 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900">{{ getContent('beranda', 'sambutan', 'title', 'Sambutan Kepala Desa') }}</h2>
@@ -258,7 +278,7 @@
     </div>
 
     <!-- Berita Terbaru Modern -->
-    <div class="mt-8 sm:mt-12 md:mt-16 mb-16 sm:mb-20 md:mb-24 container mx-auto px-4 sm:px-6">
+    <div class="mt-8 sm:mt-12 md:mt-16 mb-16 sm:mb-20 md:mb-24 w-full px-4 sm:px-6 lg:px-8">
         <div class="scroll-animate">
         <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3 sm:gap-4 mb-6 sm:mb-8">
             <div>
@@ -355,7 +375,7 @@
     </div>
 
     <!-- Galeri Kegiatan Modern -->
-    <div class="mb-16 sm:mb-20 md:mb-24 container mx-auto px-4 sm:px-6">
+    <div class="mb-16 sm:mb-20 md:mb-24 w-full px-4 sm:px-6 lg:px-8">
         <div class="scroll-animate">
         <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3 sm:gap-4 mb-6 sm:mb-8">
             <div>
@@ -395,7 +415,7 @@
     </div>
 
     <!-- Quick Links Modern -->
-    <div class="mb-16 sm:mb-20 md:mb-24 container mx-auto px-4 sm:px-6">
+    <div class="mb-16 sm:mb-20 md:mb-24 w-full px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-6 sm:mb-8 md:mb-10">
             <div class="flex items-center justify-center gap-2 sm:gap-3 mb-2 sm:mb-3">
                 <div class="h-1 w-12 sm:w-16 bg-[#1e3a8a] rounded-full"></div>
@@ -444,81 +464,22 @@
         </div>
     </div>
 
-    <!-- Informasi Darurat Modern -->
-    <div class="container mx-auto px-4 sm:px-6 mb-16 sm:mb-20 md:mb-24">
-        <div class="scroll-animate bg-gradient-to-br from-red-50 via-orange-50 to-red-50 rounded-xl md:rounded-2xl border-2 border-red-200 p-4 sm:p-6 md:p-8 lg:p-10 shadow-lg">
-        <div class="flex flex-col md:flex-row items-start gap-4 sm:gap-6">
-            <div class="bg-red-600 p-4 rounded-xl flex-shrink-0">
-                <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
-            </svg>
-            </div>
-            <div class="flex-1">
-                <h2 class="text-xl sm:text-2xl md:text-3xl font-bold text-red-800 mb-3 sm:mb-4">{{ getContent('beranda', 'darurat', 'title', 'Kontak Darurat') }}</h2>
-                <p class="text-gray-700 text-sm sm:text-base md:text-lg mb-4 sm:mb-6 leading-relaxed">
-                    {{ getContent('beranda', 'darurat', 'description', 'Apabila terjadi keadaan darurat atau bencana, segera hubungi nomor-nomor berikut:') }}
-                </p>
-                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 mb-4 sm:mb-6">
-                    <div class="bg-white rounded-lg p-3 sm:p-4 border border-red-200 hover:border-red-400 transition-colors">
-                        <div class="flex items-center gap-2 sm:gap-3 mb-2">
-                            <div class="bg-red-100 p-1.5 sm:p-2 rounded-lg">
-                                <svg class="w-4 h-4 sm:w-5 sm:h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
-                                </svg>
-                            </div>
-                            <span class="font-semibold text-sm sm:text-base text-gray-900">Polisi</span>
-                        </div>
-                        <a href="tel:110" class="text-xl sm:text-2xl font-bold text-[#1e3a8a] hover:underline">110</a>
-                    </div>
-                    <div class="bg-white rounded-lg p-3 sm:p-4 border border-red-200 hover:border-red-400 transition-colors">
-                        <div class="flex items-center gap-2 sm:gap-3 mb-2">
-                            <div class="bg-red-100 p-1.5 sm:p-2 rounded-lg">
-                                <svg class="w-4 h-4 sm:w-5 sm:h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.657 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z"></path>
-                                </svg>
-                            </div>
-                            <span class="font-semibold text-sm sm:text-base text-gray-900">Pemadam</span>
-                        </div>
-                        <a href="tel:113" class="text-xl sm:text-2xl font-bold text-[#1e3a8a] hover:underline">113</a>
-                    </div>
-                    <div class="bg-white rounded-lg p-3 sm:p-4 border border-red-200 hover:border-red-400 transition-colors">
-                        <div class="flex items-center gap-2 sm:gap-3 mb-2">
-                            <div class="bg-red-100 p-1.5 sm:p-2 rounded-lg">
-                                <svg class="w-4 h-4 sm:w-5 sm:h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
-                                </svg>
-                            </div>
-                            <span class="font-semibold text-sm sm:text-base text-gray-900">Ambulans</span>
-                        </div>
-                        <a href="tel:119" class="text-xl sm:text-2xl font-bold text-[#1e3a8a] hover:underline">119</a>
-                    </div>
-                </div>
-                <a href="{{ route('darurat') }}" class="inline-flex items-center gap-2 text-[#1e3a8a] text-sm sm:text-base font-semibold hover:gap-3 transition-all group/link">
-                    Informasi lengkap darurat & keamanan
-                    <svg class="w-4 h-4 sm:w-5 sm:h-5 group-hover/link:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                    </svg>
-                </a>
-            </div>
-        </div>
-    </div>
-
     <style>
         /* Hero Background Images */
         .hero-bg-1 {
-            background-image: url('{{ asset('images/hero-1.jpg') }}'), url('https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=1920&q=80');
+            background-image: url('{{ $heroImage1 }}');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
         }
         .hero-bg-2 {
-            background-image: url('{{ asset('images/hero-2.jpg') }}'), url('https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=1920&q=80');
+            background-image: url('{{ $heroImage2 }}');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
         }
         .hero-bg-3 {
-            background-image: url('{{ asset('images/hero-3.jpg') }}'), url('https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=1920&q=80');
+            background-image: url('{{ $heroImage3 }}');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;

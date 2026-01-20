@@ -90,11 +90,6 @@ class PageController extends Controller
         return view('data', compact('penduduk', 'statistik', 'chartData', 'pendidikanTotal', 'pendidikanStats'));
     }
 
-    public function darurat()
-    {
-        return view('darurat');
-    }
-
     public function kesehatan()
     {
         return view('kesehatan');

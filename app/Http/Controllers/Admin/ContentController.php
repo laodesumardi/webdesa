@@ -19,9 +19,6 @@ class ContentController extends Controller
             'pemerintahan' => 'Pemerintahan',
             'layanan' => 'Layanan',
             'data' => 'Data',
-            'darurat' => 'Darurat',
-            'galeri' => 'Galeri',
-            'umkm' => 'UMKM',
             'kontak' => 'Kontak',
         ];
 
@@ -46,9 +43,6 @@ class ContentController extends Controller
             'pemerintahan' => 'Pemerintahan',
             'layanan' => 'Layanan',
             'data' => 'Data',
-            'darurat' => 'Darurat',
-            'galeri' => 'Galeri',
-            'umkm' => 'UMKM',
             'kontak' => 'Kontak',
         ];
 
@@ -110,108 +104,88 @@ class ContentController extends Controller
             'contents.*.content' => 'nullable|string',
         ]);
 
-        // For beranda page, remove old sambutan fields that are no longer needed
+        // For beranda page, clean up and delete all existing allowed sections before re-creating
         if ($page === 'beranda') {
-            $allowedSambutanKeys = ['title', 'foto', 'content', 'nama_kepala'];
+            $allowedSections = [
+                'header_website',
+                'sambutan',
+                'hero',
+                'statistik',
+                'berita',
+                'galeri',
+                'akses_cepat',
+            ];
+            
+            // Delete all contents for allowed sections (will be recreated)
             Content::where('page', $page)
-                ->where('section', 'sambutan')
-                ->whereNotIn('key', $allowedSambutanKeys)
+                ->whereIn('section', $allowedSections)
                 ->delete();
         }
         
-        // For profil page, remove old fields that are no longer needed
+        // For profil page, delete all existing contents before re-creating
         if ($page === 'profil') {
-            $allowedKeys = [
-                'header' => ['title', 'subtitle'],
-                'statistik' => ['luas_value', 'luas_label', 'dpl_value', 'dpl_label', 'curah_hujan_value', 'curah_hujan_label'],
-                'sejarah' => ['title', 'content'],
-                'visi' => ['title', 'teks', 'deskripsi'],
-                'misi' => ['title', 'item1', 'item2', 'item3', 'item4', 'item5'],
-                'geografis' => ['title', 'letak_title', 'letak_deskripsi', 'batas_utara', 'batas_selatan', 'batas_timur', 'batas_barat', 'topografi_title', 'topografi_deskripsi', 'ketinggian', 'topografi', 'iklim', 'suhu', 'sda_title', 'sda_jenis_tanah_title', 'sda_jenis_tanah', 'sda_sumber_air_title', 'sda_sumber_air', 'sda_potensi_title', 'sda_potensi'],
-            ];
-            
-            foreach ($allowedKeys as $section => $keys) {
-                Content::where('page', $page)
-                    ->where('section', $section)
-                    ->whereNotIn('key', $keys)
-                    ->delete();
-            }
-        }
-
-        // For pemerintahan page, remove old fields that are no longer needed
-        if ($page === 'pemerintahan') {
-            $allowedKeys = [
-                'header' => ['title', 'subtitle'],
-                'struktur' => ['gambar'],
-            ];
-            
-            foreach ($allowedKeys as $section => $keys) {
-                Content::where('page', $page)
-                    ->where('section', $section)
-                    ->whereNotIn('key', $keys)
-                    ->delete();
-            }
-        }
-
-        // For layanan page, remove old fields that are no longer needed
-        if ($page === 'layanan') {
-            $allowedKeys = [
-                'header' => ['title', 'subtitle'],
-                'jam' => ['hari_kerja', 'waktu_pelayanan', 'waktu_istirahat'],
-            ];
-            
-            // Allow layanan_1 to layanan_6 with keys: judul, deskripsi, persyaratan, waktu, biaya
-            for ($i = 1; $i <= 6; $i++) {
-                $allowedKeys['layanan_' . $i] = ['judul', 'deskripsi', 'persyaratan', 'waktu', 'biaya'];
-            }
-            
-            foreach ($allowedKeys as $section => $keys) {
-                Content::where('page', $page)
-                    ->where('section', $section)
-                    ->whereNotIn('key', $keys)
-                    ->delete();
-            }
-        }
-
-        // For data page, remove old fields that are no longer needed
-        if ($page === 'data') {
-            $allowedKeys = [
-                'header' => ['title', 'subtitle'],
-            ];
-            
-            foreach ($allowedKeys as $section => $keys) {
-                Content::where('page', $page)
-                    ->where('section', $section)
-                    ->whereNotIn('key', $keys)
-                    ->delete();
-            }
-            
-            // Hapus semua data statistik, wilayah, dan pendidikan
+            $allowedSections = ['header', 'statistik', 'sejarah', 'visi', 'misi', 'geografis'];
             Content::where('page', $page)
-                ->whereIn('section', ['statistik', 'wilayah', 'pendidikan'])
+                ->whereIn('section', $allowedSections)
                 ->delete();
-            
-            for ($i = 1; $i <= 7; $i++) {
-                Content::where('page', $page)
-                    ->where('section', 'pendidikan_' . $i)
-                    ->delete();
-            }
+        }
+
+        // For pemerintahan page, delete all existing contents before re-creating
+        if ($page === 'pemerintahan') {
+            $allowedSections = ['header', 'struktur'];
+            Content::where('page', $page)
+                ->whereIn('section', $allowedSections)
+                ->delete();
+        }
+
+        // For layanan page, delete all existing contents before re-creating
+        if ($page === 'layanan') {
+            $allowedSections = ['header', 'jam', 'layanan_1', 'layanan_2', 'layanan_3', 'layanan_4', 'layanan_5', 'layanan_6'];
+            Content::where('page', $page)
+                ->whereIn('section', $allowedSections)
+                ->delete();
+        }
+
+        // For data page, delete all existing contents before re-creating
+        if ($page === 'data') {
+            Content::where('page', $page)->delete();
+        }
+
+        // For kontak page, delete all existing contents before re-creating
+        if ($page === 'kontak') {
+            $allowedSections = ['header', 'alamat', 'telepon', 'jam', 'perangkat', 'peta'];
+            Content::where('page', $page)
+                ->whereIn('section', $allowedSections)
+                ->delete();
         }
 
         // Delete all existing contents for this page first (to handle deletions)
         // Except for pages with specific allowed keys
-        if (!in_array($page, ['beranda', 'profil', 'pemerintahan', 'layanan', 'data'])) {
+        if (!in_array($page, ['beranda', 'profil', 'pemerintahan', 'layanan', 'data', 'kontak'])) {
             Content::where('page', $page)->delete();
         }
 
         // Create/update new contents
         foreach ($request->contents as $contentData) {
             if (!empty($contentData['section']) && !empty($contentData['key'])) {
-                // For beranda sambutan, only allow specific keys
-                if ($page === 'beranda' && $contentData['section'] === 'sambutan') {
-                    $allowedSambutanKeys = ['title', 'foto', 'content', 'nama_kepala'];
-                    if (!in_array($contentData['key'], $allowedSambutanKeys)) {
-                        continue; // Skip old fields
+                // For beranda page, only allow specific keys per section
+                if ($page === 'beranda') {
+                    $allowedKeys = [
+                        'header_website' => ['nama_desa', 'subtitle'],
+                        'sambutan' => ['title', 'foto', 'content', 'nama_kepala'],
+                        'hero' => ['slide1_badge', 'slide1_title', 'slide1_subtitle', 'slide2_badge', 'slide2_title', 'slide2_subtitle', 'slide3_badge', 'slide3_title', 'slide3_subtitle'],
+                        'statistik' => ['title', 'subtitle'],
+                        'berita' => ['title', 'subtitle'],
+                        'galeri' => ['title', 'subtitle'],
+                        'akses_cepat' => ['title', 'subtitle'],
+                    ];
+                    
+                    if (isset($allowedKeys[$contentData['section']])) {
+                        if (!in_array($contentData['key'], $allowedKeys[$contentData['section']])) {
+                            continue; // Skip invalid fields
+                        }
+                    } else {
+                        continue; // Skip invalid sections
                     }
                 }
                 
@@ -276,6 +250,26 @@ class ContentController extends Controller
                 if ($page === 'data') {
                     $allowedKeys = [
                         'header' => ['title', 'subtitle'],
+                    ];
+                    
+                    if (isset($allowedKeys[$contentData['section']])) {
+                        if (!in_array($contentData['key'], $allowedKeys[$contentData['section']])) {
+                            continue; // Skip invalid fields
+                        }
+                    } else {
+                        continue; // Skip invalid sections
+                    }
+                }
+
+                // For kontak page, only allow specific keys per section
+                if ($page === 'kontak') {
+                    $allowedKeys = [
+                        'header' => ['title', 'subtitle'],
+                        'alamat' => ['nama_kantor', 'alamat_lengkap'],
+                        'telepon' => ['telepon', 'fax', 'email'],
+                        'jam' => ['hari_kerja', 'waktu', 'istirahat', 'hari_libur'],
+                        'perangkat' => ['jabatan_1', 'telepon_1', 'jabatan_2', 'telepon_2', 'jabatan_3', 'telepon_3'],
+                        'peta' => ['embed_url'],
                     ];
                     
                     if (isset($allowedKeys[$contentData['section']])) {
@@ -357,6 +351,96 @@ class ContentController extends Controller
             
             // Hapus file lama jika ada
             $oldFiles = glob($imagesPath . '/struktur-organisasi.*');
+            foreach ($oldFiles as $oldFile) {
+                if (is_file($oldFile)) {
+                    unlink($oldFile);
+                }
+            }
+            
+            // Move file to public/images
+            $file->move($imagesPath, $filename);
+            
+            return response()->json([
+                'success' => true,
+                'path' => 'images/' . $filename,
+                'filename' => $filename,
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Gagal upload gambar: ' . $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    /**
+     * Upload gambar hero slider
+     */
+    public function uploadHero(Request $request)
+    {
+        $request->validate([
+            'hero' => 'required|image|mimes:jpeg,jpg,png,webp|max:5120',
+            'slide' => 'required|in:1,2,3',
+        ]);
+
+        try {
+            $file = $request->file('hero');
+            $slide = $request->input('slide');
+            $extension = $file->getClientOriginalExtension();
+            $filename = 'hero-' . $slide . '.' . $extension;
+            
+            // Ensure images directory exists
+            $imagesPath = public_path('images');
+            if (!file_exists($imagesPath)) {
+                mkdir($imagesPath, 0755, true);
+            }
+            
+            // Hapus file lama jika ada
+            $oldFiles = glob($imagesPath . '/hero-' . $slide . '.*');
+            foreach ($oldFiles as $oldFile) {
+                if (is_file($oldFile)) {
+                    unlink($oldFile);
+                }
+            }
+            
+            // Move file to public/images
+            $file->move($imagesPath, $filename);
+            
+            return response()->json([
+                'success' => true,
+                'path' => 'images/' . $filename,
+                'filename' => $filename,
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Gagal upload gambar: ' . $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    /**
+     * Upload gambar header background
+     */
+    public function uploadHeaderBg(Request $request)
+    {
+        $request->validate([
+            'header_bg' => 'required|image|mimes:jpeg,jpg,png,webp|max:5120',
+        ]);
+
+        try {
+            $file = $request->file('header_bg');
+            $extension = $file->getClientOriginalExtension();
+            $filename = 'header-bg.' . $extension;
+            
+            // Ensure images directory exists
+            $imagesPath = public_path('images');
+            if (!file_exists($imagesPath)) {
+                mkdir($imagesPath, 0755, true);
+            }
+            
+            // Hapus file lama jika ada
+            $oldFiles = glob($imagesPath . '/header-bg.*');
             foreach ($oldFiles as $oldFile) {
                 if (is_file($oldFile)) {
                     unlink($oldFile);

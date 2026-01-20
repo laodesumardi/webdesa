@@ -25,31 +25,31 @@
 
     <div class="bg-white rounded-lg shadow-md overflow-hidden">
         <div class="overflow-x-auto">
-            <table class="w-full text-sm">
-                <thead class="bg-gray-100">
+            <table class="w-full text-sm text-gray-800">
+                <thead class="bg-[#1e3a8a]">
                     <tr>
-                        <th class="px-4 py-3 text-left font-semibold text-gray-900">No</th>
-                        <th class="px-4 py-3 text-left font-semibold text-gray-900">NIK</th>
-                        <th class="px-4 py-3 text-left font-semibold text-gray-900">Nama</th>
-                        <th class="px-4 py-3 text-left font-semibold text-gray-900">Tempat, Tgl Lahir</th>
-                        <th class="px-4 py-3 text-left font-semibold text-gray-900">Jenis Kelamin</th>
-                        <th class="px-4 py-3 text-left font-semibold text-gray-900">Alamat</th>
-                        <th class="px-4 py-3 text-left font-semibold text-gray-900">RT/RW</th>
-                        <th class="px-4 py-3 text-left font-semibold text-gray-900">Pendidikan</th>
-                        <th class="px-4 py-3 text-left font-semibold text-gray-900">Aksi</th>
+                        <th class="px-4 py-3 text-left font-semibold text-white">No</th>
+                        <th class="px-4 py-3 text-left font-semibold text-white">NIK</th>
+                        <th class="px-4 py-3 text-left font-semibold text-white">Nama</th>
+                        <th class="px-4 py-3 text-left font-semibold text-white">Tempat, Tgl Lahir</th>
+                        <th class="px-4 py-3 text-left font-semibold text-white">Jenis Kelamin</th>
+                        <th class="px-4 py-3 text-left font-semibold text-white">Alamat</th>
+                        <th class="px-4 py-3 text-left font-semibold text-white">RT/RW</th>
+                        <th class="px-4 py-3 text-left font-semibold text-white">Pendidikan</th>
+                        <th class="px-4 py-3 text-left font-semibold text-white">Aksi</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="bg-white">
                     @forelse($penduduk as $index => $p)
                         <tr class="border-b border-gray-200 hover:bg-gray-50">
-                            <td class="px-4 py-3">{{ $penduduk->firstItem() + $index }}</td>
-                            <td class="px-4 py-3">{{ $p->nik }}</td>
-                            <td class="px-4 py-3 font-medium">{{ $p->nama }}</td>
-                            <td class="px-4 py-3">{{ $p->tempat_lahir }}, {{ \Carbon\Carbon::parse($p->tanggal_lahir)->format('d M Y') }}</td>
-                            <td class="px-4 py-3">{{ $p->jenis_kelamin }}</td>
-                            <td class="px-4 py-3">{{ $p->alamat }}</td>
-                            <td class="px-4 py-3">{{ $p->rt }}/{{ $p->rw }}</td>
-                            <td class="px-4 py-3">{{ $p->pendidikan ?? '-' }}</td>
+                            <td class="px-4 py-3 text-gray-800">{{ $penduduk->firstItem() + $index }}</td>
+                            <td class="px-4 py-3 text-gray-800">{{ $p->nik }}</td>
+                            <td class="px-4 py-3 font-medium text-gray-900">{{ $p->nama }}</td>
+                            <td class="px-4 py-3 text-gray-800">{{ $p->tempat_lahir }}, {{ \Carbon\Carbon::parse($p->tanggal_lahir)->format('d M Y') }}</td>
+                            <td class="px-4 py-3 text-gray-800">{{ $p->jenis_kelamin }}</td>
+                            <td class="px-4 py-3 text-gray-800">{{ $p->alamat }}</td>
+                            <td class="px-4 py-3 text-gray-800">{{ $p->rt }}/{{ $p->rw }}</td>
+                            <td class="px-4 py-3 text-gray-800">{{ $p->pendidikan ?? '-' }}</td>
                             <td class="px-4 py-3">
                                 <div class="flex items-center gap-2">
                                     <a href="{{ route('admin.penduduk.edit', $p->id) }}" class="text-blue-600 hover:text-blue-800">
