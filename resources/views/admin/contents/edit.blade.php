@@ -45,9 +45,7 @@
                 return $item ? $item->content : $default;
             };
             
-            // Use ImageHelper for finding images in public/images/
-            use App\Helpers\ImageHelper;
-            
+            // Helper function untuk mencari gambar di public/images/
             $findImage = function($baseName, $fallback = null) {
                 return \App\Helpers\ImageHelper::findImageInfo($baseName, $fallback);
             };
