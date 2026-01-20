@@ -123,7 +123,14 @@ class PageController extends Controller
 
     public function galeri()
     {
-        return view('galeri');
+        $galeri = \App\Models\Galeri::published()
+            ->orderBy('urutan')
+            ->latest()
+            ->paginate(12);
+        
+        $kategoriList = \App\Models\Galeri::getKategori();
+        
+        return view('galeri', compact('galeri', 'kategoriList'));
     }
 
     public function umkm()

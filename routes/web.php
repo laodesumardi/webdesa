@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\BeritaController;
+use App\Http\Controllers\Admin\GaleriController;
 
 // Public Routes
 Route::get('/', [PageController::class, 'beranda'])->name('beranda');
@@ -49,4 +50,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     
     // Berita Routes
     Route::resource('berita', BeritaController::class);
+    
+    // Galeri Routes
+    Route::resource('galeri', GaleriController::class);
 });
