@@ -284,7 +284,7 @@
                     </div>
                     <div class="w-48 h-20 rounded-lg overflow-hidden border-2 border-gray-200 shadow-md bg-gray-100">
                         @if($headerBgImg['exists'])
-                        <img src="{{ $headerBgImg['url'] }}?t={{ time() }}" alt="Preview Header" id="header-bg-preview" class="w-full h-full object-cover" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <img src="{{ $headerBgImg['url'] }}" alt="Preview Header" id="header-bg-preview" class="w-full h-full object-cover" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                         <div class="w-full h-full hidden items-center justify-center bg-gradient-to-br from-[#1e3a8a] to-blue-900 text-white text-xs text-center p-2">
                             Gambar belum ada
                         </div>
@@ -355,7 +355,7 @@
                         </div>
                         <div class="w-40 h-24 rounded-lg overflow-hidden border-2 border-gray-200 shadow-md bg-gray-100">
                             @if($heroImg1['exists'])
-                            <img src="{{ $heroImg1['url'] }}?t={{ time() }}" alt="Preview Slide 1" id="hero-1-preview" class="w-full h-full object-cover" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <img src="{{ $heroImg1['url'] }}" alt="Preview Slide 1" id="hero-1-preview" class="w-full h-full object-cover" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                             <div class="w-full h-full hidden items-center justify-center bg-gradient-to-br from-[#1e3a8a] to-blue-900 text-white text-xs text-center p-2">
                                 Gambar belum ada
                             </div>
@@ -427,7 +427,7 @@
                         </div>
                         <div class="w-40 h-24 rounded-lg overflow-hidden border-2 border-gray-200 shadow-md bg-gray-100">
                             @if($heroImg2['exists'])
-                            <img src="{{ $heroImg2['url'] }}?t={{ time() }}" alt="Preview Slide 2" id="hero-2-preview" class="w-full h-full object-cover" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <img src="{{ $heroImg2['url'] }}" alt="Preview Slide 2" id="hero-2-preview" class="w-full h-full object-cover" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                             <div class="w-full h-full hidden items-center justify-center bg-gradient-to-br from-[#1e3a8a] to-blue-900 text-white text-xs text-center p-2">
                                 Gambar belum ada
                             </div>
@@ -499,7 +499,7 @@
                         </div>
                         <div class="w-40 h-24 rounded-lg overflow-hidden border-2 border-gray-200 shadow-md bg-gray-100">
                             @if($heroImg3['exists'])
-                            <img src="{{ $heroImg3['url'] }}?t={{ time() }}" alt="Preview Slide 3" id="hero-3-preview" class="w-full h-full object-cover" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <img src="{{ $heroImg3['url'] }}" alt="Preview Slide 3" id="hero-3-preview" class="w-full h-full object-cover" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                             <div class="w-full h-full hidden items-center justify-center bg-gradient-to-br from-[#1e3a8a] to-blue-900 text-white text-xs text-center p-2">
                                 Gambar belum ada
                             </div>
