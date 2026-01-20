@@ -46,18 +46,31 @@
             };
             
             // Helper function untuk mencari gambar dengan berbagai ekstensi
+            // Support both local and hosting environments
             $findImage = function($baseName, $fallback = null) {
                 $extensions = ['jpg', 'jpeg', 'png', 'webp', 'gif'];
-                $imagesPath = public_path('images');
                 
-                foreach ($extensions as $ext) {
-                    $filePath = $imagesPath . '/' . $baseName . '.' . $ext;
-                    if (file_exists($filePath)) {
-                        return [
-                            'url' => asset('images/' . $baseName . '.' . $ext),
-                            'filename' => $baseName . '.' . $ext,
-                            'exists' => true
-                        ];
+                // Try multiple possible paths for hosting compatibility
+                $possibleBasePaths = [
+                    public_path('images'),
+                    $_SERVER['DOCUMENT_ROOT'] . '/images',
+                    $_SERVER['DOCUMENT_ROOT'] . '/public/images',
+                ];
+                
+                foreach ($possibleBasePaths as $basePath) {
+                    if (!is_dir($basePath)) {
+                        continue;
+                    }
+                    
+                    foreach ($extensions as $ext) {
+                        $filePath = $basePath . '/' . $baseName . '.' . $ext;
+                        if (file_exists($filePath)) {
+                            return [
+                                'url' => asset('images/' . $baseName . '.' . $ext),
+                                'filename' => $baseName . '.' . $ext,
+                                'exists' => true
+                            ];
+                        }
                     }
                 }
                 

@@ -4,31 +4,17 @@
 
 @php
     use App\Models\Content;
+    use App\Helpers\ImageHelper;
     
     // Helper function untuk mengambil konten
     function getContent($page, $section, $key, $default = '') {
         return Content::getContent($page, $section, $key, $default);
     }
     
-    // Helper function untuk mencari gambar dengan berbagai ekstensi
-    function findImage($baseName, $fallback = null) {
-        $extensions = ['jpg', 'jpeg', 'png', 'webp', 'gif'];
-        $imagesPath = public_path('images');
-        
-        foreach ($extensions as $ext) {
-            $filePath = $imagesPath . '/' . $baseName . '.' . $ext;
-            if (file_exists($filePath)) {
-                return asset('images/' . $baseName . '.' . $ext);
-            }
-        }
-        
-        return $fallback;
-    }
-    
-    // Get hero images
-    $heroImage1 = findImage('hero-1', 'https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=1920&q=80');
-    $heroImage2 = findImage('hero-2', 'https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=1920&q=80');
-    $heroImage3 = findImage('hero-3', 'https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=1920&q=80');
+    // Get hero images using robust helper
+    $heroImage1 = ImageHelper::findImage('hero-1', 'https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=1920&q=80');
+    $heroImage2 = ImageHelper::findImage('hero-2', 'https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=1920&q=80');
+    $heroImage3 = ImageHelper::findImage('hero-3', 'https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=1920&q=80');
 @endphp
 
 @section('content')

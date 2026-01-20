@@ -10,21 +10,13 @@
 </head>
 @php
     use App\Models\Content;
+    use App\Helpers\ImageHelper;
+    
     $headerNamaDesa = Content::getContent('beranda', 'header_website', 'nama_desa', 'Pemerintah Desa');
     $headerSubtitle = Content::getContent('beranda', 'header_website', 'subtitle', 'Website Resmi Informasi Desa');
     
-    // Find header background image with any extension
-    $headerBgImage = null;
-    $extensions = ['jpg', 'jpeg', 'png', 'webp', 'gif'];
-    foreach ($extensions as $ext) {
-        if (file_exists(public_path('images/header-bg.' . $ext))) {
-            $headerBgImage = asset('images/header-bg.' . $ext);
-            break;
-        }
-    }
-    if (!$headerBgImage) {
-        $headerBgImage = 'https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=1920&q=80';
-    }
+    // Find header background image using robust helper
+    $headerBgImage = ImageHelper::findImage('header-bg', 'https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=1920&q=80');
 @endphp
 <body class="bg-gray-50">
     <!-- Header -->
